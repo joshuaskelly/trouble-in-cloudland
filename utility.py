@@ -121,11 +121,20 @@ def getPath():
     return pathname
 
 def loadImage(name):
-    """This loads an image."""
-    return pygame.image.load("data/images/" + name + ".bzi").convert_alpha()
+    filepath = "data/images/" + name + ".bzi"
+    if os.path.isfile(filepath):
+        return pygame.image.load(filepath).convert_alpha()
+    else:
+        filepath = "data/images/" + name + ".png"
+        return pygame.image.load(filepath).convert_alpha()
 
 def loadSound(name):
-    return pygame.mixer.Sound("data/sounds/" + name + ".bza")
+    filepath = "data/sounds/" + name + ".bza"
+    if os.path.isfile(filepath):
+        return pygame.mixer.Sound(filepath)
+    else:
+        filepath = "data/sounds/" + name + ".ogg"
+        return pygame.mixer.Sound(filepath)
 
 def playSound(sound, channelNumber = None):
     if settingList[SFX] and soundActive:

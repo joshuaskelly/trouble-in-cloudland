@@ -1,3 +1,6 @@
+11 April 2014: Joshua
+*	Added support for loading plain resource files.
+
 27 January 2007: Joshua
 *	Lots of changes!
 *	Last Boss Art.
