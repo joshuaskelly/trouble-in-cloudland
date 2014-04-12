@@ -363,9 +363,9 @@ class Game:
                                         pygame.mixer.init()
                                         
                                         if settingList[SETTING_FULLSCREEN]:
-                                            screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
+                                            utility.setFullscreen()
                                         else:
-                                            screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+                                            utility.setFullscreen(False)
                                             
                                         pygame.mouse.set_visible(False)
                                         

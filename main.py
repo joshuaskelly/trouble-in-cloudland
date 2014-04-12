@@ -38,9 +38,9 @@ from utility import *
 readSettings()
 
 if settingList[SETTING_FULLSCREEN]:
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
+    screen = utility.setFullscreen()
 else:
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen = utility.setFullscreen(False)
     
 pygame.display.set_icon(utility.loadImage("icon"))
 pygame.display.set_caption("Trouble In CloudLand v1.1")
@@ -255,13 +255,11 @@ while gameIsRunning:
                     elif displayResult == TOGGLE_FULLSCREEN:
                         settingList[SETTING_FULLSCREEN] = not settingList[SETTING_FULLSCREEN]
                         lastHighlighted = 1
-                        pygame.mixer.quit()
-                        pygame.mixer.init()
                         
                         if settingList[SETTING_FULLSCREEN]:
-                            screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
+                            screen = utility.setFullscreen()
                         else:
-                            screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+                            screen = utility.setFullscreen(False)
                             
                         pygame.mouse.set_visible(False)
                     

@@ -1,7 +1,6 @@
-import pygame
-import codecs
 import os
-import settings
+import sys
+import pygame
 
 from settings import *
 
@@ -98,7 +97,7 @@ def getSensitivity(value):
         return "Very High"
     
 def getScreenMode(value):
-    if value:
+    if value and not sys.platform.startswith('darwin'):
         return "Fullscreen"
     else:
         return "Windowed"
@@ -164,3 +163,10 @@ def dimSurface(dimValue, colorValue = (0,0,0),):
     dim.fill(colorValue)
     dim.set_alpha(dimValue)
     return dim
+
+def setFullscreen(full=True):
+    """Creates a display surface either full screen or windowed."""
+    if full and not sys.platform.startswith('darwin'):
+        return pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
+    else:
+        return pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
