@@ -11,23 +11,23 @@ from actor import *
 
 def loadData():
     DamageX2.pickupSound = utility.loadSound("doubleDamage")
-    DamageX2.MasterAnimationList.buildAnimation("Idle","geemred")
-    DamageX2.MasterAnimationList.buildAnimation("Blink",["geemred","blank"])
+    DamageX2.MasterAnimationList.buildAnimation("Idle", ["geemred"])
+    DamageX2.MasterAnimationList.buildAnimation("Blink", ["geemred","blank"])
     
     Nova.pickupSound = utility.loadSound("nova")
-    Nova.MasterAnimationList.buildAnimation("Idle","boom")
-    Nova.MasterAnimationList.buildAnimation("Blink",["boom","blank"])
+    Nova.MasterAnimationList.buildAnimation("Idle", ["boom"])
+    Nova.MasterAnimationList.buildAnimation("Blink", ["boom","blank"])
 
     Reflect.pickupSound = utility.loadSound("reflect")
-    Reflect.MasterAnimationList.buildAnimation("Idle","geemblue")
-    Reflect.MasterAnimationList.buildAnimation("Blink",["geemblue","blank"])
+    Reflect.MasterAnimationList.buildAnimation("Idle", ["geemblue"])
+    Reflect.MasterAnimationList.buildAnimation("Blink", ["geemblue","blank"])
 
     DualShot.pickupSound = utility.loadSound("dualShot")
-    DualShot.MasterAnimationList.buildAnimation("Idle","geemgreen")
-    DualShot.MasterAnimationList.buildAnimation("Blink",["geemgreen","blank"])
+    DualShot.MasterAnimationList.buildAnimation("Idle", ["geemgreen"])
+    DualShot.MasterAnimationList.buildAnimation("Blink", ["geemgreen","blank"])
 
     FastShot.pickupSound = utility.loadSound("fastShot")
-    FastShot.MasterAnimationList.buildAnimation("Idle","geemorange")
+    FastShot.MasterAnimationList.buildAnimation("Idle", ["geemorange"])
     FastShot.MasterAnimationList.buildAnimation("Blink",["geemorange","blank"])
 
 class Gem(actor.Actor):

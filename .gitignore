@@ -21,9 +21,6 @@ lib64
 # Installer logs
 pip-log.txt
 
-# Pyinstaller Artifacts
-*.spec
-
 # Unit test / coverage reports
 .coverage
 .tox

@@ -19,15 +19,15 @@ def loadData():
     BossTut.bulletSound = utility.loadSound("baakeHit")
     BossTut.hurtSound = utility.loadSound("hurtBoss")
     BossTut.howToKill = utility.loadImage("howToBoss1")
-    BossTut.MasterAnimationList.buildAnimation("idle","boss1")
-    BossTut.MasterAnimationList.buildAnimation("hurt",["boss1","boss1","boss1_1","boss1_1"])
+    BossTut.MasterAnimationList.buildAnimation("idle", ["boss1"])
+    BossTut.MasterAnimationList.buildAnimation("hurt", ["boss1","boss1","boss1_1","boss1_1"])
 
     BaakeBoss.music = utility.loadSound("bossMusic")
     BaakeBoss.bulletSound = utility.loadSound("baakeHit")
     BaakeBoss.hurtSound = utility.loadSound("hurtBoss")
     BaakeBoss.howToKill = utility.loadImage("howToBoss1")
-    BaakeBoss.MasterAnimationList.buildAnimation("idle","boss0")
-    BaakeBoss.MasterAnimationList.buildAnimation("hurt",["boss0","boss0","boss0_1","boss0_1"])
+    BaakeBoss.MasterAnimationList.buildAnimation("idle", ["boss0"])
+    BaakeBoss.MasterAnimationList.buildAnimation("hurt", ["boss0","boss0","boss0_1","boss0_1"])
     
     MoonoBoss.music = utility.loadSound("bossMusic")
     MoonoBoss.bulletSound = utility.loadSound("baakeHit")
@@ -35,9 +35,9 @@ def loadData():
     MoonoBoss.shieldBreak = utility.loadSound("shieldBreak")
     MoonoBoss.shieldRestore = utility.loadSound("shieldRestore")
     MoonoBoss.howToKill = utility.loadImage("howToBoss3")
-    MoonoBoss.MasterAnimationList.buildAnimation("idle",["boss2idle_0","boss2idle_1","boss2idle_2","boss2idle_3","boss2idle_4","boss2idle_5","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0"])
-    MoonoBoss.MasterAnimationList.buildAnimation("vulnerable",["boss2v"])
-    MoonoBoss.MasterAnimationList.buildAnimation("hurt",["boss2_1"])
+    MoonoBoss.MasterAnimationList.buildAnimation("idle", ["boss2idle_0","boss2idle_1","boss2idle_2","boss2idle_3","boss2idle_4","boss2idle_5","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0","boss2idle_0"])
+    MoonoBoss.MasterAnimationList.buildAnimation("vulnerable", ["boss2v"])
+    MoonoBoss.MasterAnimationList.buildAnimation("hurt", ["boss2_1"])
     
 
 ####################################################

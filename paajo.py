@@ -15,7 +15,7 @@ from actor import *
 
 def loadData():
     Paajo.deathSound = utility.loadSound("pop")
-    Paajo.MasterAnimationList.buildAnimation("Idle","paajo")
+    Paajo.MasterAnimationList.buildAnimation("Idle", ["paajo"])
 
 class Paajo(enemy.Enemy):
     lastSpawn = [0,0]

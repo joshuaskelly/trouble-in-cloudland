@@ -16,7 +16,7 @@ from actor import *
 def loadData():
     Batto.lastSpawn = [0,0]
     Batto.deathSound = utility.loadSound("pop")
-    Batto.MasterAnimationList.buildAnimation("Idle","batto")
+    Batto.MasterAnimationList.buildAnimation("Idle", ["batto"])
 
 class Batto(enemy.Enemy):
     deathSound = None

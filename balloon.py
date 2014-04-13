@@ -11,12 +11,12 @@ from actor import *
 
 def loadData():
     Balloon.pickupSound = utility.loadSound("pop")
-    Bonus250.MasterAnimationList.buildAnimation("Idle","balloonblue")
-    Bonus500.MasterAnimationList.buildAnimation("Idle","balloongreen")
+    Bonus250.MasterAnimationList.buildAnimation("Idle", ["balloonblue"])
+    Bonus500.MasterAnimationList.buildAnimation("Idle", ["balloongreen"])
 
-    BonusX2.MasterAnimationList.buildAnimation("Idle","balloonred")
+    BonusX2.MasterAnimationList.buildAnimation("Idle", ["balloonred"])
     BonusX2.pickupSound = utility.loadSound("doublePoints")
-    BonusCombo.MasterAnimationList.buildAnimation("Idle","balloonyellow")
+    BonusCombo.MasterAnimationList.buildAnimation("Idle", ["balloonyellow"])
     BonusCombo.pickupSound = utility.loadSound("combo")
 
 

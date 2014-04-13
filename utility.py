@@ -123,17 +123,40 @@ def loadImage(name):
     filepath = "data/images/" + name + ".bzi"
     if os.path.isfile(filepath):
         return pygame.image.load(filepath).convert_alpha()
-    else:
-        filepath = "data/images/" + name + ".png"
+    
+    filepath = "data/images/" + name + ".png"
+    if os.path.isfile(filepath):
         return pygame.image.load(filepath).convert_alpha()
+    
+    filepath = getResourcePath('data/images/' + name + '.bzi')
+    if os.path.isfile(filepath):
+        return pygame.image.load(filepath).convert_alpha()
+    
+    filepath = getResourcePath('data/images/' + name + '.png')
+    if os.path.isfile(filepath):
+        return pygame.image.load(filepath).convert_alpha()
+    
+    print "Failed to load: {0}".format(name)
+    return None
 
 def loadSound(name):
     filepath = "data/sounds/" + name + ".bza"
     if os.path.isfile(filepath):
         return pygame.mixer.Sound(filepath)
-    else:
-        filepath = "data/sounds/" + name + ".ogg"
+
+    filepath = "data/sounds/" + name + ".ogg"
+    if os.path.isfile(filepath):
         return pygame.mixer.Sound(filepath)
+    
+    filepath = getResourcePath('data/sounds/' + name + '.ogg')
+    if os.path.isfile(filepath):
+        return pygame.mixer.Sound(filepath)
+    
+    filepath = getResourcePath('data/sounds/' + name + '.bza')
+    if os.path.isfile(filepath):
+        return pygame.mixer.Sound(filepath)
+    
+    return None
 
 def playSound(sound, channelNumber = None):
     if settingList[SFX] and soundActive:
@@ -170,3 +193,7 @@ def setFullscreen(full=True):
         return pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
     else:
         return pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    
+def getResourcePath(asset):
+    return os.path.join(sys._MEIPASS, asset)
+

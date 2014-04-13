@@ -15,7 +15,7 @@ from actor import *
 
 def loadData():
     Raayu.deathSound = utility.loadSound("pop")
-    Raayu.MasterAnimationList.buildAnimation("Idle","raayu")
+    Raayu.MasterAnimationList.buildAnimation("Idle", ["raayu"])
 
 class Raayu(enemy.Enemy):
     deathSound = None

@@ -15,7 +15,7 @@ from settings import *
 
 def loadData():
     Rokubi.deathSound = utility.loadSound("pop")
-    Rokubi.MasterAnimationList.buildAnimation("Idle","rokubei")
+    Rokubi.MasterAnimationList.buildAnimation("Idle", ["rokubei"])
 
 class Rokubi(enemy.Enemy):
     deathSound = None

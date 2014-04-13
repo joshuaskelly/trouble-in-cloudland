@@ -11,7 +11,7 @@ from actor import *
 def loadData():
     Baake.bulletSound = utility.loadSound("baakeHit")
     
-    Baake.MasterAnimationList.buildAnimation("Idle","baake")
+    Baake.MasterAnimationList.buildAnimation("Idle", ["baake"])
 
 class Baake(actor.Actor):
     MasterAnimationList = animation.Animation()

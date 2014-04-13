@@ -10,7 +10,7 @@ from actor import *
 
 def loadData():
     Bokko.bulletSound = utility.loadSound("baakeHit")
-    Bokko.MasterAnimationList.buildAnimation("Idle","bokko")
+    Bokko.MasterAnimationList.buildAnimation("Idle", ["bokko"])
 
 class Bokko(actor.Actor):
     MasterAnimationList = animation.Animation()

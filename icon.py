@@ -11,7 +11,7 @@ class Icon(actor.Actor):
         actor.Actor.__init__(self)
         
         self.animationList = animation.Animation()
-        self.animationList.buildAnimation("Idle",imageFile)
+        self.animationList.buildAnimation("Idle", [imageFile])
         self.animationList.setParent(self)
         self.animationList.play("Idle")
         

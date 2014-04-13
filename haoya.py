@@ -16,7 +16,7 @@ from settings import *
 
 def loadData():
     Haoya.deathSound = utility.loadSound("pop")
-    Haoya.MasterAnimationList.buildAnimation("Idle","haoya")
+    Haoya.MasterAnimationList.buildAnimation("Idle", ["haoya"])
 
 class Haoya(enemy.Enemy):
     deathSound = None

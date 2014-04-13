@@ -10,7 +10,7 @@ import animation
 from settings import *
 
 def loadData():
-    Cursor.MasterAnimationList.buildAnimation("Idle","cursor")
+    Cursor.MasterAnimationList.buildAnimation("Idle", ["cursor"])
 
 class Menu:
     def __init__(self, screen, musicList, backgroundImage, bounds, title, menuDictionary, startSelection = 0):

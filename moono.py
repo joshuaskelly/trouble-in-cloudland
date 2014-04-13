@@ -15,7 +15,7 @@ from settings import *
 
 def loadData():
     Moono.deathSound = utility.loadSound("pop")
-    Moono.MasterAnimationList.buildAnimation("Idle","moono")
+    Moono.MasterAnimationList.buildAnimation("Idle", ["moono"])
 
 class Moono(enemy.Enemy):
     deathSound = None

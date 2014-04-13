@@ -15,7 +15,7 @@ from settings import *
 
 def loadData():
     Hakta.deathSound = utility.loadSound("pop")
-    Hakta.MasterAnimationList.buildAnimation("Idle","hakta")
+    Hakta.MasterAnimationList.buildAnimation("Idle", ["hakta"])
 
 class Hakta(enemy.Enemy):
     deathSound = None

@@ -10,11 +10,11 @@ from actor import *
 from settings import *
 
 def loadData():
-    Bullet.MasterAnimationList.buildAnimation("Idle",["staar0","staar1","staar2","staar3","staar4","staar5"])
-    Bullet.MasterAnimationList.buildAnimation("Reflect",["staar10","staar11","staar12","staar13","staar14","staar15"])
-    Bullet.MasterAnimationList.buildAnimation("Damage",["staar20","staar21","staar22","staar23","staar24","staar25"])
-    Bullet.MasterAnimationList.buildAnimation("DamageReflect",["staar20","staar21","staar22","staar13","staar14","staar15"])
-    Bullet.MasterAnimationList.buildAnimation("Nova",["staar30","staar31","staar32","staar33","staar34","staar35"])
+    Bullet.MasterAnimationList.buildAnimation("Idle", ["staar0","staar1","staar2","staar3","staar4","staar5"])
+    Bullet.MasterAnimationList.buildAnimation("Reflect", ["staar10","staar11","staar12","staar13","staar14","staar15"])
+    Bullet.MasterAnimationList.buildAnimation("Damage", ["staar20","staar21","staar22","staar23","staar24","staar25"])
+    Bullet.MasterAnimationList.buildAnimation("DamageReflect", ["staar20","staar21","staar22","staar13","staar14","staar15"])
+    Bullet.MasterAnimationList.buildAnimation("Nova", ["staar30","staar31","staar32","staar33","staar34","staar35"])
 
 class Bullet(actor.Actor):
     MasterAnimationList = animation.Animation()

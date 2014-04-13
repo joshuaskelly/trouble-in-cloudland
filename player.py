@@ -15,11 +15,11 @@ import infoBubble
 from actor import *
 
 def loadData():
-    Player.MasterAnimationList.buildAnimation("Idle","kuunIdle")
-    Player.MasterAnimationList.buildAnimation("Fire","kuunShoot")
-    Player.MasterAnimationList.buildAnimation("HurtIdle",["kuunIdle","blank"])
-    Player.MasterAnimationList.buildAnimation("HurtFire",["kuunShoot","blank"])
-    Player.MasterAnimationList.buildAnimation("Die",["kuunDie"])
+    Player.MasterAnimationList.buildAnimation("Idle", ["kuunIdle"])
+    Player.MasterAnimationList.buildAnimation("Fire", ["kuunShoot"])
+    Player.MasterAnimationList.buildAnimation("HurtIdle", ["kuunIdle","blank"])
+    Player.MasterAnimationList.buildAnimation("HurtFire", ["kuunShoot","blank"])
+    Player.MasterAnimationList.buildAnimation("Die", ["kuunDie"])
 
     Player.NUM_OW_SOUNDS = 2 #plus one for a total of 3
     Player.loseLifeSound.append(utility.loadSound("ow1"))

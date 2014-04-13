@@ -13,7 +13,7 @@ import enemy
 from actor import *
 
 def loadData():
-    Yurei.MasterAnimationList.buildAnimation("Idle","yurei")
+    Yurei.MasterAnimationList.buildAnimation("Idle", ["yurei"])
 
 class Yurei(enemy.Enemy):
     MasterAnimationList = animation.Animation()

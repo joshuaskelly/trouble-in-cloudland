@@ -11,10 +11,10 @@ from actor import *
 from settings import *
 
 def loadData():
-    smokeParticle.MasterAnimationList.buildAnimation("Idle","ppuff")
-    starParticle.MasterAnimationList.buildAnimation("Idle",["pstaar0","pstaar1","pstaar2"])
-    heartParticle.MasterAnimationList.buildAnimation("Idle","pheart")
-    rainParticle.MasterAnimationList.buildAnimation("Idle","prain")
+    smokeParticle.MasterAnimationList.buildAnimation("Idle", ["ppuff"])
+    starParticle.MasterAnimationList.buildAnimation("Idle", ["pstaar0","pstaar1","pstaar2"])
+    heartParticle.MasterAnimationList.buildAnimation("Idle", ["pheart"])
+    rainParticle.MasterAnimationList.buildAnimation("Idle", ["prain"])
 
 
     

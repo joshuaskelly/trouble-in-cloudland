@@ -9,18 +9,18 @@ import aitools
 from actor import *
 
 def loadData():
-    Cloud.MasterAnimationList.buildAnimation("Idle","cloud")   
-    CloudSmall.MasterAnimationList.buildAnimation("Idle","cloud1")
-    IslandBig.MasterAnimationList.buildAnimation("Idle","island01") 
-    IslandSmall.MasterAnimationList.buildAnimation("Idle","island02")
-    whiteCloud.MasterAnimationList.buildAnimation("Idle","cloud2")
-    whiteCloudSmall.MasterAnimationList.buildAnimation("Idle","cloud3")
-    whiteCloudTiny.MasterAnimationList.buildAnimation("Idle","cloud4")
-    treeBig.MasterAnimationList.buildAnimation("Idle","tree")
-    treeSmall.MasterAnimationList.buildAnimation("Idle","tree1")
-    blueCloud.MasterAnimationList.buildAnimation("Idle","cloudBlue")
-    blueCloudSmall.MasterAnimationList.buildAnimation("Idle","cloudBlueSmall")
-    smallStar.MasterAnimationList.buildAnimation("Idle","pstaar0")
+    Cloud.MasterAnimationList.buildAnimation("Idle", ["cloud"])   
+    CloudSmall.MasterAnimationList.buildAnimation("Idle", ["cloud1"])
+    IslandBig.MasterAnimationList.buildAnimation("Idle", ["island01"]) 
+    IslandSmall.MasterAnimationList.buildAnimation("Idle", ["island02"])
+    whiteCloud.MasterAnimationList.buildAnimation("Idle", ["cloud2"])
+    whiteCloudSmall.MasterAnimationList.buildAnimation("Idle", ["cloud3"])
+    whiteCloudTiny.MasterAnimationList.buildAnimation("Idle", ["cloud4"])
+    treeBig.MasterAnimationList.buildAnimation("Idle", ["tree"])
+    treeSmall.MasterAnimationList.buildAnimation("Idle", ["tree1"])
+    blueCloud.MasterAnimationList.buildAnimation("Idle", ["cloudBlue"])
+    blueCloudSmall.MasterAnimationList.buildAnimation("Idle", ["cloudBlueSmall"])
+    smallStar.MasterAnimationList.buildAnimation("Idle", ["pstaar0"])
         
 class Cloud(actor.Actor):
     MasterAnimationList = animation.Animation()
