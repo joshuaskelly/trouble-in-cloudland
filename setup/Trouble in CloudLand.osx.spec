@@ -1,6 +1,8 @@
 # -*- mode: python -*-
 a = Analysis(['../main.py'],
-             pathex=['/Users/joshua/Github/TroubleInCloudLand/setup'],
+             pathex=['/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7',
+                     '/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame',
+                     '/Users/joshua/Github/TroubleInCloudLand/setup',],
              hiddenimports=[],
              hookspath=None,
              runtime_hooks=None)
