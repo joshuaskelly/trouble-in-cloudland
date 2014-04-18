@@ -1,15 +1,20 @@
 # -*- mode: python -*-
-a = Analysis([os.path.join(HOMEPATH,'support/_mountzlib.py'), os.path.join(HOMEPATH,'support/useUnicode.py'), '../main.py'],
-             pathex=['/home/devvm/Github/TroubleInCloudLand/setup'])
+a = Analysis(['../main.py'],
+             pathex=['/Users/joshua/Github/TroubleInCloudLand/setup'],
+             hiddenimports=[],
+             hookspath=None,
+             runtime_hooks=None)
 pyz = PYZ(a.pure)
-exe = EXE( pyz,
-          Tree('../data', prefix='data'),
+exe = EXE(pyz,
           a.scripts,
           a.binaries,
           a.zipfiles,
           a.datas,
-          name=os.path.join('dist', 'main'),
+          name='main',
           debug=False,
-          strip=False,
+          strip=None,
           upx=True,
-          console=1 )
+          console=False )
+app = BUNDLE(exe,
+             name='main.app',
+             icon=None)
