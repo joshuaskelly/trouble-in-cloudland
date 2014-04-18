@@ -195,5 +195,6 @@ def setFullscreen(full=True):
         return pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     
 def getResourcePath(asset):
-    return os.path.join(sys._MEIPASS, asset)
+    print os.environ['_MEIPASS2']
+    return os.path.join(os.environ['_MEIPASS2'], asset)
 

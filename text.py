@@ -15,8 +15,8 @@ class Text(pygame.sprite.Sprite):
         self.color = color
         self.fontType = fontType
         
-        if hasattr(sys, '_MEIPASS'):
-            self.fontType = utility.getResourcePath(fontType)
+        #if hasattr(sys, '_MEIPASS'):
+        self.fontType = utility.getResourcePath(fontType)
         
         self.fontSize = fontSize
         self.lifeTimer = lifeTimer
@@ -67,8 +67,8 @@ class Text(pygame.sprite.Sprite):
         self.color = color
         self.fontType = fontType
         
-        if hasattr(sys, '_MEIPASS'):
-            self.fontType = utility.getResourcePath(fontType)
+        #if hasattr(sys, '_MEIPASS'):
+        self.fontType = utility.getResourcePath(fontType)
         
         self.fontSize = fontSize
         self.buildImage()
@@ -140,8 +140,8 @@ class Text(pygame.sprite.Sprite):
 
 class TextSurface:
     def __init__(self,fontType,fontSize,color,text):
-        if hasattr(sys, '_MEIPASS'):
-            fontType = utility.getResourcePath(fontType)
+        #if hasattr(sys, '_MEIPASS'):
+        fontType = utility.getResourcePath(fontType)
 
         fontObject = pygame.font.Font(fontType, fontSize)
         self.image = fontObject.render(str(text), ANTI_ALIAS, color)
