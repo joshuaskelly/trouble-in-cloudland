@@ -26,20 +26,20 @@ class Moono(enemy.Enemy):
         enemy.Enemy.__init__(self)
         self.actorType = ACTOR_TYPE_ENEMY   
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")    
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_KILL
+        self.bound_style = BOUND_STYLE_KILL
         self.bounds = [-32,-32,(SCREEN_WIDTH + 32),(SCREEN_HEIGHT + 32)]        
         
         self.canCollide = True        
         self.hitrect = pygame.Rect(0,0,54,98)
 
-        self.position = vector.vector2d.zero
-        self.velocity = vector.vector2d.zero
+        self.position = vector.Vector2d.zero
+        self.velocity = vector.Vector2d.zero
 
         """   UNIQUE VARIABLES   """
         self.speed = 3
@@ -58,7 +58,7 @@ class Moono(enemy.Enemy):
 
 
 
-    def actorUpdate(self):
+    def actor_update(self):
         if self.active and self.health <= 0:
             self.active = False
             self.die()
@@ -76,13 +76,13 @@ class Moono(enemy.Enemy):
 
     
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
-            self.objectCollidedWith.hurt(1)
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
+            self.object_collided_with.hurt(1)
     
     
     
     def die(self):
-        utility.playSound(self.deathSound)
+        utility.play_sound(self.deathSound)
 
         particle.deathEmitter(self.position, self.effectsGroup).run()
 

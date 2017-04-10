@@ -29,19 +29,19 @@ class Rokubi(enemy.Enemy):
         
         self.actorType = ACTOR_TYPE_ENEMY
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")      
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_NONE
+        self.bound_style = BOUND_STYLE_NONE
         self.bounds = [-32,-32,(SCREEN_WIDTH + 32),(SCREEN_HEIGHT + 32)]        
         
         self.canCollide = True        
         self.hitrect = pygame.Rect(0,0,54,98)
 
-        self.velocity = vector.vector2d(0,0)
+        self.velocity = vector.Vector2d(0, 0)
 
         """   UNIQUE VARIABLES   """
         self.speed = 7
@@ -58,13 +58,13 @@ class Rokubi(enemy.Enemy):
         self.charging = False
         self.hiding = False
 
-        self.emitter = particle.particleEmitter(vector.vector2d.zero,vector.vector2d.zero,
-                                        self.effectsGroup,
-                                        ["heart"],
-                                        270.0,45.0,
-                                        0.0,0.0,
-                                        8.0,1.0,
-                                        -1.0)
+        self.emitter = particle.particleEmitter(vector.Vector2d.zero, vector.Vector2d.zero,
+                                                self.effectsGroup,
+                                                ["heart"],
+                                                270.0, 45.0,
+                                                0.0, 0.0,
+                                                8.0, 1.0,
+                                                -1.0)
         
 
         
@@ -74,7 +74,7 @@ class Rokubi(enemy.Enemy):
         
 
 
-    def actorUpdate(self):
+    def actor_update(self):
         self.emitter.update()
         
         if self.active and self.health <= 0:
@@ -128,5 +128,5 @@ class Rokubi(enemy.Enemy):
 
     
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
-            self.objectCollidedWith.hurt(1)
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
+            self.object_collided_with.hurt(1)

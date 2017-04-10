@@ -23,7 +23,7 @@ class SplashScreen:
 
             self.screen.fill(FILL_COLOR)
             if self.music:
-                utility.playMusic(self.music)
+                utility.play_music(self.music)
             self.timer -= 1
             
             self.image.draw(self.screen)

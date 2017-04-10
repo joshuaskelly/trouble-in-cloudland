@@ -21,13 +21,13 @@ class Enemy(actor.Actor):
         actor.Actor.__init__(self)
         self.actorType = ACTOR_TYPE_ENEMY    
         
-        self.boundStyle = BOUND_STYLE_KILL
+        self.bound_style = BOUND_STYLE_KILL
         self.bounds = [-32,-32,(SCREEN_WIDTH + 32),(SCREEN_HEIGHT + 32)]        
         
         self.canCollide = True
 
-        self.position = vector.vector2d.zero
-        self.velocity = vector.vector2d.zero
+        self.position = vector.Vector2d.zero
+        self.velocity = vector.Vector2d.zero
 
         self.bossFight = False
         self.dropItem = False
@@ -36,8 +36,8 @@ class Enemy(actor.Actor):
 
 
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
-            self.objectCollidedWith.hurt(1)
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
+            self.object_collided_with.hurt(1)
     
     
     def itemDrop(self):
@@ -56,8 +56,8 @@ class Enemy(actor.Actor):
             elif randomNumber == 3:
                 self.powerupGroup.add(gem.DualShot(self.position,self.textGroup))
 
-        elif self.objectCollidedWith.owner.comboBonus:
-            self.objectCollidedWith.owner.incrementScore(100, self.position, self.textGroup)
+        elif self.object_collided_with.owner.combo_bonus:
+            self.object_collided_with.owner.increment_score(100, self.position, self.textGroup)
 
             randomNumber = int(random.random() * 6 + 1)
     
@@ -83,7 +83,7 @@ class Enemy(actor.Actor):
                 else:
                     self.powerupGroup.add(gem.Nova(self.position,self.textGroup,self.effectsGroup))
         else:
-            self.objectCollidedWith.owner.incrementScore(100, self.position, self.textGroup)
+            self.object_collided_with.owner.increment_score(100, self.position, self.textGroup)
 
             randomNumber = int(random.random() * 6 + 1)
     
@@ -112,7 +112,7 @@ class Enemy(actor.Actor):
                     self.powerupGroup.add(gem.Nova(self.position,self.textGroup,self.effectsGroup))
 
     def die(self):
-        utility.playSound(self.deathSound)
+        utility.play_sound(self.deathSound)
 
         particle.deathEmitter(self.position, self.effectsGroup).run()
 

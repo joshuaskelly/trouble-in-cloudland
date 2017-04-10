@@ -1,102 +1,82 @@
-import utility
-import settings
 import pygame
-import vector
+
 import animation
+import vector
 
 from settings import *
+
 
 class Actor(pygame.sprite.Sprite):
     """The Generic Actor Class"""
 
     def __init__(self):
-
         pygame.sprite.Sprite.__init__(self)
-        
-        """   DEFAULT VARIABLES   """
-        self.canCollide = False
+
+        self.can_collide = False
         self.active = False
-        self.hitrect = pygame.Rect(0,0,0,0)
-        self.hitrectOffsetX = 0
-        self.hitrectOffsetY = 0
-        self.objectCollidedWith = self
-        self.boundStyle = None
+        self.hitrect = pygame.Rect(0, 0, 0, 0)
+        self.hitrect_offset_x = 0
+        self.hitrect_offset_y = 0
+        self.object_collided_with = self
+        self.bound_style = None
+        self.animation_list = animation.Animation()
+        self.image = None
 
-
-
-    def actorUpdate(self):
+    def actor_update(self):
         pass
-    
-    
-    
+
     def update(self):
-        """**********Animation**********"""
         try:
-            self.animationList.update()
-            self.image = self.animationList.image
+            self.animation_list.update()
+            self.image = self.animation_list.image
+
         except:
             pass
-        
-        
 
-        """*******Translation*******"""
         self.position += self.velocity
-        self.checkBounds()
-
-        """Place the image at its new posistion"""
+        self.check_bounds()
         self.rect.center = (self.position.x, self.position.y)
-        self.hitrect.center = (self.position.x + self.hitrectOffsetX, self.position.y + self.hitrectOffsetY)
+        self.hitrect.center = (self.position.x + self.hitrect_offset_x, self.position.y + self.hitrect_offset_y)
         
-        """Run custom Actor code"""
-        self.actorUpdate()
+        self.actor_update()
 
-
-
-    def checkCollision(self, groupChecked):
-        for objectChecked in groupChecked:
-            if self.hitrect.colliderect(objectChecked.hitrect):
-                if self.active and objectChecked.active:
-                    self.objectCollidedWith = objectChecked
-                    objectChecked.objectCollidedWith = self
+    def check_collision(self, group_checked):
+        for object_checked in group_checked:
+            if self.hitrect.colliderect(object_checked.hitrect):
+                if self.active and object_checked.active:
+                    self.object_collided_with = object_checked
+                    object_checked.object_collided_with = self
                     self.collide()
-                    objectChecked.collide()
-
-
+                    object_checked.collide()
 
     def collide(self):
         pass
         
+    def check_bounds(self):
+        current_x = self.position.x
+        current_y = self.position.y
         
-        
-    def checkBounds(self):
-        curX = self.position.x
-        curY = self.position.y
-        
-        if curX < self.bounds[LEFT] or curX > self.bounds[RIGHT] or curY < self.bounds[TOP] or curY > self.bounds[BOTTOM]:            
-            self.outOfBounds()
+        if current_x < self.bounds[LEFT] or current_x > self.bounds[RIGHT] or current_y < self.bounds[TOP] or current_y > self.bounds[BOTTOM]:
+            self.out_of_bounds()
 
-
-            
     def die(self):
         self.kill()
         del self
         
-            
-            
-    def outOfBounds(self):
-        if self.boundStyle == BOUND_STYLE_CLAMP:
+    def out_of_bounds(self):
+        if self.bound_style == BOUND_STYLE_CLAMP:
             if self.position.x < self.bounds[LEFT]:
-                self.position = vector.vector2d(self.bounds[LEFT],self.position.y)
+                self.position = vector.Vector2d(self.bounds[LEFT], self.position.y)
             elif self.position.x > self.bounds[RIGHT]:
-                self.position = vector.vector2d(self.bounds[RIGHT],self.position.y)
+                self.position = vector.Vector2d(self.bounds[RIGHT], self.position.y)
             if self.position.y < self.bounds[TOP]:
-                self.position = vector.vector2d(self.position.x, self.bounds[TOP])
+                self.position = vector.Vector2d(self.position.x, self.bounds[TOP])
             elif self.position.y > self.bounds[BOTTOM]:
-                self.position = vector.vector2d(self.position.x, self.bounds[BOTTOM])
+                self.position = vector.Vector2d(self.position.x, self.bounds[BOTTOM])
                 
-        elif self.boundStyle == BOUND_STYLE_WRAP:
+        elif self.bound_style == BOUND_STYLE_WRAP:
             if self.position.x < self.bounds[LEFT]:
-                self.position = vector.vector2d(self.bounds[RIGHT],self.position.y)
+                self.position = vector.Vector2d(self.bounds[RIGHT], self.position.y)
             elif self.position.x > self.bounds[RIGHT]:
                 self.position = (self.bounds[LEFT],self.position.y)
             if self.position.y < self.bounds[TOP]:
@@ -104,23 +84,25 @@ class Actor(pygame.sprite.Sprite):
             elif self.position.y > self.bounds[BOTTOM]:
                 self.position = (self.position.x, self.bounds[TOP])
                 
-        elif self.boundStyle == BOUND_STYLE_REFLECT:
+        elif self.bound_style == BOUND_STYLE_REFLECT:
             if self.position.x < self.bounds[LEFT]:
-                self.position = vector.vector2d(self.bounds[LEFT],self.position.y)
+                self.position = vector.Vector2d(self.bounds[LEFT], self.position.y)
                 self.velocity *= [-1.0, 1.0]
             elif self.position.x > self.bounds[RIGHT]:
-                self.position = vector.vector2d(self.bounds[RIGHT],self.position.y)
+                self.position = vector.Vector2d(self.bounds[RIGHT], self.position.y)
                 self.velocity *= [-1.0, 1.0]
             if self.position.y < self.bounds[TOP]:
-                self.position = vector.vector2d(self.position.x, self.bounds[TOP])
+                self.position = vector.Vector2d(self.position.x, self.bounds[TOP])
                 self.velocity *= [1.0, -1.0]
             elif self.position.y > self.bounds[BOTTOM]:
-                self.position = vector.vector2d(self.position.x, self.bounds[BOTTOM])
+                self.position = vector.Vector2d(self.position.x, self.bounds[BOTTOM])
                 self.velocity *= [1.0, -1.0]
                 
-        elif self.boundStyle == BOUND_STYLE_KILL:
+        elif self.bound_style == BOUND_STYLE_KILL:
             self.kill()
             
-        elif self.boundStyle == BOUND_STYLE_CUSTOM:
-            self.customBounds()
+        elif self.bound_style == BOUND_STYLE_CUSTOM:
+            self.custom_bounds()
 
+    def custom_bounds(self):
+        pass

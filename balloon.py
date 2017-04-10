@@ -24,16 +24,16 @@ class Balloon(actor.Actor):
     def __init__(self):
         actor.Actor.__init__(self)
         self.actorType = ACTOR_TYPE_PICKUP
-        self.boundStyle = BOUND_STYLE_KILL
+        self.bound_style = BOUND_STYLE_KILL
         self.bounds = [-32,-32,SCREEN_WIDTH + 32, SCREEN_HEIGHT + 32]
         
         """    MOVEMENT VARIABLES    """
         self.wave = 0
         self.moveRight = True
         self.XMovement = 1
-        self.velocity = vector.vector2d.zero
+        self.velocity = vector.Vector2d.zero
 
-    def actorUpdate(self):
+    def actor_update(self):
         self.active = True
         
         if self.moveRight:
@@ -46,11 +46,11 @@ class Balloon(actor.Actor):
                 self.moveRight = True
 
         self.XMovement = (self.wave / (FRAMES_PER_SECOND)) * 1.5
-        self.velocity = vector.vector2d(self.XMovement,-3)
+        self.velocity = vector.Vector2d(self.XMovement, -3)
 
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
-            utility.playSound(self.pickupSound)
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
+            utility.play_sound(self.pickupSound)
             self.die()
  
 class Bonus250(Balloon):
@@ -58,20 +58,20 @@ class Bonus250(Balloon):
     def __init__(self, position, textGroup):
         Balloon.__init__(self)
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle") 
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
 
         self.rect = self.image.get_rect()        
         self.hitrect = pygame.Rect(0,0,60,60)
-        self.hitrectOffsetY = -5
+        self.hitrect_offset_y = -5
         
         self.textGroup = textGroup
-        self.position = vector.vector2d(position)
+        self.position = vector.Vector2d(position)
 
     def die(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
-            self.objectCollidedWith.incrementScore(250, self.position, self.textGroup)
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
+            self.object_collided_with.increment_score(250, self.position, self.textGroup)
         
         self.active = False
         self.kill()
@@ -82,20 +82,20 @@ class Bonus500(Balloon):
     def __init__(self, position, textGroup):
         Balloon.__init__(self)
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle") 
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
 
         self.rect = self.image.get_rect()        
         self.hitrect = pygame.Rect(0,0,60,60)
-        self.hitrectOffsetY = -5
+        self.hitrect_offset_y = -5
         
         self.textGroup = textGroup
-        self.position = vector.vector2d(position)
+        self.position = vector.Vector2d(position)
 
     def die(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
-            self.objectCollidedWith.incrementScore(500, self.position, self.textGroup)
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
+            self.object_collided_with.increment_score(500, self.position, self.textGroup)
         
         self.active = False
         self.kill()
@@ -106,26 +106,26 @@ class BonusX2(Balloon):
     def __init__(self, position, textGroup):
         Balloon.__init__(self)
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle") 
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
 
         self.rect = self.image.get_rect()        
         self.hitrect = pygame.Rect(0,0,60,60)
-        self.hitrectOffsetY = -5
+        self.hitrect_offset_y = -5
         
-        self.position = vector.vector2d(position)
+        self.position = vector.Vector2d(position)
         self.textGroup = textGroup
 
 
 
     def die(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
-            self.objectCollidedWith.pointBonus += 5 * FRAMES_PER_SECOND
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
+            self.object_collided_with.pointBonus += 5 * FRAMES_PER_SECOND
             tempImage = text.Text(FONT_PATH, 30, FONT_COLOR, "Double Points!", 1).image
             
-            helpBubble = infoBubble.infoBubble(tempImage, self.objectCollidedWith,1.5 * FRAMES_PER_SECOND)
-            helpBubble.offSet = vector.vector2d(0.0, -100.0)
+            helpBubble = infoBubble.infoBubble(tempImage, self.object_collided_with, 1.5 * FRAMES_PER_SECOND)
+            helpBubble.offset = vector.Vector2d(0.0, -100.0)
             self.textGroup.add(helpBubble)
         
         self.active = False
@@ -137,26 +137,24 @@ class BonusCombo(Balloon):
     def __init__(self, position, textGroup):
         Balloon.__init__(self)
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle") 
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
 
         self.rect = self.image.get_rect()        
         self.hitrect = pygame.Rect(0,0,60,60)
-        self.hitrectOffsetY = -5
+        self.hitrect_offset_y = -5
         
-        self.position = vector.vector2d(position)
+        self.position = vector.Vector2d(position)
         self.textGroup = textGroup
 
-
-
     def die(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
-            self.objectCollidedWith.comboBonus += 5 * FRAMES_PER_SECOND
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
+            self.object_collided_with.combo_bonus += 5 * FRAMES_PER_SECOND
             tempImage = text.Text(FONT_PATH, 30, FONT_COLOR, "Combo Time!", 1).image
             
-            helpBubble = infoBubble.infoBubble(tempImage, self.objectCollidedWith,1.5 * FRAMES_PER_SECOND)
-            helpBubble.offSet = vector.vector2d(0.0, -100.0)
+            helpBubble = infoBubble.infoBubble(tempImage, self.object_collided_with, 1.5 * FRAMES_PER_SECOND)
+            helpBubble.offset = vector.Vector2d(0.0, -100.0)
             self.textGroup.add(helpBubble)
         
         self.active = False

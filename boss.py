@@ -54,20 +54,20 @@ class MoonoBoss(actor.Actor):
         actor.Actor.__init__(self)
         self.actorType = ACTOR_TYPE_BOSS
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = self.bounds = [0,0,SCREEN_WIDTH,SCREEN_HEIGHT]
         
         self.canCollide = True
         self.hitrect = pygame.Rect(0,0,162,148)
         
-        self.position = vector.vector2d(SCREEN_WIDTH + 32, SCREEN_HEIGHT / 2)
-        self.velocity = vector.vector2d(0.0,0.0)
+        self.position = vector.Vector2d(SCREEN_WIDTH + 32, SCREEN_HEIGHT / 2)
+        self.velocity = vector.Vector2d(0.0, 0.0)
         
         """    UNIQUE VARIABLES    """
         self.speed = 3
@@ -94,8 +94,8 @@ class MoonoBoss(actor.Actor):
         self.spinning = False
         self.timeUntilSpin = 0
 
-    def actorUpdate(self):
-        utility.playMusic(self.music, True)
+    def actor_update(self):
+        utility.play_music(self.music, True)
         if not self.active and self.health > 0:
             self.active = True
 
@@ -104,7 +104,7 @@ class MoonoBoss(actor.Actor):
                 tempImage = self.howToKill
                 
                 helpBubble = infoBubble.infoBubble(tempImage, self.target,5 * FRAMES_PER_SECOND)
-                helpBubble.offSet = vector.vector2d(0.0, -100.0)
+                helpBubble.offset = vector.Vector2d(0.0, -100.0)
                 self.textGroup.add(helpBubble)
             self.lifeTimer += 1
 
@@ -122,11 +122,11 @@ class MoonoBoss(actor.Actor):
 
                 self.stunned -= 1
 
-                self.animationList.play("vulnerable")
+                self.animation_list.play("vulnerable")
                 
                 if not self.stunned:
-                    utility.playSound(self.shieldRestore, PICKUP_CHANNEL)
-                    self.animationList.play("idle")
+                    utility.play_sound(self.shieldRestore, PICKUP_CHANNEL)
+                    self.animation_list.play("idle")
                 
             else:
                 self.currentSequence = 0
@@ -149,7 +149,7 @@ class MoonoBoss(actor.Actor):
             if self.speed <= 2:
                 self.speed = 2
                 self.charging = False
-                self.boundStyle = BOUND_STYLE_CUSTOM
+                self.bound_style = BOUND_STYLE_CUSTOM
                 self.timeUntilCharge = 6 * FRAMES_PER_SECOND
             
             aitools.goToTarget(self,self.target)
@@ -190,20 +190,20 @@ class MoonoBoss(actor.Actor):
         self.speed = 11
 
         aitools.goToTarget(self,self.target)
-        self.boundStyle = BOUND_STYLE_REFLECT
+        self.bound_style = BOUND_STYLE_REFLECT
 
 
 
     def spin(self):
         self.spinning = True
-        self.boundStyle = BOUND_STYLE_REFLECT
+        self.bound_style = BOUND_STYLE_REFLECT
 
 
 
     def hurt(self,damage):
         self.health -= damage
-        self.animationList.play("hurt")
-        utility.playSound(self.hurtSound,BOSS_CHANNEL)
+        self.animation_list.play("hurt")
+        utility.play_sound(self.hurtSound, BOSS_CHANNEL)
 
         if self.health <= 0:
             for actor in self.enemyGroup:
@@ -212,16 +212,16 @@ class MoonoBoss(actor.Actor):
 
     def die(self):
         self.velocity[1] += .1
-        if self.boundStyle == BOUND_STYLE_REFLECT:
-            self.boundStyle = BOUND_STYLE_CUSTOM
+        if self.bound_style == BOUND_STYLE_REFLECT:
+            self.bound_style = BOUND_STYLE_CUSTOM
 
         self.stunned -= 1
         self.world.pauseSpawning = 1 * FRAMES_PER_SECOND
 
-        if settingList[PARTICLES] and not self.stunned % 2:
+        if settings_list[PARTICLES] and not self.stunned % 2:
             puffsToCreate = 4
             
-            while puffsToCreate and settingList[PARTICLES]:
+            while puffsToCreate and settings_list[PARTICLES]:
                 puffsToCreate -= 1
                 tempPuff = particle.smokeParticle(self.position,
                                                          [1,0])
@@ -232,39 +232,39 @@ class MoonoBoss(actor.Actor):
 
     def bulletCollide(self, bullet):
         if not self.stunned:
-            utility.playSound(self.bulletSound,BAAKE_CHANNEL)
+            utility.play_sound(self.bulletSound, BAAKE_CHANNEL)
             if bullet.collideStyle == COLLIDE_STYLE_HURT:
                 bullet.die()
             
             elif bullet.collideStyle == COLLIDE_STYLE_REFLECT:
                 if bullet.position.x < self.position.x - 64:
-                    bullet.position = vector.vector2d(self.position.x - 112,bullet.position.y)
+                    bullet.position = vector.Vector2d(self.position.x - 112, bullet.position.y)
                     bullet.velocity *= [-1.0, 1.0]
                 elif bullet.position.x > self.position.x + 64:
-                    bullet.position = vector.vector2d(self.position.x + 112,bullet.position.y)
+                    bullet.position = vector.Vector2d(self.position.x + 112, bullet.position.y)
                     bullet.velocity *= [-1.0, 1.0]
                 if bullet.position.y < self.position.y - 64:
-                    bullet.position = vector.vector2d(bullet.position.x, self.position.y - 14)
+                    bullet.position = vector.Vector2d(bullet.position.x, self.position.y - 14)
                     bullet.velocity *= [1.0, -1.0]
                 elif bullet.position.y > self.position.y + 64:
-                    bullet.position = vector.vector2d(bullet.position.x, self.position.y + 140)
+                    bullet.position = vector.Vector2d(bullet.position.x, self.position.y + 140)
                     bullet.velocity *= [1.0, -1.0]
     
             elif bullet.collideStyle == COLLIDE_STYLE_NOVA:
-                utility.playSound(self.shieldBreak, BAAKE_CHANNEL)
+                utility.play_sound(self.shieldBreak, BAAKE_CHANNEL)
                 self.stunned = 2 * FRAMES_PER_SECOND
-                self.animationList.play("vulnerable")
+                self.animation_list.play("vulnerable")
                 
                 starsToCreate = 15
                 
                 while starsToCreate:
                     starsToCreate -= 1
                     tempBullet = particle.starParticle()
-                    tempVector = vector.vector2d(120,0)
+                    tempVector = vector.Vector2d(120, 0)
                     tempVector.setAngle(starsToCreate * 24)
-                    tempBullet.position = vector.vector2d(self.position + tempVector)
+                    tempBullet.position = vector.Vector2d(self.position + tempVector)
                     tempBullet.lifeTimer = .5 * FRAMES_PER_SECOND
-                    tempBullet.velocity = vector.vector2d(3.0, 0.0)
+                    tempBullet.velocity = vector.Vector2d(3.0, 0.0)
                     tempBullet.velocity.setAngle(starsToCreate * 24)
                     
                     
@@ -276,16 +276,16 @@ class MoonoBoss(actor.Actor):
 
 
 
-    def customBounds(self):
+    def custom_bounds(self):
         if self.health <= 0:
             self.kill()
             self = None
 
 
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER and not self.stunned:
+        if self.object_collided_with.actorType == ACTOR_PLAYER and not self.stunned:
             
-            self.objectCollidedWith.hurt(1)
+            self.object_collided_with.hurt(1)
 
 ####################################################
 """    """    """    BAAKE BOSS    """    """    """
@@ -301,20 +301,20 @@ class BaakeBoss(actor.Actor):
         actor.Actor.__init__(self)
         self.actorType = ACTOR_TYPE_BOSS
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("idle")      
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-64,-64,SCREEN_WIDTH + 64,SCREEN_HEIGHT + 64]
                 
         self.canCollide = True
         self.hitrect = pygame.Rect(0,0,140,210)
         
-        self.position = vector.vector2d(-32, SCREEN_HEIGHT / 2)
-        self.velocity = vector.vector2d(0.0,0.0)
+        self.position = vector.Vector2d(-32, SCREEN_HEIGHT / 2)
+        self.velocity = vector.Vector2d(0.0, 0.0)
         
         """   UNIQUE VARIABLES   """
         self.speed = 1.75
@@ -348,8 +348,8 @@ class BaakeBoss(actor.Actor):
 
 
 
-    def actorUpdate(self):
-        utility.playMusic(self.music, True)
+    def actor_update(self):
+        utility.play_music(self.music, True)
         self.placeEye()
 
         if self.lifeTimer <= 30 * FRAMES_PER_SECOND and self.health == self.world.level+ 2:
@@ -357,7 +357,7 @@ class BaakeBoss(actor.Actor):
                 tempImage = self.howToKill
                 
                 helpBubble = infoBubble.infoBubble(tempImage, self.target,5 * FRAMES_PER_SECOND)
-                helpBubble.offSet = vector.vector2d(0.0, -100.0)
+                helpBubble.offset = vector.Vector2d(0.0, -100.0)
                 self.textGroup.add(helpBubble)
             self.lifeTimer += 1
             
@@ -381,11 +381,11 @@ class BaakeBoss(actor.Actor):
 
                 if not self.stunned:
                     self.textGroup.add(self.eye)
-                    self.animationList.play("idle")
+                    self.animation_list.play("idle")
                 if not self.stunned % 4:
                     puffsToCreate = 4
                     
-                    while puffsToCreate and settingList[PARTICLES]:
+                    while puffsToCreate and settings_list[PARTICLES]:
                         puffsToCreate -= 1
                         tempPuff = particle.smokeParticle(self.position,
                                                                  [1,0])
@@ -416,23 +416,23 @@ class BaakeBoss(actor.Actor):
 
 
     def bulletCollide(self, bullet):
-        utility.playSound(self.bulletSound,BAAKE_CHANNEL)
+        utility.play_sound(self.bulletSound, BAAKE_CHANNEL)
 
         if bullet.collideStyle == COLLIDE_STYLE_HURT:
             bullet.die()
         
         elif bullet.collideStyle == COLLIDE_STYLE_REFLECT:
             if bullet.position.x < self.position.x - 64:
-                bullet.position = vector.vector2d(self.position.x - 112,bullet.position.y)
+                bullet.position = vector.Vector2d(self.position.x - 112, bullet.position.y)
                 bullet.velocity *= [-1.0, 1.0]
             elif bullet.position.x > self.position.x + 64:
-                bullet.position = vector.vector2d(self.position.x + 112,bullet.position.y)
+                bullet.position = vector.Vector2d(self.position.x + 112, bullet.position.y)
                 bullet.velocity *= [-1.0, 1.0]
             if bullet.position.y < self.position.y - 64:
-                bullet.position = vector.vector2d(bullet.position.x, self.position.y - 14)
+                bullet.position = vector.Vector2d(bullet.position.x, self.position.y - 14)
                 bullet.velocity *= [1.0, -1.0]
             elif bullet.position.y > self.position.y + 64:
-                bullet.position = vector.vector2d(bullet.position.x, self.position.y + 140)
+                bullet.position = vector.Vector2d(bullet.position.x, self.position.y + 140)
                 bullet.velocity *= [1.0, -1.0]
 
         elif bullet.collideStyle == COLLIDE_STYLE_NOVA:
@@ -444,8 +444,8 @@ class BaakeBoss(actor.Actor):
 
     def hurt(self,damage):
         self.health -= damage
-        utility.playSound(self.hurtSound,BOSS_CHANNEL)
-        self.animationList.play("hurt")
+        utility.play_sound(self.hurtSound, BOSS_CHANNEL)
+        self.animation_list.play("hurt")
 
         if self.health <= self.world.level and self.health != 0:
             self.enemyGroup.add(yurei.Yurei(self.groupList))
@@ -483,10 +483,10 @@ class BaakeBoss(actor.Actor):
         self.velocity[1] += .1
         self.world.pauseSpawning = 1 * FRAMES_PER_SECOND
 
-        if settingList[PARTICLES] and not self.stunned % 2:
+        if settings_list[PARTICLES] and not self.stunned % 2:
             puffsToCreate = 4
             
-            while puffsToCreate and settingList[PARTICLES]:
+            while puffsToCreate and settings_list[PARTICLES]:
                 puffsToCreate -= 1
                 tempPuff = particle.smokeParticle(self.position,
                                                          [1,0])
@@ -495,7 +495,7 @@ class BaakeBoss(actor.Actor):
 
 
 
-    def customBounds(self):
+    def custom_bounds(self):
         if self.health <= 0:
             self.kill()
             self.eye.kill()
@@ -504,33 +504,33 @@ class BaakeBoss(actor.Actor):
 
 
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
             if not self.stunned:
-                self.objectCollidedWith.hurt(1)
+                self.object_collided_with.hurt(1)
             
-            if self.objectCollidedWith.position.x < self.position.x - 64:
-                self.objectCollidedWith.position = vector.vector2d(self.position.x - 112,
-                                                                     self.objectCollidedWith.position.y)
-                if self.objectCollidedWith.velocity:
-                    self.objectCollidedWith.velocity *= [-1.0, 1.0]
+            if self.object_collided_with.position.x < self.position.x - 64:
+                self.object_collided_with.position = vector.Vector2d(self.position.x - 112,
+                                                                     self.object_collided_with.position.y)
+                if self.object_collided_with.velocity:
+                    self.object_collided_with.velocity *= [-1.0, 1.0]
                        
-            elif self.objectCollidedWith.position.x > self.position.x + 64:
-                self.objectCollidedWith.position = vector.vector2d(self.position.x + 112,
-                                                                     self.objectCollidedWith.position.y)
-                if self.objectCollidedWith.velocity:
-                    self.objectCollidedWith.velocity *= [-1.0, 1.0]
+            elif self.object_collided_with.position.x > self.position.x + 64:
+                self.object_collided_with.position = vector.Vector2d(self.position.x + 112,
+                                                                     self.object_collided_with.position.y)
+                if self.object_collided_with.velocity:
+                    self.object_collided_with.velocity *= [-1.0, 1.0]
                     
-            if self.objectCollidedWith.position.y < self.position.y - 64:
-                self.objectCollidedWith.position = vector.vector2d(self.objectCollidedWith.position.x,
+            if self.object_collided_with.position.y < self.position.y - 64:
+                self.object_collided_with.position = vector.Vector2d(self.object_collided_with.position.x,
                                                                      self.position.y - 138)
-                if self.objectCollidedWith.velocity:
-                    self.objectCollidedWith.velocity *= [1.0, -1.0]
+                if self.object_collided_with.velocity:
+                    self.object_collided_with.velocity *= [1.0, -1.0]
                     
-            elif self.objectCollidedWith.position.y > self.position.y + 64:
-                self.objectCollidedWith.position = vector.vector2d(self.objectCollidedWith.position.x,
+            elif self.object_collided_with.position.y > self.position.y + 64:
+                self.object_collided_with.position = vector.Vector2d(self.object_collided_with.position.x,
                                                                      self.position.y + 170)
-                if self.objectCollidedWith.velocity:
-                    self.objectCollidedWith.velocity *= [1.0, -1.0]
+                if self.object_collided_with.velocity:
+                    self.object_collided_with.velocity *= [1.0, -1.0]
 
 
 ####################################################
@@ -547,20 +547,20 @@ class BossTut(actor.Actor):
         actor.Actor.__init__(self)
         self.actorType = ACTOR_TYPE_BOSS      
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_REFLECT
+        self.bound_style = BOUND_STYLE_REFLECT
         self.bounds = [0,0,SCREEN_WIDTH,SCREEN_HEIGHT]
                 
         self.canCollide = True
         self.hitrect = pygame.Rect(0,0,106,130)
         
-        self.position = vector.vector2d(-32, SCREEN_HEIGHT / 2)
-        self.velocity = vector.vector2d.zero
+        self.position = vector.Vector2d(-32, SCREEN_HEIGHT / 2)
+        self.velocity = vector.Vector2d.zero
         
         """   UNIQUE VARIABLES   """
         self.target = target
@@ -588,17 +588,17 @@ class BossTut(actor.Actor):
 
         self.changeDirection = 0
 
-        self.emitter = particle.particleEmitter(vector.vector2d.zero, vector.vector2d(60.0,5.0),
-                                self.effectsGroup,
-                                ["rain"],
-                                270.0,45.0,
-                                0.0,0.0,
-                                3.0,2.0,
-                                -1.0)
+        self.emitter = particle.particleEmitter(vector.Vector2d.zero, vector.Vector2d(60.0, 5.0),
+                                                self.effectsGroup,
+                                                ["rain"],
+                                                270.0, 45.0,
+                                                0.0, 0.0,
+                                                3.0, 2.0,
+                                                -1.0)
         
-        self.emitter.mountTo(self, vector.vector2d(0.0,50.0))
+        self.emitter.mountTo(self, vector.Vector2d(0.0, 50.0))
 
-    def actorUpdate(self):
+    def actor_update(self):
         if not self.stunned:
             try:
                 self.emitter.update()
@@ -606,7 +606,7 @@ class BossTut(actor.Actor):
                 pass
             
             
-        utility.playMusic(self.music, True)
+        utility.play_music(self.music, True)
         if not self.active and self.health > 0:
             self.active = True
 
@@ -615,7 +615,7 @@ class BossTut(actor.Actor):
                 tempImage = self.howToKill
                 
                 helpBubble = infoBubble.infoBubble(tempImage, self.target,5 * FRAMES_PER_SECOND)
-                helpBubble.offSet = vector.vector2d(0.0, -100.0)
+                helpBubble.offset = vector.Vector2d(0.0, -100.0)
                 self.textGroup.add(helpBubble)
             self.lifeTimer += 1
 
@@ -626,7 +626,7 @@ class BossTut(actor.Actor):
                 if not self.stunned % 4:
                     puffsToCreate = 4
                     
-                    while puffsToCreate and settingList[PARTICLES]:
+                    while puffsToCreate and settings_list[PARTICLES]:
                         puffsToCreate -= 1
                         tempPuff = particle.smokeParticle(self.position,
                                                                  [1,0])
@@ -634,7 +634,7 @@ class BossTut(actor.Actor):
                         self.effectsGroup.add(tempPuff)
 
                 if not self.stunned:
-                    self.animationList.play("idle")
+                    self.animation_list.play("idle")
 
             else:
                 self.currentSequence = 0
@@ -650,23 +650,23 @@ class BossTut(actor.Actor):
 
 
     def bulletCollide(self, bullet):
-        utility.playSound(self.bulletSound,BAAKE_CHANNEL)
+        utility.play_sound(self.bulletSound, BAAKE_CHANNEL)
 
         if bullet.collideStyle == COLLIDE_STYLE_HURT:
             bullet.die()
         
         elif bullet.collideStyle == COLLIDE_STYLE_REFLECT:
             if bullet.position.x < self.position.x - 64:
-                bullet.position = vector.vector2d(self.position.x - 112,bullet.position.y)
+                bullet.position = vector.Vector2d(self.position.x - 112, bullet.position.y)
                 bullet.velocity *= [-1.0, 1.0]
             elif bullet.position.x > self.position.x + 64:
-                bullet.position = vector.vector2d(self.position.x + 112,bullet.position.y)
+                bullet.position = vector.Vector2d(self.position.x + 112, bullet.position.y)
                 bullet.velocity *= [-1.0, 1.0]
             if bullet.position.y < self.position.y - 64:
-                bullet.position = vector.vector2d(bullet.position.x, self.position.y - 14)
+                bullet.position = vector.Vector2d(bullet.position.x, self.position.y - 14)
                 bullet.velocity *= [1.0, -1.0]
             elif bullet.position.y > self.position.y + 64:
-                bullet.position = vector.vector2d(bullet.position.x, self.position.y + 140)
+                bullet.position = vector.Vector2d(bullet.position.x, self.position.y + 140)
                 bullet.velocity *= [1.0, -1.0]
 
         elif bullet.collideStyle == COLLIDE_STYLE_NOVA:
@@ -677,8 +677,8 @@ class BossTut(actor.Actor):
 
     def hurt(self,damage):
         self.health -= damage
-        self.animationList.play("hurt")
-        utility.playSound(self.hurtSound,BOSS_CHANNEL)
+        self.animation_list.play("hurt")
+        utility.play_sound(self.hurtSound, BOSS_CHANNEL)
 
         if self.health <= 0:
             for actor in self.enemyGroup:
@@ -687,14 +687,14 @@ class BossTut(actor.Actor):
     def processAI(self):
         if self.health <= self.world.level:
             if self.spinning:
-                self.boundStyle = BOUND_STYLE_NONE
+                self.bound_style = BOUND_STYLE_NONE
                 self.speed += 0.15
 
                 if self.speed > 25:
                     self.spinning = False
                     self.speed = 5
                     self.timeUntilSpin = 8 * FRAMES_PER_SECOND
-                    self.boundStyle = BOUND_STYLE_REFLECT
+                    self.bound_style = BOUND_STYLE_REFLECT
             
                 self.velocity += self.velocity.getPerpendicular().makeNormal()
                 self.velocity = self.velocity.makeNormal() * self.speed
@@ -715,7 +715,7 @@ class BossTut(actor.Actor):
 
     def standardBehavior(self):
         if not self.changeDirection:
-            self.targetPoint = vector.vector2d(
+            self.targetPoint = vector.Vector2d(
                                 random.randint(
                                  int(self.target.position[0] - 300),
                                  int(self.target.position[0] + 300)),
@@ -735,15 +735,15 @@ class BossTut(actor.Actor):
             self.world.bossDead = True
 
         self.velocity[1] += .1
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
 
         self.stunned -= 1
         self.world.pauseSpawning = 1 * FRAMES_PER_SECOND
 
-        if settingList[PARTICLES] and not self.stunned % 2:
+        if settings_list[PARTICLES] and not self.stunned % 2:
             puffsToCreate = 4
             
-            while puffsToCreate and settingList[PARTICLES]:
+            while puffsToCreate and settings_list[PARTICLES]:
                 puffsToCreate -= 1
                 tempPuff = particle.smokeParticle(self.position,
                                                          [1,0])
@@ -752,37 +752,37 @@ class BossTut(actor.Actor):
 
 
 
-    def customBounds(self):
+    def custom_bounds(self):
         if self.health <= 0:
             self.kill()
             self = None
 
 
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
             if not self.stunned:
-                self.objectCollidedWith.hurt(1)
+                self.object_collided_with.hurt(1)
             
-            if self.objectCollidedWith.position.x < self.position.x - 64:
-                self.objectCollidedWith.position = vector.vector2d(self.position.x - 112,
-                                                                     self.objectCollidedWith.position.y)
-                if self.objectCollidedWith.velocity:
-                    self.objectCollidedWith.velocity *= [-1.0, 1.0]
+            if self.object_collided_with.position.x < self.position.x - 64:
+                self.object_collided_with.position = vector.Vector2d(self.position.x - 112,
+                                                                     self.object_collided_with.position.y)
+                if self.object_collided_with.velocity:
+                    self.object_collided_with.velocity *= [-1.0, 1.0]
                        
-            elif self.objectCollidedWith.position.x > self.position.x + 64:
-                self.objectCollidedWith.position = vector.vector2d(self.position.x + 112,
-                                                                     self.objectCollidedWith.position.y)
-                if self.objectCollidedWith.velocity:
-                    self.objectCollidedWith.velocity *= [-1.0, 1.0]
+            elif self.object_collided_with.position.x > self.position.x + 64:
+                self.object_collided_with.position = vector.Vector2d(self.position.x + 112,
+                                                                     self.object_collided_with.position.y)
+                if self.object_collided_with.velocity:
+                    self.object_collided_with.velocity *= [-1.0, 1.0]
                     
-            if self.objectCollidedWith.position.y < self.position.y - 64:
-                self.objectCollidedWith.position = vector.vector2d(self.objectCollidedWith.position.x,
+            if self.object_collided_with.position.y < self.position.y - 64:
+                self.object_collided_with.position = vector.Vector2d(self.object_collided_with.position.x,
                                                                      self.position.y - 138)
-                if self.objectCollidedWith.velocity:
-                    self.objectCollidedWith.velocity *= [1.0, -1.0]
+                if self.object_collided_with.velocity:
+                    self.object_collided_with.velocity *= [1.0, -1.0]
                     
-            elif self.objectCollidedWith.position.y > self.position.y + 64:
-                self.objectCollidedWith.position = vector.vector2d(self.objectCollidedWith.position.x,
+            elif self.object_collided_with.position.y > self.position.y + 64:
+                self.object_collided_with.position = vector.Vector2d(self.object_collided_with.position.x,
                                                                      self.position.y + 170)
-                if self.objectCollidedWith.velocity:
-                    self.objectCollidedWith.velocity *= [1.0, -1.0]
+                if self.object_collided_with.velocity:
+                    self.object_collided_with.velocity *= [1.0, -1.0]

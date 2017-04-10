@@ -1,3 +1,4 @@
+import animation
 import utility
 import pygame
 import actor
@@ -34,12 +35,12 @@ class Gem(actor.Actor):
     def __init__(self):
         actor.Actor.__init__(self)
         self.actorType = ACTOR_TYPE_PICKUP
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-16,-16,SCREEN_WIDTH + 16, SCREEN_HEIGHT + 16]
         self.bonusTime = 0
         self.lifeTimer = 5 * FRAMES_PER_SECOND
 
-    def actorUpdate(self):
+    def actor_update(self):
         if not self.active:
             self.active = True
             
@@ -49,24 +50,24 @@ class Gem(actor.Actor):
         self.lifeTimer -= 1
             
         if self.lifeTimer < 2 * FRAMES_PER_SECOND:
-            self.animationList.play("Blink")
+            self.animation_list.play("Blink")
 
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
-            utility.playSound(self.pickupSound, PICKUP_CHANNEL)
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
+            utility.play_sound(self.pickupSound, PICKUP_CHANNEL)
             self.displayText()
             self.giveBonus()
             self.die()
 
-    def customBounds(self):
+    def custom_bounds(self):
         if self.position.x < 20.0:
-            self.position = vector.vector2d(20.0,self.position.y)
+            self.position = vector.Vector2d(20.0, self.position.y)
         if self.position.y < 20.0:
-            self.position = vector.vector2d(self.position.x, 20.0)   
+            self.position = vector.Vector2d(self.position.x, 20.0)
         if self.position.x > SCREEN_WIDTH - 20.0:
-            self.position = vector.vector2d(SCREEN_WIDTH - 20.0,self.position.y)
+            self.position = vector.Vector2d(SCREEN_WIDTH - 20.0, self.position.y)
         if self.position.y > SCREEN_HEIGHT - 20.0:
-            self.position = vector.vector2d(self.position.x, SCREEN_HEIGHT - 20.0)
+            self.position = vector.Vector2d(self.position.x, SCREEN_HEIGHT - 20.0)
 
     def die(self):
         self.active = False
@@ -78,16 +79,16 @@ class DamageX2(Gem):
     def __init__(self, position, textGroup):
         Gem.__init__(self)
         """   COMMON VARIABLES   """
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()  
         
         self.hitrect = self.rect
         
-        self.position = vector.vector2d(position)
-        self.velocity = vector.vector2d.zero
+        self.position = vector.Vector2d(position)
+        self.velocity = vector.Vector2d.zero
         
         """   UNIQUE VARIABLES   """
         self.textGroup = textGroup
@@ -96,13 +97,13 @@ class DamageX2(Gem):
     def displayText(self):
         tempImage = text.TextSurface(FONT_PATH, 30, FONT_COLOR, "Double Damage!").image
         
-        helpBubble = infoBubble.infoBubble(tempImage, self.objectCollidedWith,1.5 * FRAMES_PER_SECOND)
-        helpBubble.offSet = vector.vector2d(0.0, -100.0)
+        helpBubble = infoBubble.infoBubble(tempImage, self.object_collided_with, 1.5 * FRAMES_PER_SECOND)
+        helpBubble.offset = vector.Vector2d(0.0, -100.0)
         self.textGroup.add(helpBubble)
 
     def giveBonus(self):
-        self.objectCollidedWith.damageBonus += 4 * FRAMES_PER_SECOND
-        self.objectCollidedWith.bulletDamage = 2
+        self.object_collided_with.damageBonus += 4 * FRAMES_PER_SECOND
+        self.object_collided_with.bulletDamage = 2
 
 class Nova(Gem):
     MasterAnimationList = animation.Animation()
@@ -110,15 +111,15 @@ class Nova(Gem):
 
         """   COMMON VARIABLES   """
         Gem.__init__(self)
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         self.hitrect = self.rect
 
-        self.position = vector.vector2d(position)
-        self.velocity = vector.vector2d.zero
+        self.position = vector.Vector2d(position)
+        self.velocity = vector.Vector2d.zero
         
         """   UNIQUE VARIABLES   """
         self.textGroup = textGroup
@@ -128,8 +129,8 @@ class Nova(Gem):
     def displayText(self):
         tempImage = text.TextSurface(FONT_PATH, 30, FONT_COLOR, "Nova!").image
         
-        helpBubble = infoBubble.infoBubble(tempImage, self.objectCollidedWith,1.5 * FRAMES_PER_SECOND)
-        helpBubble.offSet = vector.vector2d(0.0, -100.0)
+        helpBubble = infoBubble.infoBubble(tempImage, self.object_collided_with, 1.5 * FRAMES_PER_SECOND)
+        helpBubble.offset = vector.Vector2d(0.0, -100.0)
         self.textGroup.add(helpBubble)
 
 
@@ -146,14 +147,14 @@ class Nova(Gem):
                                          BOUND_STYLE_KILL, 
                                          COLLIDE_STYLE_NOVA)
             tempBullet.setLifeTimer(13)
-            tempBullet.animationList.play("Nova")
+            tempBullet.animation_list.play("Nova")
             tempBullet.velocity.setAngle(starsToCreate * 24)
             """bullet damage doesn't matter
             since these bullets automatically
             kill whatever they touch"""
 
-            tempBullet.setOwner(self.objectCollidedWith)
-            self.objectCollidedWith.bulletGroup.add(tempBullet)
+            tempBullet.setOwner(self.object_collided_with)
+            self.object_collided_with.bulletGroup.add(tempBullet)
 
 class Reflect(Gem):
     MasterAnimationList = animation.Animation()
@@ -162,15 +163,15 @@ class Reflect(Gem):
         """   COMMON VARIABLES   """
         Gem.__init__(self)
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect() 
         self.hitrect = self.rect
         
-        self.position = vector.vector2d(position)
-        self.velocity = vector.vector2d.zero
+        self.position = vector.Vector2d(position)
+        self.velocity = vector.Vector2d.zero
         
         """   UNIQUE VARIABLES   """
         self.textGroup = textGroup
@@ -180,16 +181,16 @@ class Reflect(Gem):
     def displayText(self):
         tempImage = text.TextSurface(FONT_PATH, 30, FONT_COLOR, "Reflect!").image
         
-        helpBubble = infoBubble.infoBubble(tempImage, self.objectCollidedWith,1.5 * FRAMES_PER_SECOND)
-        helpBubble.offSet = vector.vector2d(0.0, -100.0)
+        helpBubble = infoBubble.infoBubble(tempImage, self.object_collided_with, 1.5 * FRAMES_PER_SECOND)
+        helpBubble.offset = vector.Vector2d(0.0, -100.0)
         self.textGroup.add(helpBubble)
 
 
 
     def giveBonus(self):
-        self.objectCollidedWith.bulletBoundStyle = BOUND_STYLE_REFLECT
-        self.objectCollidedWith.bulletCollideStyle = COLLIDE_STYLE_REFLECT
-        self.objectCollidedWith.reflectBonus += 2.5 * FRAMES_PER_SECOND
+        self.object_collided_with.bulletbound_style = BOUND_STYLE_REFLECT
+        self.object_collided_with.bulletCollideStyle = COLLIDE_STYLE_REFLECT
+        self.object_collided_with.reflectBonus += 2.5 * FRAMES_PER_SECOND
 
 class DualShot(Gem):
     MasterAnimationList = animation.Animation()
@@ -198,15 +199,15 @@ class DualShot(Gem):
         """   COMMON VARIABLES   """
         Gem.__init__(self)
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect() 
         self.hitrect = self.rect
         
-        self.position = vector.vector2d(position)
-        self.velocity = vector.vector2d.zero
+        self.position = vector.Vector2d(position)
+        self.velocity = vector.Vector2d.zero
         
         """   UNIQUE VARIABLES   """
         self.textGroup = textGroup
@@ -216,14 +217,14 @@ class DualShot(Gem):
     def displayText(self):
         tempImage = text.TextSurface(FONT_PATH, 30, FONT_COLOR, "Dual Shot!").image
         
-        helpBubble = infoBubble.infoBubble(tempImage, self.objectCollidedWith,1.5 * FRAMES_PER_SECOND)
-        helpBubble.offSet = vector.vector2d(0.0, -100.0)
+        helpBubble = infoBubble.infoBubble(tempImage, self.object_collided_with, 1.5 * FRAMES_PER_SECOND)
+        helpBubble.offset = vector.Vector2d(0.0, -100.0)
         self.textGroup.add(helpBubble)
 
 
 
     def giveBonus(self):
-        self.objectCollidedWith.duelShot += 3 * FRAMES_PER_SECOND
+        self.object_collided_with.duelShot += 3 * FRAMES_PER_SECOND
 
 class FastShot(Gem):
     MasterAnimationList = animation.Animation()
@@ -232,15 +233,15 @@ class FastShot(Gem):
         """   COMMON VARIABLES   """
         Gem.__init__(self)
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect() 
         self.hitrect = self.rect
         
-        self.position = vector.vector2d(position)
-        self.velocity = vector.vector2d.zero
+        self.position = vector.Vector2d(position)
+        self.velocity = vector.Vector2d.zero
         
         """   UNIQUE VARIABLES   """
         self.textGroup = textGroup
@@ -248,10 +249,10 @@ class FastShot(Gem):
     def displayText(self):
         tempImage = text.TextSurface(FONT_PATH, 30, FONT_COLOR, "Fast Shot!").image
         
-        helpBubble = infoBubble.infoBubble(tempImage, self.objectCollidedWith,1.5 * FRAMES_PER_SECOND)
-        helpBubble.offSet = vector.vector2d(0.0, -100.0)
+        helpBubble = infoBubble.infoBubble(tempImage, self.object_collided_with, 1.5 * FRAMES_PER_SECOND)
+        helpBubble.offset = vector.Vector2d(0.0, -100.0)
         self.textGroup.add(helpBubble)
 
     def giveBonus(self):
-        self.objectCollidedWith.fastShot += 3 * FRAMES_PER_SECOND
-        self.objectCollidedWith.resetFireTimer = 1
+        self.object_collided_with.fastShot += 3 * FRAMES_PER_SECOND
+        self.object_collided_with.resetFireTimer = 1

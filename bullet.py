@@ -1,6 +1,7 @@
 import utility
 import pygame
 import actor
+import animation
 import vector
 import particle
 import random
@@ -20,31 +21,31 @@ class Bullet(actor.Actor):
     MasterAnimationList = animation.Animation()
     def __init__(self, position, velocity, effectsGroup,
                  damage = 1,
-                 defaultBoundStyle = BOUND_STYLE_KILL,
+                 defaultbound_style = BOUND_STYLE_KILL,
                  defaultCollideStyle = COLLIDE_STYLE_HURT):
 
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)
         self.actorType = ACTOR_BULLET        
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
 
         if defaultCollideStyle == COLLIDE_STYLE_NOVA:
-            self.boundStyle = BOUND_STYLE_NONE
+            self.bound_style = BOUND_STYLE_NONE
         else:
-            self.boundStyle = defaultBoundStyle
+            self.bound_style = defaultbound_style
 
         self.bounds = [-32,-32,SCREEN_WIDTH + 32,SCREEN_HEIGHT + 32]
                 
         self.canCollide = False
         self.hitrect = self.rect
         
-        self.position = vector.vector2d(position)
-        self.velocity = vector.vector2d(velocity)
+        self.position = vector.Vector2d(position)
+        self.velocity = vector.Vector2d(velocity)
         
         self.effectsGroup = effectsGroup
         
@@ -58,11 +59,11 @@ class Bullet(actor.Actor):
         self.sequenceList = [[0,1,2,3,4,5],[0]]
 
 
-    def actorUpdate(self):
+    def actor_update(self):
         if self.collideStyle == COLLIDE_STYLE_NOVA:
             self.velocity += self.velocity.getPerpendicular().makeNormal() * 5
         
-        if not self.lifeTimer % 3 and settingList[PARTICLES]:
+        if not self.lifeTimer % 3 and settings_list[PARTICLES]:
             tempParticle = particle.starParticle()
             tempParticle.position = self.position.copy()
             
@@ -77,44 +78,44 @@ class Bullet(actor.Actor):
 
         
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_TYPE_BOSS:
-            self.objectCollidedWith.bulletCollide(self)
+        if self.object_collided_with.actorType == ACTOR_TYPE_BOSS:
+            self.object_collided_with.bulletCollide(self)
 
         elif self.collideStyle == COLLIDE_STYLE_HURT:
-            if self.objectCollidedWith.actorType == ACTOR_TYPE_ENEMY:
-                self.objectCollidedWith.health -= self.damage
+            if self.object_collided_with.actorType == ACTOR_TYPE_ENEMY:
+                self.object_collided_with.health -= self.damage
 
             self.die()
          
         elif self.collideStyle == COLLIDE_STYLE_REFLECT:
-            if self.objectCollidedWith.actorType == ACTOR_TYPE_BAAKE:
-                if self.position.x < self.objectCollidedWith.position.x - 64:
-                    self.position = vector.vector2d(self.objectCollidedWith.position.x - 104,self.position.y)
+            if self.object_collided_with.actorType == ACTOR_TYPE_BAAKE:
+                if self.position.x < self.object_collided_with.position.x - 64:
+                    self.position = vector.Vector2d(self.object_collided_with.position.x - 104, self.position.y)
                     self.velocity *= [-1.0, 1.0]
-                elif self.position.x > self.objectCollidedWith.position.x + 64:
-                    self.position = vector.vector2d(self.objectCollidedWith.position.x + 104,self.position.y)
+                elif self.position.x > self.object_collided_with.position.x + 64:
+                    self.position = vector.Vector2d(self.object_collided_with.position.x + 104, self.position.y)
                     self.velocity *= [-1.0, 1.0]
-                if self.position.y < self.objectCollidedWith.position.y - 32:
-                    self.position = vector.vector2d(self.position.x, self.objectCollidedWith.position.y - 104)
+                if self.position.y < self.object_collided_with.position.y - 32:
+                    self.position = vector.Vector2d(self.position.x, self.object_collided_with.position.y - 104)
                     self.velocity *= [1.0, -1.0]
-                elif self.position.y > self.objectCollidedWith.position.y + 32:
-                    self.position = vector.vector2d(self.position.x, self.objectCollidedWith.position.y + 104)
+                elif self.position.y > self.object_collided_with.position.y + 32:
+                    self.position = vector.Vector2d(self.position.x, self.object_collided_with.position.y + 104)
                     self.velocity *= [1.0, -1.0]
             else:
-                    self.objectCollidedWith.health -= self.damage
+                    self.object_collided_with.health -= self.damage
 
                     self.die()
 
         elif self.collideStyle == COLLIDE_STYLE_NOVA:
-            if self.objectCollidedWith.actorType == ACTOR_TYPE_ENEMY:
-                self.objectCollidedWith.health = 0
+            if self.object_collided_with.actorType == ACTOR_TYPE_ENEMY:
+                self.object_collided_with.health = 0
         
         elif self.collideStyle == COLLIDE_STYLE_NONE:
             pass
         
     def die(self):
-        if self.objectCollidedWith.actorType == ACTOR_TYPE_BAAKE:
-            if settingList[PARTICLES]:
+        if self.object_collided_with.actorType == ACTOR_TYPE_BAAKE:
+            if settings_list[PARTICLES]:
                 starsToCreate = 1
             
                 while starsToCreate:

@@ -4,7 +4,7 @@ import fastmath
 
 from fastmath import *
 
-class vector2d:
+class Vector2d:
     def __init__(self, x_or_sequence, y = None):
         if y == None:
             try:
@@ -58,18 +58,18 @@ class vector2d:
     """Generic Operation Handling"""
     def _o2(self, other, operation):
         try:
-            return vector2d(operation(self.vector[0],other[0]), operation(self.vector[1],other[1]))
+            return Vector2d(operation(self.vector[0], other[0]), operation(self.vector[1], other[1]))
         except TypeError:
-             return vector2d(operation(self.vector[0],other), operation(self.vector[1],other))
+             return Vector2d(operation(self.vector[0], other), operation(self.vector[1], other))
              
     def _r_o2(self, other, operation):
         try:
-            return vector2d(operation(other[0], self.vector[0]), operation(other[1], self.vector[1]))
+            return Vector2d(operation(other[0], self.vector[0]), operation(other[1], self.vector[1]))
         except TypeError:
-            return vector2d(operation(other, self.vector[0]), operation(other, self.vector[1]))  
+            return Vector2d(operation(other, self.vector[0]), operation(other, self.vector[1]))
             
     def _o1(self, operation):
-        return vector2d(operation(self.vector[0]),
+        return Vector2d(operation(self.vector[0]),
                         operation(self.vector[1]))
         
     """Addition"""
@@ -133,21 +133,21 @@ class vector2d:
     """Vector Functions"""
     def getMagnitude(self):
         return math.sqrt(self.vector[0] ** 2 + self.vector[1] **2)
-    
+
     def setMagnitude(self, value):
         self.makeNormal()
         self.vector[0] *= value
         self.vector[1] *= value
         
     magnitude = property(getMagnitude, setMagnitude)
-        
+
     def makeNormal(self):
         magnitude = self.getMagnitude()
         if magnitude != 0:
             self.vector[0] /= magnitude
             self.vector[1] /= magnitude
         
-        return vector2d(self.vector[0], self.vector[1])
+        return Vector2d(self.vector[0], self.vector[1])
             
     def getAngle(self):
         if self.vector[0] == 0 and self.vector == 0:
@@ -166,14 +166,14 @@ class vector2d:
     angle = property(getAngle, setAngle, None, "Gets or Sets the magnitude of a Vector")
     
     def getPerpendicular(self):
-        return vector2d(-self.vector[1], self.vector[0])
+        return Vector2d(-self.vector[1], self.vector[0])
     
     def dot(self, other):
         return self.vector[0] * other[0] + self.vector[1] * other[1]
     
     def copy(self):
-        return vector2d(self.vector[0],self.vector[1])
+        return Vector2d(self.vector[0], self.vector[1])
 
-vector2d.zero = vector2d(0.0,0.0)
-vector2d.up = vector2d(0.0,-1.0)
-vector2d.right = vector2d(1.0,0.0)
+Vector2d.zero = Vector2d(0.0, 0.0)
+Vector2d.up = Vector2d(0.0, -1.0)
+Vector2d.right = Vector2d(1.0, 0.0)

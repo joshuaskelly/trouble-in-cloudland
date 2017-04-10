@@ -20,20 +20,20 @@ class Bokko(actor.Actor):
         actor.Actor.__init__(self)
         self.actorType = ACTOR_TYPE_BAAKE
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")        
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_REFLECT
+        self.bound_style = BOUND_STYLE_REFLECT
         self.bounds = [32,32,(SCREEN_WIDTH - 32),(SCREEN_HEIGHT - 32)]
                 
         self.canCollide = True
         self.hitrect = pygame.Rect(0,0,108,88)
         
-        self.position = vector.vector2d(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-        self.velocity = vector.vector2d(5.0,0.0)
+        self.position = vector.Vector2d(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+        self.velocity = vector.Vector2d(5.0, 0.0)
         
         """   UNIQUE VARIABLES   """
         self.speed = 5.0
@@ -47,11 +47,11 @@ class Bokko(actor.Actor):
         aitools.spawnOnScreen(self)
     
     
-    def actorUpdate(self):
+    def actor_update(self):
         if not self.leaveScreen:
             self.processAI()
         else:
-            self.boundStyle = BOUND_STYLE_KILL
+            self.bound_style = BOUND_STYLE_KILL
 
         if not self.active:
             self.active = True
@@ -83,30 +83,30 @@ class Bokko(actor.Actor):
     
     
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_BULLET:
-            utility.playSound(Bokko.bulletSound,BAAKE_CHANNEL)
+        if self.object_collided_with.actorType == ACTOR_BULLET:
+            utility.play_sound(Bokko.bulletSound, BAAKE_CHANNEL)
 
-        elif self.objectCollidedWith.actorType == ACTOR_PLAYER:
-                if self.objectCollidedWith.position.x < self.position.x - 64:
-                    self.objectCollidedWith.position = vector.vector2d((self.position.x - 94),
-                                                                         self.objectCollidedWith.position.y)
-                    if self.objectCollidedWith.velocity:
-                        self.objectCollidedWith.velocity *= [-1.0, 1.0]
+        elif self.object_collided_with.actorType == ACTOR_PLAYER:
+                if self.object_collided_with.position.x < self.position.x - 64:
+                    self.object_collided_with.position = vector.Vector2d((self.position.x - 94),
+                                                                         self.object_collided_with.position.y)
+                    if self.object_collided_with.velocity:
+                        self.object_collided_with.velocity *= [-1.0, 1.0]
                            
-                elif self.objectCollidedWith.position.x > self.position.x + 64:
-                    self.objectCollidedWith.position = vector.vector2d((self.position.x + 94),
-                                                                         self.objectCollidedWith.position.y)
-                    if self.objectCollidedWith.velocity:
-                        self.objectCollidedWith.velocity *= [-1.0, 1.0]
+                elif self.object_collided_with.position.x > self.position.x + 64:
+                    self.object_collided_with.position = vector.Vector2d((self.position.x + 94),
+                                                                         self.object_collided_with.position.y)
+                    if self.object_collided_with.velocity:
+                        self.object_collided_with.velocity *= [-1.0, 1.0]
                         
-                if self.objectCollidedWith.position.y < self.position.y - 32:
-                    self.objectCollidedWith.position = vector.vector2d(self.objectCollidedWith.position.x,
+                if self.object_collided_with.position.y < self.position.y - 32:
+                    self.object_collided_with.position = vector.Vector2d(self.object_collided_with.position.x,
                                                                          self.position.y - 76)
-                    if self.objectCollidedWith.velocity:
-                        self.objectCollidedWith.velocity *= [1.0, -1.0]
+                    if self.object_collided_with.velocity:
+                        self.object_collided_with.velocity *= [1.0, -1.0]
                         
-                elif self.objectCollidedWith.position.y > self.position.y + 32:
-                    self.objectCollidedWith.position = vector.vector2d(self.objectCollidedWith.position.x,
+                elif self.object_collided_with.position.y > self.position.y + 32:
+                    self.object_collided_with.position = vector.Vector2d(self.object_collided_with.position.x,
                                                                          self.position.y + 108)
-                    if self.objectCollidedWith.velocity:
-                        self.objectCollidedWith.velocity *= [1.0, -1.0]
+                    if self.object_collided_with.velocity:
+                        self.object_collided_with.velocity *= [1.0, -1.0]

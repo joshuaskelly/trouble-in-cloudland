@@ -1,86 +1,69 @@
 import pygame
 import utility
 
+
 class Animation:
     def __init__(self):
-        self.sequenceDict = {}
-        self.currentSequence = 0
-
-        self.frameDict = {}
-        self.currentFrame = 0
-
-        self.isPlaying = True
-        
+        self.sequence_dict = {}
+        self.current_sequence = 0
+        self.frame_dict = {}
+        self.current_frame = 0
+        self.is_playing = True
         self.image = None
-        
         self.parent = None
-        
-        
-        
+
     def __repr__(self):
-        return '<Animation(' + str(len(self.sequenceDict)) + ' Sequences): ' + str(self.sequenceDict.keys()) + '>'
-    
-    
-    
+        return '<Animation(' + str(len(self.sequence_dict)) + ' Sequences): ' + str(self.sequence_dict.keys()) + '>'
+
     def __len__(self):
-        return len(self.sequenceDict)
-    
-    
-    
-    def setParent(self, parent):
+        return len(self.sequence_dict)
+
+    def set_parent(self, parent):
         self.parent = parent
-        self.parent.image = self.sequenceDict[self.currentSequence][self.currentFrame]
-    
-    
+        self.parent.image = self.sequence_dict[self.current_sequence][self.current_frame]
+
     def update(self):
-        if self.isPlaying:
-            self.currentFrame += 1
+        if self.is_playing:
+            self.current_frame += 1
         
-        
-        if self.currentFrame > (len(self.sequenceDict[self.currentSequence]) - 1):
-            self.currentFrame = 0
+        if self.current_frame > (len(self.sequence_dict[self.current_sequence]) - 1):
+            self.current_frame = 0
             
-        self.image = self.sequenceDict[self.currentSequence][self.currentFrame]
-    
-    
+        self.image = self.sequence_dict[self.current_sequence][self.current_frame]
+
     def play(self, sequenceID, frameID = 0):
-        self.isPlaying = True
-        if self.currentSequence != sequenceID:
-            self.currentSequence = sequenceID
-            self.currentFrame = frameID
-            
-    
-    
+        self.is_playing = True
+        if self.current_sequence != sequenceID:
+            self.current_sequence = sequenceID
+            self.current_frame = frameID
+
     def stop(self, sequenceID = None, frameID = 0):
-        self.isPlaying = False
+        self.is_playing = False
         
         if sequenceID:
-            self.currentSequence = sequenceID
+            self.current_sequence = sequenceID
            
         if frameID:
-            self.currentFrame = frameID
-        
-        
-    
-    
+            self.current_frame = frameID
+
     def buildAnimation(self, sequenceID, frames):
-        self.sequenceDict[sequenceID] = []
-        if not self.currentSequence:
-            self.currentSequence = sequenceID
+        self.sequence_dict[sequenceID] = []
+        if not self.current_sequence:
+            self.current_sequence = sequenceID
         try:
             for frame in frames:
                 try:
-                    self.sequenceDict[sequenceID].append(self.frameDict[frame])
+                    self.sequence_dict[sequenceID].append(self.frame_dict[frame])
                     
                 except:
-                    self.frameDict[frame] = (utility.loadImage(frame))
-                    self.sequenceDict[sequenceID].append(self.frameDict[frame])
+                    self.frame_dict[frame] = (utility.loadImage(frame))
+                    self.sequence_dict[sequenceID].append(self.frame_dict[frame])
         except:
             try:
-                self.sequenceDict[sequenceID].append(self.frameDict[frames])
+                self.sequence_dict[sequenceID].append(self.frame_dict[frames])
             except:
-                self.frameDict[frames] = (utility.loadImage(frames))
-                self.sequenceDict[sequenceID].append(self.frameDict[frames])
+                self.frame_dict[frames] = (utility.loadImage(frames))
+                self.sequence_dict[sequenceID].append(self.frame_dict[frames])
                 
-        self.image = self.sequenceDict[self.currentSequence][self.currentFrame]
+        self.image = self.sequence_dict[self.current_sequence][self.current_frame]
         

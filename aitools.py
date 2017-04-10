@@ -13,26 +13,26 @@ def pointOffScreen(distance = 32):
     screenSide = int(random.random() * 3 + 1) - 1
 
     if screenSide == LEFT:
-        point = vector.vector2d(-distance,random.random() * SCREEN_HEIGHT)
+        point = vector.Vector2d(-distance, random.random() * SCREEN_HEIGHT)
     elif screenSide == TOP:
-        point = vector.vector2d(random.random() * SCREEN_WIDTH,-distance)
+        point = vector.Vector2d(random.random() * SCREEN_WIDTH, -distance)
     elif screenSide == RIGHT:
-        point = vector.vector2d(SCREEN_WIDTH + distance,random.random() * SCREEN_HEIGHT)
+        point = vector.Vector2d(SCREEN_WIDTH + distance, random.random() * SCREEN_HEIGHT)
     elif screenSide == BOTTOM:
-        point = vector.vector2d(random.random() * SCREEN_WIDTH, SCREEN_HEIGHT + distance)
+        point = vector.Vector2d(random.random() * SCREEN_WIDTH, SCREEN_HEIGHT + distance)
 
     return point
 
 """Spawning Funcitons"""
 def spawnAtPoint(object, point):
-    object.position = vector.vector2d(point)
+    object.position = vector.Vector2d(point)
 
 def spawnAwayFromTarget(object, target, distance = 256):
 
     check = False
     
     while not check:
-        object.position = vector.vector2d((random.random() * object.bounds[RIGHT]),
+        object.position = vector.Vector2d((random.random() * object.bounds[RIGHT]),
                                           (random.random() * object.bounds[BOTTOM]))
         check = True
 
@@ -44,7 +44,7 @@ def spawnAwayFromTarget(object, target, distance = 256):
 
 def spawnOnScreen(object):
     
-    object.position = vector.vector2d(((random.random() * (object.bounds[RIGHT] - object.bounds[LEFT])) + object.bounds[LEFT]),
+    object.position = vector.Vector2d(((random.random() * (object.bounds[RIGHT] - object.bounds[LEFT])) + object.bounds[LEFT]),
                                       ((random.random() * (object.bounds[BOTTOM]- object.bounds[TOP])) + object.bounds[TOP]))
 
 
@@ -54,16 +54,16 @@ def spawnOffScreen(object, distance = 32):
     screenSide = int(random.random() * 3 + 1) - 1
 
     if screenSide == LEFT:
-        object.position = vector.vector2d(-distance,random.random() * SCREEN_HEIGHT)
+        object.position = vector.Vector2d(-distance, random.random() * SCREEN_HEIGHT)
 
     elif screenSide == TOP:
-        object.position = vector.vector2d(random.random() * SCREEN_WIDTH,-distance)
+        object.position = vector.Vector2d(random.random() * SCREEN_WIDTH, -distance)
 
     elif screenSide == RIGHT:
-        object.position = vector.vector2d(SCREEN_WIDTH + distance,random.random() * SCREEN_HEIGHT)
+        object.position = vector.Vector2d(SCREEN_WIDTH + distance, random.random() * SCREEN_HEIGHT)
 
     elif screenSide == BOTTOM:
-        object.position = vector.vector2d(random.random() * SCREEN_WIDTH, SCREEN_HEIGHT + distance)
+        object.position = vector.Vector2d(random.random() * SCREEN_WIDTH, SCREEN_HEIGHT + distance)
 
 
 
@@ -113,21 +113,21 @@ def arcToPoint(object, targetPoint, degree = 1):
     goalBearing *= degree
 
     object.velocity += goalBearing
-    
+
     object.velocity.setMagnitude(object.speed)
 
 
 def cardinalDirection(object):
     if (int(random.random() * 2 + 1) - 1):
         if (int(random.random() * 2 + 1) - 1):
-            object.velocity = vector.vector2d(object.speed,0.0)
+            object.velocity = vector.Vector2d(object.speed, 0.0)
         else:
-            object.velocity = vector.vector2d(-object.speed, 0.0)
+            object.velocity = vector.Vector2d(-object.speed, 0.0)
     else:
         if (int(random.random() * 2 + 1) - 1):
-            object.velocity = vector.vector2d(0.0, object.speed)
+            object.velocity = vector.Vector2d(0.0, object.speed)
         else:
-            object.velocity = vector.vector2d(0.0, -object.speed)
+            object.velocity = vector.Vector2d(0.0, -object.speed)
 
 
 

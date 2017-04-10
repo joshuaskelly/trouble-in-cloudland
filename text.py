@@ -19,7 +19,7 @@ class Text(pygame.sprite.Sprite):
         self.lifeTimer = lifeTimer
         self.alignment = TOP_LEFT
         self.buildImage()
-        self.position = vector.vector2d(0,0)
+        self.position = vector.Vector2d(0, 0)
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -58,49 +58,34 @@ class Text(pygame.sprite.Sprite):
         elif self.alignment == BOTTOM_RIGHT:
             self.rect.bottomright = (self.position.x, self.position.y)
 
-
-
     def setFont(self, fontSize, color, fontType):
         self.color = color
         self.fontType = fontType
         self.fontSize = fontSize
         self.buildImage()
 
-
-        
-    def setText(self, text):
+    def set_text(self, text):
         self.text = text
         self.buildImage()
     
-    
     def getText(self):
         return self.text
-    
-    
-    
+
     def setColor(self, (rValue, gValue, bValue)):
         self.color = rValue, gValue, bValue
-    
-    
     
     def getColor(self):
         return self.color
         
-    
-    
     def getPosition(self):
         """This method returns the sprite's position"""
         return [self.position.x, self.position.y]
-    
-    
-    
+
     def setPosition(self, (setX, setY)):
         """This method sets the sprite's position"""
         self.position.x = setX
         self.position.y = setY
-        
-        
-        
+
     def mouseOver(self):
         mousePosition = list(pygame.mouse.get_pos())
         if ( mousePosition[0] > self.rect.left ) and ( mousePosition[0] < self.rect.right ) and ( mousePosition[1] > self.rect.top ) and ( mousePosition[1] < self.rect.bottom ):
@@ -112,17 +97,15 @@ class Text(pygame.sprite.Sprite):
         print "Mouse Position: ", list(pygame.mouse.get_pos())
         print "[Rect Dimensions: ", "<LEFT: ", self.rect.left, ">", "<RIGHT: ", self.rect.right, ">", "<TOP: ", self.rect.top, ">", "<BOTTOM: ", self.rect.bottom, ">]"
 
-
-
     def setTimer(self, lifeTimer):
         self.lifeTimer = lifeTimer
     
-    def setAlign(self, alignment):
+    def set_alignment(self, alignment):
         self.alignment = alignment
 
     def copy(self):
         newObject = Text(self.fontType,self.fontSize,self.color,self.text,self.lifeTimer)
-        newObject.setAlign(self.alignment)
+        newObject.set_alignment(self.alignment)
         
         return newObject
 

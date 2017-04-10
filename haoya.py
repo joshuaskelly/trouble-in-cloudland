@@ -27,20 +27,20 @@ class Haoya(enemy.Enemy):
         
        self.actorType = ACTOR_TYPE_ENEMY    
        
-       self.animationList = copy.copy(self.MasterAnimationList)
-       self.animationList.setParent(self)
-       self.animationList.play("Idle")  
+       self.animation_list = copy.copy(self.MasterAnimationList)
+       self.animation_list.set_parent(self)
+       self.animation_list.play("Idle")
         
        self.rect = self.image.get_rect()
     
-       self.boundStyle = BOUND_STYLE_CUSTOM
+       self.bound_style = BOUND_STYLE_CUSTOM
        self.bounds = [32,32,(SCREEN_WIDTH - 32),(SCREEN_HEIGHT - 32)]        
     
        self.canCollide = True 
        self.hitrect = pygame.Rect(0,0,54,58)
-       self.hitrectOffsetY = 6
+       self.hitrect_offset_y = 6
 
-       self.velocity = vector.vector2d.zero
+       self.velocity = vector.Vector2d.zero
 
        """   UNIQUE VARIABLES   """
        self.speed = 2
@@ -52,13 +52,13 @@ class Haoya(enemy.Enemy):
        self.bossFight = False
        self.dropItem = False
        
-       self.deathEmitter = particle.particleEmitter(vector.vector2d.zero,
-                        self.effectsGroup,
-                        ["puff"],
-                        0.0,360.0,
-                        5.0,0.0,
-                        1.0,4.0,
-                        -1.0)
+       self.deathEmitter = particle.particleEmitter(vector.Vector2d.zero,
+                                                    self.effectsGroup,
+                                                    ["puff"],
+                                                    0.0, 360.0,
+                                                    5.0, 0.0,
+                                                    1.0, 4.0,
+                                                    -1.0)
        
        self.deathEmitter.mountTo(self)
 
@@ -88,7 +88,7 @@ class Haoya(enemy.Enemy):
 
 
 
-    def actorUpdate(self):
+    def actor_update(self):
         self.lifeTimer -= 1
         
         if not self.lifeTimer:
@@ -107,11 +107,11 @@ class Haoya(enemy.Enemy):
 
 
 
-    def customBounds(self):
+    def custom_bounds(self):
         if self.leaveScreen:
             self.kill()
 
     
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
-            self.objectCollidedWith.hurt(1)
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
+            self.object_collided_with.hurt(1)

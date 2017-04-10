@@ -27,20 +27,20 @@ class Batto(enemy.Enemy):
         enemy.Enemy.__init__(self)
         self.actorType = ACTOR_TYPE_ENEMY
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM    
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-32,-32,(SCREEN_WIDTH + 32),(SCREEN_HEIGHT + 32)]        
         
         self.canCollide = True        
         self.hitrect = pygame.Rect(0,0,80,66)
 
-        self.position = vector.vector2d.zero
-        self.velocity = vector.vector2d.zero
+        self.position = vector.Vector2d.zero
+        self.velocity = vector.Vector2d.zero
 
         """   UNIQUE VARIABLES   """
         self.speed = 10
@@ -66,7 +66,7 @@ class Batto(enemy.Enemy):
             aitools.spawnAtPoint(self, Batto.lastSpawn)
 
 
-    def actorUpdate(self):
+    def actor_update(self):
         if self.active:
             if self.health <= 0:
                 self.die()
@@ -86,19 +86,19 @@ class Batto(enemy.Enemy):
         if self.leader.dead == True:
             pass
         elif self.leader.active and self.leader != self:
-            tempVelocity = vector.vector2d(self.leader.velocity[0], self.leader.velocity[1])
-            targetPoint = self.leader.position - (tempVelocity.makeNormal()) * vector.vector2d(150,150)
+            tempVelocity = vector.Vector2d(self.leader.velocity[0], self.leader.velocity[1])
+            targetPoint = self.leader.position - (tempVelocity.makeNormal()) * vector.Vector2d(150, 150)
             aitools.goToPoint(self, targetPoint)
         else:
             if not self.changeDirection:
-                self.target = vector.vector2d((random.random() * (SCREEN_WIDTH + 200)) - 100, (random.random() * (SCREEN_HEIGHT + 200)) - 100)
+                self.target = vector.Vector2d((random.random() * (SCREEN_WIDTH + 200)) - 100, (random.random() * (SCREEN_HEIGHT + 200)) - 100)
                 self.changeDirection = 30
             self.changeDirection -= 1
             aitools.arcToPoint(self, self.target)
 
     
 
-    def customBounds(self):
+    def custom_bounds(self):
         if self.onScreen > FRAMES_PER_SECOND:
             self.active = False
             self.dead = True
@@ -111,5 +111,5 @@ class Batto(enemy.Enemy):
 
     
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
-            self.objectCollidedWith.hurt(1)
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
+            self.object_collided_with.hurt(1)

@@ -29,29 +29,29 @@ class Cloud(actor.Actor):
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)     
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-512,256,SCREEN_WIDTH + 512,SCREEN_HEIGHT + 256]
                 
         self.canCollide = False
         
-        self.position = vector.vector2d.zero
+        self.position = vector.Vector2d.zero
         self.spawn()
-        self.velocity = vector.vector2d(random.random() * 1.0 + 2.5,0.0)
+        self.velocity = vector.Vector2d(random.random() * 1.0 + 2.5, 0.0)
 
 
-    def actorUpdate(self):
+    def actor_update(self):
         pass
     
     def spawn(self):
-        self.position = vector.vector2d(random.random() * (self.bounds[LEFT] - (SCREEN_WIDTH + 256)),((random.random() * (self.bounds[BOTTOM]- self.bounds[TOP])) + self.bounds[TOP]))
+        self.position = vector.Vector2d(random.random() * (self.bounds[LEFT] - (SCREEN_WIDTH + 256)), ((random.random() * (self.bounds[BOTTOM] - self.bounds[TOP])) + self.bounds[TOP]))
         
-    def customBounds(self):
+    def custom_bounds(self):
         self.spawn()
         
 
@@ -63,32 +63,32 @@ class CloudSmall(actor.Actor):
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)     
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-256,256,SCREEN_WIDTH + 256,SCREEN_HEIGHT + 128]
                 
         self.canCollide = False
         
-        self.position = vector.vector2d.zero
+        self.position = vector.Vector2d.zero
         self.spawn()
-        self.velocity = vector.vector2d(random.random() * 0.5 + 1.5,0.0)
+        self.velocity = vector.Vector2d(random.random() * 0.5 + 1.5, 0.0)
         
         """   UNIQUE VARIABLES   """
         self.speed = random.random() * 2.0
         self.changeDirection = 0
 
-    def actorUpdate(self):
+    def actor_update(self):
         pass
     
     def spawn(self):
-        self.position = vector.vector2d(random.random() * (self.bounds[LEFT] - (SCREEN_WIDTH + 256)),((random.random() * (self.bounds[BOTTOM]- self.bounds[TOP])) + self.bounds[TOP]))
+        self.position = vector.Vector2d(random.random() * (self.bounds[LEFT] - (SCREEN_WIDTH + 256)), ((random.random() * (self.bounds[BOTTOM] - self.bounds[TOP])) + self.bounds[TOP]))
         
-    def customBounds(self):
+    def custom_bounds(self):
         self.spawn()
         
         
@@ -100,31 +100,31 @@ class IslandBig(actor.Actor):
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)     
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-512,384,SCREEN_WIDTH + 256,SCREEN_HEIGHT - 64]
                 
         self.canCollide = False
         
-        self.position = vector.vector2d.zero
-        self.velocity = vector.vector2d(random.random() * 0.5 + 1.5,0.0)
+        self.position = vector.Vector2d.zero
+        self.velocity = vector.Vector2d(random.random() * 0.5 + 1.5, 0.0)
         
         """   UNIQUE VARIABLES   """
         self.speed = random.random() * 2.0
         self.changeDirection = 0
 
-    def actorUpdate(self):
+    def actor_update(self):
         pass
     
     def spawn(self):
-        self.position = vector.vector2d((random.random() * self.bounds[LEFT]) - 128,((random.random() * (self.bounds[BOTTOM]- self.bounds[TOP])) + self.bounds[TOP]))
+        self.position = vector.Vector2d((random.random() * self.bounds[LEFT]) - 128, ((random.random() * (self.bounds[BOTTOM] - self.bounds[TOP])) + self.bounds[TOP]))
         
-    def customBounds(self):
+    def custom_bounds(self):
         self.spawn()
         
 
@@ -135,31 +135,31 @@ class IslandSmall(actor.Actor):
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)     
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-256,384,SCREEN_WIDTH + 256,SCREEN_HEIGHT - 128]
                 
         self.canCollide = False
         
-        self.position = vector.vector2d.zero
-        self.velocity = vector.vector2d(random.random() * 0.25 + 0.5,0.0)
+        self.position = vector.Vector2d.zero
+        self.velocity = vector.Vector2d(random.random() * 0.25 + 0.5, 0.0)
         
         """   UNIQUE VARIABLES   """
         self.speed = random.random() * 2.0
         self.changeDirection = 0
 
-    def actorUpdate(self):
+    def actor_update(self):
         pass
     
     def spawn(self):
-        self.position = vector.vector2d((random.random() * self.bounds[LEFT]) - 128,(((random.random() * (self.bounds[BOTTOM]- self.bounds[TOP])) + self.bounds[TOP])))
+        self.position = vector.Vector2d((random.random() * self.bounds[LEFT]) - 128, (((random.random() * (self.bounds[BOTTOM] - self.bounds[TOP])) + self.bounds[TOP])))
         
-    def customBounds(self):
+    def custom_bounds(self):
         self.spawn()
         
 
@@ -171,29 +171,29 @@ class whiteCloud(actor.Actor):
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)     
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-512,512,SCREEN_WIDTH + 512,SCREEN_HEIGHT]
                 
         self.canCollide = False
         
-        self.position = vector.vector2d.zero
+        self.position = vector.Vector2d.zero
         self.spawn()
-        self.velocity = vector.vector2d(random.random() * 1.0 + 2.5,0.0)
+        self.velocity = vector.Vector2d(random.random() * 1.0 + 2.5, 0.0)
 
 
-    def actorUpdate(self):
+    def actor_update(self):
         pass
     
     def spawn(self):
-        self.position = vector.vector2d(random.random() * (self.bounds[LEFT] - (SCREEN_WIDTH + 256)),((random.random() * (self.bounds[BOTTOM]- self.bounds[TOP])) + self.bounds[TOP]))
+        self.position = vector.Vector2d(random.random() * (self.bounds[LEFT] - (SCREEN_WIDTH + 256)), ((random.random() * (self.bounds[BOTTOM] - self.bounds[TOP])) + self.bounds[TOP]))
         
-    def customBounds(self):
+    def custom_bounds(self):
         self.spawn()
         
         
@@ -205,32 +205,32 @@ class whiteCloudSmall(actor.Actor):
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)     
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-256,384,SCREEN_WIDTH + 256,SCREEN_HEIGHT]
                 
         self.canCollide = False
         
-        self.position = vector.vector2d.zero
+        self.position = vector.Vector2d.zero
         self.spawn()
-        self.velocity = vector.vector2d(random.random() * 0.5 + 1.5,0.0)
+        self.velocity = vector.Vector2d(random.random() * 0.5 + 1.5, 0.0)
         
         """   UNIQUE VARIABLES   """
         self.speed = random.random() * 2.0
         self.changeDirection = 0
 
-    def actorUpdate(self):
+    def actor_update(self):
         pass
     
     def spawn(self):
-        self.position = vector.vector2d(random.random() * (self.bounds[LEFT] - (SCREEN_WIDTH + 256)),((random.random() * (self.bounds[BOTTOM]- self.bounds[TOP])) + self.bounds[TOP]))
+        self.position = vector.Vector2d(random.random() * (self.bounds[LEFT] - (SCREEN_WIDTH + 256)), ((random.random() * (self.bounds[BOTTOM] - self.bounds[TOP])) + self.bounds[TOP]))
         
-    def customBounds(self):
+    def custom_bounds(self):
         self.spawn()
         
 class whiteCloudTiny(actor.Actor):
@@ -240,32 +240,32 @@ class whiteCloudTiny(actor.Actor):
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)     
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-256,384,SCREEN_WIDTH + 384,SCREEN_HEIGHT - 128]
                 
         self.canCollide = False
         
-        self.position = vector.vector2d.zero
+        self.position = vector.Vector2d.zero
         self.spawn()
-        self.velocity = vector.vector2d(random.random() * 0.5 + 0.5,0.0)
+        self.velocity = vector.Vector2d(random.random() * 0.5 + 0.5, 0.0)
         
         """   UNIQUE VARIABLES   """
         self.speed = random.random() * 2.0
         self.changeDirection = 0
 
-    def actorUpdate(self):
+    def actor_update(self):
         pass
     
     def spawn(self):
-        self.position = vector.vector2d(random.random() * (self.bounds[LEFT] - (SCREEN_WIDTH + 256)),((random.random() * (self.bounds[BOTTOM]- self.bounds[TOP])) + self.bounds[TOP]))
+        self.position = vector.Vector2d(random.random() * (self.bounds[LEFT] - (SCREEN_WIDTH + 256)), ((random.random() * (self.bounds[BOTTOM] - self.bounds[TOP])) + self.bounds[TOP]))
         
-    def customBounds(self):
+    def custom_bounds(self):
         self.spawn()
         
         
@@ -277,29 +277,29 @@ class treeBig(actor.Actor):
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)     
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-768,384,SCREEN_WIDTH + 256,SCREEN_HEIGHT - 100]
                 
         self.canCollide = False
         
-        self.position = vector.vector2d.zero
+        self.position = vector.Vector2d.zero
         self.spawn()
-        self.velocity = vector.vector2d(2.5,0.0)
+        self.velocity = vector.Vector2d(2.5, 0.0)
 
 
-    def actorUpdate(self):
+    def actor_update(self):
         pass
     
     def spawn(self):
-        self.position = vector.vector2d((random.random() * -384) - 300, ((random.random() * (self.bounds[BOTTOM]- self.bounds[TOP])) + self.bounds[TOP]))
+        self.position = vector.Vector2d((random.random() * -384) - 300, ((random.random() * (self.bounds[BOTTOM] - self.bounds[TOP])) + self.bounds[TOP]))
         
-    def customBounds(self):
+    def custom_bounds(self):
         #print "<OutOfBounds: " + str(self.position) + ">"
         self.spawn()
         
@@ -312,29 +312,29 @@ class treeSmall(actor.Actor):
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)     
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-768,600,SCREEN_WIDTH + 256,SCREEN_HEIGHT + 64]
                 
         self.canCollide = False
         
-        self.position = vector.vector2d.zero
+        self.position = vector.Vector2d.zero
         self.spawn()
-        self.velocity = vector.vector2d(1.0,0.0)
+        self.velocity = vector.Vector2d(1.0, 0.0)
     
     
-    def actorUpdate(self):
+    def actor_update(self):
         pass
     
     def spawn(self):
-        self.position = vector.vector2d((random.random() * -384) - 300, ((random.random() * (self.bounds[BOTTOM]- self.bounds[TOP])) + self.bounds[TOP]))
+        self.position = vector.Vector2d((random.random() * -384) - 300, ((random.random() * (self.bounds[BOTTOM] - self.bounds[TOP])) + self.bounds[TOP]))
         
-    def customBounds(self):
+    def custom_bounds(self):
         #print "<OutOfBounds: " + str(self.position) + ">"
         self.spawn()
         
@@ -347,31 +347,31 @@ class blueCloud(actor.Actor):
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)     
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         #self.bounds = [-256,-150,SCREEN_WIDTH + 512,SCREEN_HEIGHT + 512]
         self.bounds = [-256,-108,SCREEN_WIDTH + 150,SCREEN_HEIGHT + 256]
                 
         self.canCollide = False
         
-        self.position = vector.vector2d.zero
+        self.position = vector.Vector2d.zero
         self.spawn()
-        self.velocity = vector.vector2d(1.25,-4.0)
+        self.velocity = vector.Vector2d(1.25, -4.0)
 
 
-    def actorUpdate(self):
+    def actor_update(self):
         pass
     
     def spawn(self):
-        self.position = vector.vector2d(((random.random() * (self.bounds[RIGHT] - self.bounds[LEFT])) + self.bounds[LEFT]),
+        self.position = vector.Vector2d(((random.random() * (self.bounds[RIGHT] - self.bounds[LEFT])) + self.bounds[LEFT]),
                                         ((random.random() * 128) + 1024))
         
-    def customBounds(self):
+    def custom_bounds(self):
         self.spawn()
         
         
@@ -383,30 +383,30 @@ class blueCloudSmall(actor.Actor):
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)     
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-256,-128,SCREEN_WIDTH + 128,SCREEN_HEIGHT + 256]
                 
         self.canCollide = False
         
-        self.position = vector.vector2d.zero
+        self.position = vector.Vector2d.zero
         self.spawn()
-        self.velocity = vector.vector2d(.75,-2.5)
+        self.velocity = vector.Vector2d(.75, -2.5)
 
 
-    def actorUpdate(self):
+    def actor_update(self):
         pass
     
     def spawn(self):
-        self.position = vector.vector2d(((random.random() * (self.bounds[RIGHT] - self.bounds[LEFT])) + self.bounds[LEFT]),
+        self.position = vector.Vector2d(((random.random() * (self.bounds[RIGHT] - self.bounds[LEFT])) + self.bounds[LEFT]),
                                         ((random.random() * 128) + 768))
         
-    def customBounds(self):
+    def custom_bounds(self):
         self.spawn()        
         
         
@@ -418,26 +418,26 @@ class smallStar(actor.Actor):
         """   COMMON VARIABLES   """
         actor.Actor.__init__(self)     
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-32,-32,SCREEN_WIDTH,SCREEN_HEIGHT + 64]
                 
         self.canCollide = False
         
-        self.position = vector.vector2d.zero
-        self.velocity = vector.vector2d(0.0,-1.0)
+        self.position = vector.Vector2d.zero
+        self.velocity = vector.Vector2d(0.0, -1.0)
 
 
-    def actorUpdate(self):
+    def actor_update(self):
         pass
     
     def spawn(self):
-        self.position = vector.vector2d(((random.random() * (self.bounds[RIGHT] - self.bounds[LEFT])) + self.bounds[LEFT]),
+        self.position = vector.Vector2d(((random.random() * (self.bounds[RIGHT] - self.bounds[LEFT])) + self.bounds[LEFT]),
                                         ((random.random() * 32.0) + 768))
-    def customBounds(self):
+    def custom_bounds(self):
         self.spawn()

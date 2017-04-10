@@ -2,7 +2,7 @@
 # Think of them as "Global-ish"
 
 """Settings"""
-settingList = []
+settings_list = []
 
 SFX = 0
 MUSIC = 1
@@ -100,7 +100,7 @@ BOTTOM_LEFT = 6
 BOTTOM_MIDDLE = 7
 BOTTOM_RIGHT = 8
 
-"""Menu Enumberations"""
+"""Menu Enumerations"""
 START_GAME = 1
 WORLD_MENU = 2
 OPTION_MENU = 3

@@ -74,10 +74,10 @@ class Credits:
         timer = 5 * FRAMES_PER_SECOND
 
         for credit in creditGroup:
-            credit.setAlign(CENTER_MIDDLE)
+            credit.set_alignment(CENTER_MIDDLE)
 
         while self.rollingCredits:
-            utility.playMusic(self.musicList)
+            utility.play_music(self.musicList)
             for credit in creditGroup:
                 creditPosition = credit.getPosition()
                 credit.setPosition((creditPosition[0],creditPosition[1] + self.scrollRate))

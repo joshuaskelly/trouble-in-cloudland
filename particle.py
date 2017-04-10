@@ -23,71 +23,62 @@ class smokeParticle(actor.Actor):
     def __init__(self, position, velocity):
         actor.Actor.__init__(self)
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
         self.canCollide = False
         
-        self.boundStyle = BOUND_STYLE_KILL
+        self.bound_style = BOUND_STYLE_KILL
         self.bounds = [0,0,SCREEN_WIDTH,SCREEN_HEIGHT]
         
-        self.position = vector.vector2d(position)
-        self.velocity = vector.vector2d(velocity)
+        self.position = vector.Vector2d(position)
+        self.velocity = vector.Vector2d(velocity)
         
         self.lifeTimer = int(.5 * FRAMES_PER_SECOND)
         
         self.speed = 3
         
         self.velocity.setMagnitude(self.speed)
-        
-        
-        
-    def actorUpdate(self):
+
+    def actor_update(self):
         if self.lifeTimer == 0:
             self.die()
             
         self.lifeTimer -= 1
         self.velocity += [0.0,-.75]
 
-
-
 class starParticle(actor.Actor):
     MasterAnimationList = animation.Animation()
     def __init__(self):
         actor.Actor.__init__(self)
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
         self.canCollide = False
         
-        self.boundStyle = BOUND_STYLE_KILL
+        self.bound_style = BOUND_STYLE_KILL
         self.bounds = [0,0,SCREEN_WIDTH,SCREEN_HEIGHT]
         
-        self.position = vector.vector2d.zero
-        self.velocity = vector.vector2d.up
+        self.position = vector.Vector2d.zero
+        self.velocity = vector.Vector2d.up
         
         self.lifeTimer = int(.15 * FRAMES_PER_SECOND)
         
         self.speed = 1
-        
         self.velocity.setMagnitude(self.speed)
         
-        
-        
-    def actorUpdate(self):
+    def actor_update(self):
         if self.lifeTimer == 0:
             self.die()
             
         self.lifeTimer -= 1
-
-
 
 class heartParticle(actor.Actor):
     MasterAnimationList = animation.Animation()
@@ -95,25 +86,25 @@ class heartParticle(actor.Actor):
         actor.Actor.__init__(self)
         
         self.name = "Heart Particle"
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
         self.canCollide = False
         
-        self.boundStyle = BOUND_STYLE_KILL
+        self.bound_style = BOUND_STYLE_KILL
         self.bounds = [0,0,SCREEN_WIDTH,SCREEN_HEIGHT]
         
-        self.position = vector.vector2d.zero
-        self.velocity = vector.vector2d.up
+        self.position = vector.Vector2d.zero
+        self.velocity = vector.Vector2d.up
         
         self.lifeTimer = int(.5 * FRAMES_PER_SECOND)
         
         
         
-    def actorUpdate(self):
+    def actor_update(self):
         if self.lifeTimer == 0:
             self.die()
             
@@ -127,25 +118,25 @@ class rainParticle(actor.Actor):
     def __init__(self):
         actor.Actor.__init__(self)
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
         self.canCollide = False
         
-        self.boundStyle = BOUND_STYLE_KILL
+        self.bound_style = BOUND_STYLE_KILL
         self.bounds = [0,-512,SCREEN_WIDTH,SCREEN_HEIGHT]
         
-        self.position = vector.vector2d.zero
-        self.velocity = vector.vector2d.up
+        self.position = vector.Vector2d.zero
+        self.velocity = vector.Vector2d.up
         
         self.lifeTimer = -1
         
         
         
-    def actorUpdate(self):
+    def actor_update(self):
         if self.lifeTimer == 0:
             self.die()
             
@@ -166,9 +157,9 @@ class particleEmitter:
         self.emissionSpeedJitter = emissionSpeedJitter
         self.emissionRate = emissionRate
         self.emissionCount = emissionCount
-        self.offset = vector.vector2d.zero
+        self.offset = vector.Vector2d.zero
         
-        self.emissionVector = vector.vector2d.up
+        self.emissionVector = vector.Vector2d.up
         
         self.position = position
         self.positionJitter = positionJitter
@@ -181,7 +172,7 @@ class particleEmitter:
     
     def update(self):
         try:
-            if settingList[PARTICLES]:
+            if settings_list[PARTICLES]:
                 if self.lifeTimer:
                     if self.mount:
                         self.position = self.mount.position + self.offset
@@ -222,22 +213,22 @@ class particleEmitter:
         self.effectsGroup.add(tempParticle)
     
     
-    def mountTo(self, object, offset = vector.vector2d.zero):
+    def mountTo(self, object, offset = vector.Vector2d.zero):
         self.mount = object
         self.offset = offset
         
 class deathEmitter:
     def __init__(self, position, particleGroup):
         self.particleGroup = particleGroup
-        self.position = vector.vector2d(position)
+        self.position = vector.Vector2d(position)
     
     
     
     def run(self):
-        if settingList[PARTICLES]:
+        if settings_list[PARTICLES]:
             particlesToCreate = 4
             while particlesToCreate:
-                tempVelocity = vector.vector2d.right
+                tempVelocity = vector.Vector2d.right
                 tempVelocity.setAngle(random.random() * 360)
                 tempVelocity.setMagnitude(5.0)
                 

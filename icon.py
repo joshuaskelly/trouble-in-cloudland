@@ -10,15 +10,15 @@ class Icon(actor.Actor):
     def __init__(self, imageFile):
         actor.Actor.__init__(self)
         
-        self.animationList = animation.Animation()
-        self.animationList.buildAnimation("Idle", [imageFile])
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = animation.Animation()
+        self.animation_list.buildAnimation("Idle", [imageFile])
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.position = vector.vector2d(26,68)
-        self.velocity = vector.vector2d.zero
+        self.position = vector.Vector2d(26, 68)
+        self.velocity = vector.Vector2d.zero
         
         self.bounds = [0,0,SCREEN_WIDTH,SCREEN_HEIGHT]
         

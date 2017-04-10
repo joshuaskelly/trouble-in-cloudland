@@ -79,15 +79,15 @@ class World:
 
     def load(self):
         self.loadLevel()
-        self.player.incrementScoreNoText(0)
+        self.player.increment_score_no_text(0)
     
     
     def loadLevel(self):
         if self.done:
             return
 
-        utility.fadeMusic()
-        utility.playMusic(self.music, True)
+        utility.fade_music()
+        utility.play_music(self.music, True)
         self.stage = 0
         self.pauseSpawning = 3 * FRAMES_PER_SECOND
         self.player.bulletBonus = 0
@@ -99,25 +99,25 @@ class World:
 
         """Display Level text"""
         display_name = text.Text(FONT_PATH, 64, FONT_COLOR, self.worldName, 90)
-        display_name.setAlign(CENTER_MIDDLE)
-        display_name.position = vector.vector2d((SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+        display_name.set_alignment(CENTER_MIDDLE)
+        display_name.position = vector.Vector2d((SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
         self.groupList[TEXT_GROUP].add(display_name)
         
         displayLevel = text.Text(FONT_PATH, 32, FONT_COLOR, "Level " + str(self.level + 1), 90)
-        displayLevel.position = vector.vector2d(( SCREEN_WIDTH / 2, SCREEN_HEIGHT * (2.0 / 3.0) ))
-        displayLevel.setAlign(CENTER_MIDDLE)
+        displayLevel.position = vector.Vector2d((SCREEN_WIDTH / 2, SCREEN_HEIGHT * (2.0 / 3.0)))
+        displayLevel.set_alignment(CENTER_MIDDLE)
         self.groupList[TEXT_GROUP].add(displayLevel)
 
         """Reset all information for the new level"""
         self.enemyList = []
         self.loadStage()
 
-        utility.playSound(self.getReady, OW_CHANNEL)
+        utility.play_sound(self.getReady, OW_CHANNEL)
 
         tempImage = text.TextSurface(FONT_PATH, 36, FONT_COLOR, "Get Ready...").image
         
         helpBubble = infoBubble.infoBubble(tempImage, self.player,2 * FRAMES_PER_SECOND)
-        helpBubble.offSet = vector.vector2d(0.0, -100.0)
+        helpBubble.offset = vector.Vector2d(0.0, -100.0)
         self.effectsGroup.add(helpBubble)
 
     
@@ -143,20 +143,20 @@ class World:
             self.bossFight = False
             self.bonus = 0
             self.bonusText = text.Text(FONT_PATH, 64, FONT_COLOR, "Bonus Points!")
-            self.bonusText.position = vector.vector2d((SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 50))
-            self.bonusText.setAlign(CENTER_MIDDLE)
+            self.bonusText.position = vector.Vector2d((SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 50))
+            self.bonusText.set_alignment(CENTER_MIDDLE)
             self.textGroup.add(self.bonusText)
 
             self.bonusAmount = text.Text(FONT_PATH, 48, FONT_COLOR)
-            self.bonusAmount.position = vector.vector2d((SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50))
-            self.bonusAmount.setAlign(CENTER_MIDDLE)
+            self.bonusAmount.position = vector.Vector2d((SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50))
+            self.bonusAmount.set_alignment(CENTER_MIDDLE)
             self.textGroup.add(self.bonusAmount)
 
         if self.bonus < self.player.lives * 5000 - incrementBonus:
             self.bonus += incrementBonus
-            self.bonusAmount.setText(self.bonus)
+            self.bonusAmount.set_text(self.bonus)
         else:
-            self.bonusAmount.setText(self.player.lives * 5000)
+            self.bonusAmount.set_text(self.player.lives * 5000)
             if self.level < MAX_LEVEL:
                 self.bonusText.setTimer(FRAMES_PER_SECOND)
                 self.bonusAmount.setTimer(FRAMES_PER_SECOND)
@@ -169,22 +169,22 @@ class World:
                 self.level += 1
 
             self.bossFight = False
-            utility.fadeMusic()
-            utility.playMusic(self.music, True)
+            utility.fade_music()
+            utility.play_music(self.music, True)
 
-        utility.playSound(self.bonusTally, BAAKE_CHANNEL)
-        self.player.incrementScoreNoText(incrementBonus)
+        utility.play_sound(self.bonusTally, BAAKE_CHANNEL)
+        self.player.increment_score_no_text(incrementBonus)
         self.pauseSpawning = 1.5 * FRAMES_PER_SECOND
 
 
 
     def bossText(self):
-        utility.fadeMusic()
-        utility.playMusic(self.bossFightMusic, True)
+        utility.fade_music()
+        utility.play_music(self.bossFightMusic, True)
         """Display boss text"""
         displayStage = text.Text(FONT_PATH, 64, FONT_COLOR, "Boss Fight!", 90)
-        displayStage.position = vector.vector2d((SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
-        displayStage.setAlign(CENTER_MIDDLE)
+        displayStage.position = vector.Vector2d((SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+        displayStage.set_alignment(CENTER_MIDDLE)
         self.textGroup.add(displayStage)
 
 
@@ -196,8 +196,8 @@ class World:
         """Display stage text"""
         if self.stage != 0:
             displayStage = text.Text(FONT_PATH, 32, FONT_COLOR, "Stage " + str(self.stage + 1), 90)
-            displayStage.position = vector.vector2d(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-            displayStage.setAlign(CENTER_MIDDLE)
+            displayStage.position = vector.Vector2d(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+            displayStage.set_alignment(CENTER_MIDDLE)
             self.groupList[TEXT_GROUP].add(displayStage)
 
         """Enemies spawned here will appear during a
@@ -229,7 +229,7 @@ class World:
 
     def update(self):
         if not self.bossFight:
-            utility.playMusic(self.music)
+            utility.play_music(self.music)
 
         if self.afterBonusPause >= 1:
             self.afterBonusPause -= 1

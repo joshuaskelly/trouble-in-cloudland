@@ -4,7 +4,7 @@ import pygame
 
 from settings import *
 
-soundActive = True
+sound_active = True
 
 def makeBool(value):
     if value == "True" or value == "True\n" or value == "1" or value == 1 or value == "T" or value == "t":
@@ -12,7 +12,7 @@ def makeBool(value):
     else:
         return False
 
-def readHighScores():
+def read_high_scores():
     scoreList = []
     try:
         scoreFile = open(getPath() + "/score.bzd",'r')
@@ -34,7 +34,7 @@ def readHighScores():
         
         return [0,0,0,0]
 
-def writeHighScores((tutorial,world1,world2,world3)):
+def write_high_scores((tutorial,world1,world2,world3)):
     scoreFile = open(getPath() + "/score.bzd",'w')
     scoreFile.write(str(tutorial) + '\n')
     scoreFile.write(str(world1) + '\n')
@@ -42,7 +42,7 @@ def writeHighScores((tutorial,world1,world2,world3)):
     scoreFile.write(str(world3) + '\n')
     scoreFile.close()
 
-def readSettings():
+def read_settings():
     tempList = []
     try:
         settingsFile = open(getPath() + "/settings.bzd",'r')
@@ -55,7 +55,7 @@ def readSettings():
         settingsFile.close()
         
         for setting in tempList:
-            settingList.append(setting)
+            settings_list.append(setting)
 
     except:
         tempList = []
@@ -63,13 +63,13 @@ def readSettings():
         tempList = [True,True,True,0,1,True]
 
         for setting in tempList:
-            settingList.append(setting)
+            settings_list.append(setting)
 
         writeSettings()
 
 def writeSettings():
     settingsFile = open(getPath() + "/settings.bzd",'w')
-    for element in settingList:
+    for element in settings_list:
         settingsFile.write(str(element) + '\n')
 
 def able(value):
@@ -84,7 +84,7 @@ def on(value):
     else:
         return "Off"    
     
-def getSensitivity(value):
+def get_sensitivity(value):
     if value == .5:
         return "Very Low"
     elif value == .75:
@@ -96,7 +96,7 @@ def getSensitivity(value):
     elif value == 1.5:
         return "Very High"
     
-def getScreenMode(value):
+def get_screen_mode(value):
     if value and not sys.platform.startswith('darwin'):
         return "Fullscreen"
     else:
@@ -141,22 +141,22 @@ def loadSound(name):
     return pygame.mixer.Sound(filepath)
 
 
-def playSound(sound, channelNumber = None):
-    if settingList[SFX] and soundActive:
+def play_sound(sound, channelNumber = None):
+    if settings_list[SFX] and sound_active:
         if channelNumber:
             pygame.mixer.Channel(channelNumber).play(sound)
         else:
             sound.play()
 
-def playMusic(music, forceNext = True):
-    if settingList[MUSIC] and soundActive:
+def play_music(music, forceNext = True):
+    if settings_list[MUSIC] and sound_active:
         if forceNext:
             pygame.mixer.Channel(MUSIC_CHANNEL).queue(music)
         elif not pygame.mixer.Channel(MUSIC_CHANNEL).get_queue():
             pygame.mixer.Channel(MUSIC_CHANNEL).queue(music)
 
-def fadeMusic():
-    if soundActive: pygame.mixer.Channel(MUSIC_CHANNEL).fadeout(2000)
+def fade_music():
+    if sound_active: pygame.mixer.Channel(MUSIC_CHANNEL).fadeout(2000)
 
 def dim(dimValue, colorValue = (0,0,0),):
     dim = pygame.Surface(pygame.display.get_surface().get_size())
@@ -170,7 +170,7 @@ def dimSurface(dimValue, colorValue = (0,0,0),):
     dim.set_alpha(dimValue)
     return dim
 
-def setFullscreen(full=True):
+def set_fullscreen(full=True):
     """Creates a display surface either full screen or windowed."""
     if full and not sys.platform.startswith('darwin'):
         return pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)

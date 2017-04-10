@@ -21,26 +21,26 @@ class infoBubble(actor.Actor):
         self.balloonPointerUp = utility.loadImage("balloonPointerUp")
         self.balloonPointerDirection = "Down"
         self.rect = None
-        self.velocity = vector.vector2d.zero
+        self.velocity = vector.Vector2d.zero
         self.bounds = [0,0,SCREEN_WIDTH,SCREEN_HEIGHT]
-        self.boundStyle = BOUND_STYLE_CUSTOM
-        self.offSet = vector.vector2d.zero
+        self.bound_style = BOUND_STYLE_CUSTOM
+        self.offset = vector.Vector2d.zero
         
         self.lifeTimer = lifeTimer
         
         try:
-            self.position = target.position + self.offSet
+            self.position = target.position + self.offset
             self.mounted = True
         except:#This would cause an error, position isn't defined any where
-            self.position = position + self.offSet
+            self.position = position + self.offset
         
         self.createBubble()
         self.update()
     
-    def actorUpdate(self):
+    def actor_update(self):
         if self.lifeTimer:
             if self.mounted:
-                self.position = self.target.position + self.offSet + vector.vector2d(self.target.hitrectOffsetX,self.target.hitrectOffsetY)
+                self.position = self.target.position + self.offset + vector.Vector2d(self.target.hitrect_offset_x, self.target.hitrect_offset_y)
             
             self.lifeTimer -= 1
             
@@ -50,8 +50,8 @@ class infoBubble(actor.Actor):
         
 
     def setOffSet(self,offSet):
-        self.offSet = offSet
-        self.position += self.offSet
+        self.offset = offSet
+        self.position += self.offset
 
     def createBubble(self):
         whiteBox = pygame.Surface((self.surface.get_width() + 6, self.surface.get_height() + 6))
@@ -76,12 +76,12 @@ class infoBubble(actor.Actor):
         self.image.blit(whiteBox,whiteBoxRect)
         self.image.blit(self.surface,self.surfaceRect)
         
-        if self.offSet.y <= 0 and self.balloonPointerDirection == "Down":
+        if self.offset.y <= 0 and self.balloonPointerDirection == "Down":
             self.balloonPointerRect.top = whiteBoxRect.bottom
             self.image.blit(self.balloonPointerDown,self.balloonPointerRect)
             self.balloonPointerDirection = "Up"
 
-        if self.offSet.y > 0 and self.balloonPointerDirection == "Up":
+        if self.offset.y > 0 and self.balloonPointerDirection == "Up":
             self.balloonPointerRect.bottom = whiteBoxRect.top
             self.image.blit(self.balloonPointerUp,self.balloonPointerRect)
             self.balloonPointerDirection = "Down"
@@ -92,12 +92,12 @@ class infoBubble(actor.Actor):
     def draw(self, screen):
         screen.blit(self.image,self.rect)
         
-    def customBounds(self):
+    def custom_bounds(self):
         if self.position.y < self.bounds[TOP] or self.position.y > self.bounds[BOTTOM]:
-            self.offSet *= -1
+            self.offset *= -1
             self.createBubble()
             
         if self.position.x < self.bounds[LEFT]:
-            self.position = vector.vector2d(self.bounds[LEFT],self.position.y)
+            self.position = vector.Vector2d(self.bounds[LEFT], self.position.y)
         elif self.position.x > self.bounds[RIGHT]:
-            self.position = vector.vector2d(self.bounds[RIGHT],self.position.y)
+            self.position = vector.Vector2d(self.bounds[RIGHT], self.position.y)

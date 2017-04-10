@@ -26,13 +26,13 @@ class Raayu(enemy.Enemy):
         enemy.Enemy.__init__(self)
         self.actorType = ACTOR_TYPE_ENEMY    
         
-        self.animationList = copy.copy(self.MasterAnimationList)
-        self.animationList.setParent(self)
-        self.animationList.play("Idle")
+        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list.set_parent(self)
+        self.animation_list.play("Idle")
         
         self.rect = self.image.get_rect()
         
-        self.boundStyle = BOUND_STYLE_CUSTOM
+        self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = [-32,-32,(SCREEN_WIDTH + 32),(SCREEN_HEIGHT + 32)]        
         
         self.canCollide = True        
@@ -56,7 +56,7 @@ class Raayu(enemy.Enemy):
 
 
 
-    def actorUpdate(self):
+    def actor_update(self):
         self.lifeTimer -= 1
 
         if not self.lifeTimer:
@@ -78,11 +78,11 @@ class Raayu(enemy.Enemy):
 
     
     def collide(self):
-        if self.objectCollidedWith.actorType == ACTOR_PLAYER:
-            self.objectCollidedWith.hurt(1)
+        if self.object_collided_with.actorType == ACTOR_PLAYER:
+            self.object_collided_with.hurt(1)
     
 
 
-    def customBounds(self):
+    def custom_bounds(self):
         if self.leaveScreen:
             self.kill()
