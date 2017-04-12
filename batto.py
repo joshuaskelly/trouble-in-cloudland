@@ -1,115 +1,102 @@
-import utility
-import pygame
-import random
-import math
-import balloon
-import gem
-import text
-import aitools
-import particle
-import animation
 import copy
-import enemy
+import random
 
+import aitools
+import enemy
+import utility
 from actor import *
 
-def loadData():
-    Batto.lastSpawn = [0,0]
-    Batto.deathSound = utility.loadSound("pop")
-    Batto.MasterAnimationList.buildAnimation("Idle", ["batto"])
+
+def load_data():
+    Batto.last_spawn = [0, 0]
+    Batto.death_sound = utility.load_sound('pop')
+    Batto.master_animation_list.build_animation('Idle', ['batto'])
+
 
 class Batto(enemy.Enemy):
-    deathSound = None
-    MasterAnimationList = animation.Animation()
-    def __init__(self, groupList, leader = None):
+    death_sound = None
+    master_animation_list = animation.Animation()
 
-        """   COMMON VARIABLES   """
+    def __init__(self, group_list, leader=None):
+        # COMMON VARIABLES
         enemy.Enemy.__init__(self)
-        self.actorType = ACTOR_TYPE_ENEMY
+        self.actor_type = ACTOR_TYPE_ENEMY
         
-        self.animation_list = copy.copy(self.MasterAnimationList)
+        self.animation_list = copy.copy(self.master_animation_list)
         self.animation_list.set_parent(self)
-        self.animation_list.play("Idle")
-        
+        self.animation_list.play('Idle')
         self.rect = self.image.get_rect()
-        
         self.bound_style = BOUND_STYLE_CUSTOM
-        self.bounds = [-32,-32,(SCREEN_WIDTH + 32),(SCREEN_HEIGHT + 32)]        
-        
-        self.canCollide = True        
+        self.bounds = -32, -32, (SCREEN_WIDTH + 32), (SCREEN_HEIGHT + 32)
+        self.can_collide = True
         self.hitrect = pygame.Rect(0,0,80,66)
-
         self.position = vector.Vector2d.zero
         self.velocity = vector.Vector2d.zero
 
-        """   UNIQUE VARIABLES   """
+        # UNIQUE VARIABLES
         self.speed = 10
-        self.changeDirection = 0
+        self.change_direction = 0
         self.target = [0,0]
-        self.powerupGroup = groupList[POWERUP_GROUP]
-        self.textGroup = groupList[TEXT_GROUP]
-        self.effectsGroup = groupList[EFFECTS_GROUP]
+        self.powerup_group = group_list[POWERUP_GROUP]
+        self.text_group = group_list[TEXT_GROUP]
+        self.effects_group = group_list[EFFECTS_GROUP]
         self.health = 1
-        self.bossFight = False
-        self.dropItem = False
+        self.boss_fight = False
+        self.drop_item = False
         
-        """    EXIT GAME VARIABLES    """
-        self.onScreen = 0
+        # EXIT GAME VARIABLES
+        self.on_screen = 0
         self.dead = False
 
-        if leader == None:
+        if not leader:
             self.leader = self
-            aitools.spawnOffScreen(self,128)
-            Batto.lastSpawn = self.position
+            aitools.spawn_off_screen(self, 128)
+            Batto.last_spawn = self.position
+
         else:
             self.leader = leader
-            aitools.spawnAtPoint(self, Batto.lastSpawn)
-
+            aitools.spawn_at_point(self, Batto.last_spawn)
 
     def actor_update(self):
         if self.active:
             if self.health <= 0:
                 self.die()
 
-            self.onScreen += 1
-            self.processAI()
+            self.on_screen += 1
+            self.process_ai()
 
-            if self.leader.active == False:
+            if not self.leader.active:
                 self.leader = self
         else:
             self.active = True
 
-
-
-
-    def processAI(self):
-        if self.leader.dead == True:
+    def process_ai(self):
+        if self.leader.dead:
             pass
-        elif self.leader.active and self.leader != self:
-            tempVelocity = vector.Vector2d(self.leader.velocity[0], self.leader.velocity[1])
-            targetPoint = self.leader.position - (tempVelocity.makeNormal()) * vector.Vector2d(150, 150)
-            aitools.goToPoint(self, targetPoint)
-        else:
-            if not self.changeDirection:
-                self.target = vector.Vector2d((random.random() * (SCREEN_WIDTH + 200)) - 100, (random.random() * (SCREEN_HEIGHT + 200)) - 100)
-                self.changeDirection = 30
-            self.changeDirection -= 1
-            aitools.arcToPoint(self, self.target)
 
-    
+        elif self.leader.active and self.leader != self:
+            temp_velocity = vector.Vector2d(self.leader.velocity[0], self.leader.velocity[1])
+            target_point = self.leader.position - (temp_velocity.make_normal()) * vector.Vector2d(150, 150)
+            aitools.go_to_point(self, target_point)
+
+        else:
+            if not self.change_direction:
+                self.target = vector.Vector2d((random.random() * (SCREEN_WIDTH + 200)) - 100, (random.random() * (SCREEN_HEIGHT + 200)) - 100)
+                self.change_direction = 30
+
+            self.change_direction -= 1
+            aitools.arc_to_point(self, self.target)
 
     def custom_bounds(self):
-        if self.onScreen > FRAMES_PER_SECOND:
+        if self.on_screen > FRAMES_PER_SECOND:
             self.active = False
             self.dead = True
 
-        self.onScreen = 0
+        self.on_screen = 0
         
         if self.dead:
             self.kill()
-            self = None
 
-    
     def collide(self):
-        if self.object_collided_with.actorType == ACTOR_PLAYER:
+        if self.object_collided_with.actor_type == ACTOR_PLAYER:
             self.object_collided_with.hurt(1)

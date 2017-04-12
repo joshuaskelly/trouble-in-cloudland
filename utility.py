@@ -1,178 +1,199 @@
 import os
-import sys
+
 import pygame
 
 from settings import *
 
 sound_active = True
 
-def makeBool(value):
-    if value == "True" or value == "True\n" or value == "1" or value == 1 or value == "T" or value == "t":
-        return True
-    else:
-        return False
+
+def make_bool(value):
+    v = value.upper().strip()
+    return v == 'TRUE' or value == '1' or value == 'T'
+
 
 def read_high_scores():
-    scoreList = []
-    try:
-        scoreFile = open(getPath() + "/score.bzd",'r')
-        scoreList.append(int(scoreFile.readline()))
-        scoreList.append(int(scoreFile.readline()))
-        scoreList.append(int(scoreFile.readline()))
-        scoreList.append(int(scoreFile.readline()))
-        scoreFile.close()
+    score_list = []
 
-        return scoreList
+    try:
+        score_file = open(get_path() + '/score.bzd', 'r')
+        score_list.append(int(score_file.readline()))
+        score_list.append(int(score_file.readline()))
+        score_list.append(int(score_file.readline()))
+        score_list.append(int(score_file.readline()))
+        score_file.close()
+
+        return score_list
     
     except:
-        scoreFile = open(getPath() + "/score.bzd",'w')
-        scoreFile.write(str(0) + '\n')
-        scoreFile.write(str(0) + '\n')
-        scoreFile.write(str(0) + '\n')
-        scoreFile.write(str(0) + '\n')
-        scoreFile.close()
+        score_file = open(get_path() + '/score.bzd', 'w')
+        score_file.write('0\n')
+        score_file.write('0\n')
+        score_file.write('0\n')
+        score_file.write('0\n')
+        score_file.close()
         
-        return [0,0,0,0]
+        return 0, 0, 0, 0
 
-def write_high_scores((tutorial,world1,world2,world3)):
-    scoreFile = open(getPath() + "/score.bzd",'w')
-    scoreFile.write(str(tutorial) + '\n')
-    scoreFile.write(str(world1) + '\n')
-    scoreFile.write(str(world2) + '\n')
-    scoreFile.write(str(world3) + '\n')
-    scoreFile.close()
+
+def write_high_scores((tutorial, world1, world2, world3)):
+    score_file = open(get_path() + '/score.bzd', 'w')
+    score_file.write(str(tutorial) + '\n')
+    score_file.write(str(world1) + '\n')
+    score_file.write(str(world2) + '\n')
+    score_file.write(str(world3) + '\n')
+    score_file.close()
+
 
 def read_settings():
-    tempList = []
+    temp_list = []
     try:
-        settingsFile = open(getPath() + "/settings.bzd",'r')
-        tempList.append(makeBool(settingsFile.readline()))
-        tempList.append(makeBool(settingsFile.readline()))
-        tempList.append(makeBool(settingsFile.readline()))
-        tempList.append(int(settingsFile.readline()))
-        tempList.append(float(settingsFile.readline()))
-        tempList.append(makeBool(settingsFile.readline()))
-        settingsFile.close()
+        settings_file = open(get_path() + '/settings.bzd', 'r')
+        temp_list.append(make_bool(settings_file.readline()))
+        temp_list.append(make_bool(settings_file.readline()))
+        temp_list.append(make_bool(settings_file.readline()))
+        temp_list.append(int(settings_file.readline()))
+        temp_list.append(float(settings_file.readline()))
+        temp_list.append(make_bool(settings_file.readline()))
+        settings_file.close()
         
-        for setting in tempList:
+        for setting in temp_list:
             settings_list.append(setting)
 
     except:
-        tempList = []
-        print "Missing or Corrupted File:  Restoring Defaults"
-        tempList = [True,True,True,0,1,True]
+        print 'Missing or Corrupted File: Restoring Defaults'
+        temp_list = [True, True, True, 0, 1, True]
 
-        for setting in tempList:
+        for setting in temp_list:
             settings_list.append(setting)
 
-        writeSettings()
+        write_settings()
 
-def writeSettings():
-    settingsFile = open(getPath() + "/settings.bzd",'w')
+
+def write_settings():
+    settings_file = open(get_path() + '/settings.bzd', 'w')
     for element in settings_list:
-        settingsFile.write(str(element) + '\n')
+        settings_file.write(str(element) + '\n')
+
 
 def able(value):
-    if value:
-        return "Enabled"
-    else:
-        return "Disabled"
-    
+    return 'Enabled' if value else 'Disabled'
+
+
 def on(value):
-    if value:
-        return "On"
-    else:
-        return "Off"    
-    
+    return 'On' if value else 'Off'
+
+
 def get_sensitivity(value):
     if value == .5:
-        return "Very Low"
-    elif value == .75:
-        return "Low"
-    elif value == 1:
-        return "Normal"
-    elif value == 1.25:
-        return "High"
-    elif value == 1.5:
-        return "Very High"
-    
-def get_screen_mode(value):
-    if value and not sys.platform.startswith('darwin'):
-        return "Fullscreen"
-    else:
-        return "Windowed"
+        return 'Very Low'
 
-def getPath():
-    """This figures out the 'home' path. Useful for 
+    elif value == .75:
+        return 'Low'
+
+    elif value == 1:
+        return 'Normal'
+
+    elif value == 1.25:
+        return 'High'
+
+    elif value == 1.5:
+        return 'Very High'
+
+
+def get_screen_mode(value):
+    return 'Fullscreen' if value else 'Windowed'
+
+
+def get_path():
+    """This figures out the 'home' path. Useful for
     storing config/save stuff."""
     
-    pathname = ""
+    pathname = ''
     try:
-        pathname = os.environ["HOME"] + "/.battlezero"
+        pathname = os.environ['HOME'] + '/.battlezero'
+
     except:
         try:
-            pathname = os.environ["APPDATA"] + "/battlezero"
+            pathname = os.environ['APPDATA'] + '/battlezero'
+
         except:
-            print "Could not get environment variable for home directory"
-            pathname = "."
+            print 'Could not get environment variable for home directory'
+            pathname = '.'
+
     if not os.path.exists(pathname):
         os.mkdir(pathname)
+
     return pathname
 
-def loadImage(name):
-    filepath = "data/images/" + name + ".bzi"
+
+def load_image(name):
+    filepath = 'data/images/' + name + '.bzi'
 
     if os.path.isfile(filepath):
         return pygame.image.load(filepath).convert_alpha()
+
     else:
-        filepath = "data/images/" + name + ".png"
+        filepath = 'data/images/' + name + '.png'
     
     return pygame.image.load(filepath).convert_alpha()
 
 
-def loadSound(name):
-    filepath = "data/sounds/" + name + ".bza"
+def load_sound(name):
+    filepath = 'data/sounds/' + name + '.bza'
 
     if os.path.isfile(filepath):
         return pygame.mixer.Sound(filepath)
+
     else:
-        filepath = "data/sounds/" + name + ".ogg"
+        filepath = 'data/sounds/' + name + '.ogg'
 
     return pygame.mixer.Sound(filepath)
 
 
-def play_sound(sound, channelNumber = None):
+def play_sound(sound, channel_number = None):
     if settings_list[SFX] and sound_active:
-        if channelNumber:
-            pygame.mixer.Channel(channelNumber).play(sound)
+        if channel_number:
+            pygame.mixer.Channel(channel_number).play(sound)
+
         else:
             sound.play()
 
-def play_music(music, forceNext = True):
+
+def play_music(music, force_next=True):
     if settings_list[MUSIC] and sound_active:
-        if forceNext:
+        if force_next:
             pygame.mixer.Channel(MUSIC_CHANNEL).queue(music)
+
         elif not pygame.mixer.Channel(MUSIC_CHANNEL).get_queue():
             pygame.mixer.Channel(MUSIC_CHANNEL).queue(music)
 
-def fade_music():
-    if sound_active: pygame.mixer.Channel(MUSIC_CHANNEL).fadeout(2000)
 
-def dim(dimValue, colorValue = (0,0,0),):
+def fade_music():
+    if sound_active:
+        pygame.mixer.Channel(MUSIC_CHANNEL).fadeout(2000)
+
+
+def dim(dim_value, color_value=(0, 0, 0)):
     dim = pygame.Surface(pygame.display.get_surface().get_size())
-    dim.fill(colorValue)
-    dim.set_alpha(dimValue)
+    dim.fill(color_value)
+    dim.set_alpha(dim_value)
     pygame.display.get_surface().blit(dim,pygame.display.get_surface().get_rect())
 
-def dimSurface(dimValue, colorValue = (0,0,0),):
+
+def dim_surface(dim_value, color_value=(0, 0, 0)):
     dim = pygame.Surface(pygame.display.get_surface().get_size())
-    dim.fill(colorValue)
-    dim.set_alpha(dimValue)
+    dim.fill(color_value)
+    dim.set_alpha(dim_value)
+
     return dim
+
 
 def set_fullscreen(full=True):
     """Creates a display surface either full screen or windowed."""
-    if full and not sys.platform.startswith('darwin'):
+
+    if full:
         return pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
+
     else:
         return pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))

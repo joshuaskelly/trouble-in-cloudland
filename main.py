@@ -1,32 +1,31 @@
 #!/usr/bin/python
 import pygame
-import game
-import utility
-import text
-import menu
-import scene
-import splashScreen
 
-import world
-import player
-import bullet
 import baake
 import balloon
-import gem
-import moono
 import batto
-import rokubi
-import haoya
-import yurei
 import bokko
-import hakta
-import raayu
-import paajo
 import boss
-import particle
+import bullet
 import credits
+import game
+import gem
+import hakta
+import haoya
+import menu
+import moono
+import paajo
+import particle
+import player
+import raayu
+import rokubi
+import scene
+import splashscreen
+import text
+import utility
 import vector
-
+import world
+import yurei
 from settings import *
 
 pygame.init()
@@ -39,12 +38,12 @@ if settings_list[SETTING_FULLSCREEN]:
 else:
     screen = utility.set_fullscreen(False)
     
-pygame.display.set_icon(utility.loadImage("icon"))
-pygame.display.set_caption("Trouble In CloudLand v1.1")
+pygame.display.set_icon(utility.load_image('icon'))
+pygame.display.set_caption('Trouble In CloudLand v1.1')
 
 screen.fill((0, 0, 0))
 tempText = text.Text(FONT_PATH, 36, (255, 255, 255))
-tempText.set_text("Loading...")
+tempText.set_text('Loading...')
 tempText.position = vector.Vector2d((SCREEN_WIDTH / 2) - (tempText.image.get_width() / 2), (SCREEN_HEIGHT / 2) - (tempText.image.get_height() / 2))
 tempText.update()
 tempText.draw(screen)
@@ -71,102 +70,102 @@ try:
 
 except:
     utility.sound_active = False
-    print "WARNING! - Sound not initialized."
+    print 'WARNING! - Sound not initialized.'
 
 pygame.mouse.set_visible(False)
 music_list = [
-    utility.loadSound("menuMusic"),
-    utility.loadSound("music0"),
-    utility.loadSound("music1"),
-    utility.loadSound("music2"),
-    utility.loadSound("bossMusic")
+    utility.load_sound('menuMusic'),
+    utility.load_sound('music0'),
+    utility.load_sound('music1'),
+    utility.load_sound('music2'),
+    utility.load_sound('bossMusic')
 ]
 
-world.loadData()
-player.loadData()
-bullet.loadData()
+world.load_data()
+player.load_data()
+bullet.load_data()
 pygame.event.pump()
-baake.loadData()
-balloon.loadData()
-gem.loadData()
+baake.load_data()
+balloon.load_data()
+gem.load_data()
 pygame.event.pump()
-moono.loadData()
-batto.loadData()
-rokubi.loadData()
+moono.load_data()
+batto.load_data()
+rokubi.load_data()
 pygame.event.pump()
-haoya.loadData()
-yurei.loadData()
-bokko.loadData()
+haoya.load_data()
+yurei.load_data()
+bokko.load_data()
 pygame.event.pump()
-hakta.loadData()
-raayu.loadData()
-paajo.loadData()
+hakta.load_data()
+raayu.load_data()
+paajo.load_data()
 pygame.event.pump()
-boss.loadData()
-particle.loadData()
-menu.loadData()
+boss.load_data()
+particle.load_data()
+menu.load_data()
 
 for event in pygame.event.get():
     pass
 
-splashScreen.SplashScreen(screen, "pygamesplash")
+splashscreen.SplashScreen(screen, 'pygamesplash')
 utility.play_music(music_list[MENU_MUSIC])
-splashScreen.SplashScreen(screen, "gameSplash")
+splashscreen.SplashScreen(screen, 'gameSplash')
 
 if settings_list[WORLD_UNLOCKED] == 0:
-    new_scene = scene.tutorialScene()
+    new_scene = scene.TutorialScene()
 
 elif settings_list[WORLD_UNLOCKED] == 1:
-    new_scene = scene.forestScene()
+    new_scene = scene.ForestScene()
 
 elif settings_list[WORLD_UNLOCKED] == 2:
-    new_scene = scene.rockyScene()
+    new_scene = scene.RockyScene()
 
 elif settings_list[WORLD_UNLOCKED] == 3:
-    new_scene = scene.pinkScene()
+    new_scene = scene.PinkScene()
 
 game_is_running = True
 
 main_menu_dictionary = {
-    START_GAME: ("Play", "Start a New Game"),
-    OPTION_MENU: ("Options", "Change Sound and Video Options"),
-    CREDIT_MENU: ("Credits", "Who We Are, What We Did"),
-    EXIT_GAME: ("Exit", "Exit the Game")
+    START_GAME: ('Play', 'Start a New Game'),
+    OPTION_MENU: ('Options', 'Change Sound and Video Options'),
+    CREDIT_MENU: ('Credits', 'Who We Are, What We Did'),
+    EXIT_GAME: ('Exit', 'Exit the Game')
 }
 
 world_menu_dictionary = {
-    TUTORIAL: ("Tutorial", "Start the Tutorial [Learn]"),
-    WORLD1: ("Cloudopolis", "Start Playing Cloudopolis [Apprentice]"),
-    WORLD2: ("Nightmaria", "Start Playing Nightmaria [Journeyman]"),
-    WORLD3: ("Opulent Dream", "Start Playing Opulent Dream [Master]"),
-    EXIT_OPTIONS: ("Back", "Go Back to the Main Menu")
+    TUTORIAL: ('Tutorial', 'Start the Tutorial [Learn]'),
+    WORLD1: ('Cloudopolis', 'Start Playing Cloudopolis [Apprentice]'),
+    WORLD2: ('Nightmaria', 'Start Playing Nightmaria [Journeyman]'),
+    WORLD3: ('Opulent Dream', 'Start Playing Opulent Dream [Master]'),
+    EXIT_OPTIONS: ('Back', 'Go Back to the Main Menu')
 }
 
 option_menu_dictionary = {
-    SOUND_MENU: ("Sound Options", "Change Sound Options"),
-    DISPLAY_MENU: ("Video Options", "Change Video Options"),
-    CHANGE_SENSITIVITY: ("Mouse Sensitivity: " + utility.get_sensitivity(settings_list[SENSITIVITY]), "Change Mouse Sensitivity"),
-    EXIT_OPTIONS: ("Back", "Go Back to the Main Menu")
+    SOUND_MENU: ('Sound Options', 'Change Sound Options'),
+    DISPLAY_MENU: ('Video Options', 'Change Video Options'),
+    CHANGE_SENSITIVITY: ('Mouse Sensitivity: ' + utility.get_sensitivity(settings_list[SENSITIVITY]), 'Change Mouse Sensitivity'),
+    EXIT_OPTIONS: ('Back', 'Go Back to the Main Menu')
 }
 
 sound_menu_dictionary = {
-    TOGGLE_SFX: ("Sound Effects: " + utility.on(settings_list[SFX]), "Turn " + utility.on(not settings_list[SFX]) + " Sound Effects"),
-    TOGGLE_MUSIC: ("Music: " + utility.on(settings_list[MUSIC]), "Turn " + utility.on(not settings_list[MUSIC]) + " Music"),
-    EXIT_OPTIONS: ("Back", "Go Back to the Option Menu")
+    TOGGLE_SFX: ('Sound Effects: ' + utility.on(settings_list[SFX]), 'Turn ' + utility.on(not settings_list[SFX]) + ' Sound Effects'),
+    TOGGLE_MUSIC: ('Music: ' + utility.on(settings_list[MUSIC]), 'Turn ' + utility.on(not settings_list[MUSIC]) + ' Music'),
+    EXIT_OPTIONS: ('Back', 'Go Back to the Option Menu')
 }
 
 display_menu_dictionary = {
-    TOGGLE_PARTICLES: ("Particles: " + utility.able(settings_list[PARTICLES]), "Turn " + utility.on(not settings_list[PARTICLES]) + " Particle Effects"),
-    TOGGLE_FULLSCREEN: ("Video Mode: " + utility.get_screen_mode(settings_list[SETTING_FULLSCREEN]), "Switch To " + utility.get_screen_mode(not settings_list[SETTING_FULLSCREEN]) + " Mode"),
-    EXIT_OPTIONS: ("Back", "Go Back to the Main Menu")
+    TOGGLE_PARTICLES: ('Particles: ' + utility.able(settings_list[PARTICLES]), 'Turn ' + utility.on(not settings_list[PARTICLES]) + ' Particle Effects'),
+    TOGGLE_FULLSCREEN: ('Video Mode: ' + utility.get_screen_mode(settings_list[SETTING_FULLSCREEN]), 'Switch To ' + utility.get_screen_mode(not settings_list[SETTING_FULLSCREEN]) + ' Mode'),
+    EXIT_OPTIONS: ('Back', 'Go Back to the Main Menu')
 }
 
 sensitivity_menu_dictionary = {
-    0: ("Very Low", "Change Sensitivity to Very Low"),
-    1: ("Low", "Change Sensitivity to Low"),
-    2: ("Normal", "Change Sensitivity to Normal"),
-    3: ("High", "Change Sensitivity to High"),
-    4: ("Very High", "Change Sensitivity to Very High")
+    0: ('Very Low', 'Change Sensitivity to Very Low'),
+    1: ('Low', 'Change Sensitivity to Low'),
+    2: ('Normal', 'Change Sensitivity to Normal'),
+    3: ('High', 'Change Sensitivity to High'),
+    4: ('Very High', 'Change Sensitivity to Very High')
 }
 
 menu_bounds = (0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -176,7 +175,7 @@ while game_is_running:
                             music_list[MENU_MUSIC],
                             new_scene,
                             menu_bounds,
-                            ("Trouble in Cloudland", 80, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4),
+                            ('Trouble in Cloudland', 80, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4),
                             main_menu_dictionary).show()
 
     if menu_result == START_GAME:
@@ -185,7 +184,7 @@ while game_is_running:
                                  music_list[MENU_MUSIC],
                                  new_scene,
                                  menu_bounds,
-                                 ("Choose a World", 96, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4),
+                                 ('Choose a World', 96, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4),
                                  world_menu_dictionary,
                                  last_highlighted).show()
 
@@ -208,7 +207,7 @@ while game_is_running:
                                       music_list[MENU_MUSIC],
                                       new_scene,
                                       menu_bounds,
-                                      ("Options", 96, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4),
+                                      ('Options', 96, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4),
                                       option_menu_dictionary,
                                       last_highlighted).show()
             
@@ -221,7 +220,7 @@ while game_is_running:
                                              music_list[MENU_MUSIC],
                                              new_scene,
                                              menu_bounds,
-                                             ("Sound Options", 96, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4),
+                                             ('Sound Options', 96, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4),
                                              sound_menu_dictionary,
                                              last_highlighted).show()
                     
@@ -241,9 +240,9 @@ while game_is_running:
                         sound_result = False
                         
                     sound_menu_dictionary = {
-                        TOGGLE_SFX: ("Sound Effects: " + utility.on(settings_list[SFX]), "Turn " + utility.on(not settings_list[SFX]) + " Sound Effects"),
-                        TOGGLE_MUSIC: ("Music: " + utility.on(settings_list[MUSIC]), "Turn " + utility.on(not settings_list[MUSIC]) + " Music"),
-                        EXIT_OPTIONS: ("Back","Go Back to the Option Menu")
+                        TOGGLE_SFX: ('Sound Effects: ' + utility.on(settings_list[SFX]), 'Turn ' + utility.on(not settings_list[SFX]) + ' Sound Effects'),
+                        TOGGLE_MUSIC: ('Music: ' + utility.on(settings_list[MUSIC]), 'Turn ' + utility.on(not settings_list[MUSIC]) + ' Music'),
+                        EXIT_OPTIONS: ('Back','Go Back to the Option Menu')
                     }
                         
             if option_result == DISPLAY_MENU:
@@ -255,7 +254,7 @@ while game_is_running:
                                                music_list[MENU_MUSIC],
                                                new_scene,
                                                menu_bounds,
-                                               ["Video Options", 96, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
+                                               ('Video Options', 96, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4),
                                                display_menu_dictionary,
                                                last_highlighted).show()
             
@@ -278,9 +277,9 @@ while game_is_running:
                         display_result = False
                         
                     display_menu_dictionary = {
-                        TOGGLE_PARTICLES: ("Particles: " + utility.able(settings_list[PARTICLES]), "Turn " + utility.on(not settings_list[PARTICLES]) + " Particle Effects"),
-                        TOGGLE_FULLSCREEN: ("Video Mode: " + utility.get_screen_mode(settings_list[SETTING_FULLSCREEN]), "Switch To " + utility.get_screen_mode(not settings_list[SETTING_FULLSCREEN]) + " Mode"),
-                        EXIT_OPTIONS: ("Back", "Go Back to the Main Menu")
+                        TOGGLE_PARTICLES: ('Particles: ' + utility.able(settings_list[PARTICLES]), 'Turn ' + utility.on(not settings_list[PARTICLES]) + ' Particle Effects'),
+                        TOGGLE_FULLSCREEN: ('Video Mode: ' + utility.get_screen_mode(settings_list[SETTING_FULLSCREEN]), 'Switch To ' + utility.get_screen_mode(not settings_list[SETTING_FULLSCREEN]) + ' Mode'),
+                        EXIT_OPTIONS: ('Back', 'Go Back to the Main Menu')
                     }
             
             elif option_result == EXIT_OPTIONS:
@@ -295,23 +294,22 @@ while game_is_running:
                                                  music_list[MENU_MUSIC],
                                                  new_scene,
                                                  menu_bounds,
-                                                 ["Mouse Sensitivity", 96, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
+                                                 ('Mouse Sensitivity', 96, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4),
                                                  sensitivity_menu_dictionary,
                                                  last_highlighted)
 
                     sensitivity_result = sensitivity_menu.show()
                     mouse_sensitivities = [0.5, 0.75, 1, 1.25, 1.5]
-                    settings_list[SENSITIVITY] = mouse_sensitivities[
-                        sensitivity_result]
+                    settings_list[SENSITIVITY] = mouse_sensitivities[sensitivity_result]
 
                     if sensitivity_result > 0:
                         sensitivity_result = False
 
             option_menu_dictionary = {
-                SOUND_MENU: ("Sound Options", "Change Sound Options"),
-                DISPLAY_MENU: ("Video Options" ,"Change Video Options"),
-                CHANGE_SENSITIVITY: ("Mouse Sensitivity: " + utility.get_sensitivity(settings_list[SENSITIVITY]), "Change Mouse Sensitivity"),
-                EXIT_OPTIONS: ("Back", "Go Back to the Main Menu")
+                SOUND_MENU: ('Sound Options', 'Change Sound Options'),
+                DISPLAY_MENU: ('Video Options', 'Change Video Options'),
+                CHANGE_SENSITIVITY: ('Mouse Sensitivity: ' + utility.get_sensitivity(settings_list[SENSITIVITY]), 'Change Mouse Sensitivity'),
+                EXIT_OPTIONS: ('Back', 'Go Back to the Main Menu')
             }
             
     elif menu_result == CREDIT_MENU:
@@ -319,7 +317,7 @@ while game_is_running:
         
     elif menu_result == EXIT_GAME:
         game_is_running = False
-        utility.writeSettings()
+        utility.write_settings()
 
-splashScreen.SplashScreen(screen, "outroSplash")
+splashscreen.SplashScreen(screen, 'outroSplash')
 quit()

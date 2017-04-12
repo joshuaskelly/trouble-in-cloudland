@@ -1,240 +1,212 @@
 import pygame
-import scenery
-import settings
-import utility
-import aitools
 
+import aitools
+import scenery
 from settings import *
 
-class rockyScene:
-    
+
+class RockyScene(object):
     def __init__(self):
-        self.actorGroup1 = pygame.sprite.Group()
-        self.actorGroup2 = pygame.sprite.Group()
-        self.actorGroup3 = pygame.sprite.Group()
-        
-        self.cloudTimer = 0
-        scenery.loadData()
-        
-        self.DoOnce = True
+        self.actor_group1 = pygame.sprite.Group()
+        self.actor_group2 = pygame.sprite.Group()
+        self.actor_group3 = pygame.sprite.Group()
+        self.cloud_timer = 0
+        scenery.load_data()
+        self.do_once = True
+        self.screen = None
 
-       
-            
     def render(self):
-        self.actorGroup3.draw(self.screen)
-        self.actorGroup2.draw(self.screen)
-        self.actorGroup1.draw(self.screen)
+        self.actor_group3.draw(self.screen)
+        self.actor_group2.draw(self.screen)
+        self.actor_group1.draw(self.screen)
 
-
-    
     def update(self):
-        if self.DoOnce:
-            CloudsToCreate = 11
-            while CloudsToCreate:
-                tempCloud = scenery.CloudSmall()
-                aitools.spawnOnScreen(tempCloud)
-                self.actorGroup2.add(tempCloud)
-                CloudsToCreate -= 1
+        if self.do_once:
+            clouds_to_create = 11
+
+            while clouds_to_create:
+                temp_cloud = scenery.CloudSmall()
+                aitools.spawn_on_screen(temp_cloud)
+                self.actor_group2.add(temp_cloud)
+                clouds_to_create -= 1
                 
-            IslandsToCreate = 3
-            while IslandsToCreate:
-                tempIsland = scenery.IslandBig()
-                aitools.spawnOnScreen(tempIsland)
-                self.actorGroup2.add(tempIsland)
-                IslandsToCreate -= 1
+            islands_to_create = 3
+            while islands_to_create:
+                temp_island = scenery.IslandBig()
+                aitools.spawn_on_screen(temp_island)
+                self.actor_group2.add(temp_island)
+                islands_to_create -= 1
                 
-            CloudsToCreate = 7
-            while CloudsToCreate:
-                tempCloud = scenery.Cloud()
-                aitools.spawnOnScreen(tempCloud)
-                self.actorGroup1.add(tempCloud)
-                CloudsToCreate -= 1
-            self.DoOnce = False
+            clouds_to_create = 7
+
+            while clouds_to_create:
+                temp_cloud = scenery.Cloud()
+                aitools.spawn_on_screen(temp_cloud)
+                self.actor_group1.add(temp_cloud)
+                clouds_to_create -= 1
+
+            self.do_once = False
             
-            IslandsToCreate = 9
-            while IslandsToCreate:
-                tempIsland = scenery.IslandSmall()
-                aitools.spawnOnScreen(tempIsland)
-                self.actorGroup3.add(tempIsland)
-                IslandsToCreate -= 1
+            islands_to_create = 9
+
+            while islands_to_create:
+                temp_island = scenery.IslandSmall()
+                aitools.spawn_on_screen(temp_island)
+                self.actor_group3.add(temp_island)
+                islands_to_create -= 1
         
-        self.actorGroup3.update()
-        self.actorGroup2.update()
-        self.actorGroup1.update()
-       
-        
-    
+        self.actor_group3.update()
+        self.actor_group2.update()
+        self.actor_group1.update()
+
     def draw(self, screen):
         self.screen = screen
-        
         self.screen.fill(FILL_COLOR)
         self.update()
         self.render()
-        
-        
 
-class forestScene:
-    
+
+class ForestScene(object):
     def __init__(self):
-        self.actorGroup1 = pygame.sprite.Group()
-        self.actorGroup2 = pygame.sprite.Group()
-        self.actorGroup3 = pygame.sprite.Group()
-        
-        self.cloudTimer = 0
-        scenery.loadData()
-        
-        self.DoOnce = True
+        self.actor_group1 = pygame.sprite.Group()
+        self.actor_group2 = pygame.sprite.Group()
+        self.actor_group3 = pygame.sprite.Group()
+        self.cloud_timer = 0
+        scenery.load_data()
+        self.do_once = True
+        self.screen = None
 
-       
-            
     def render(self):
-        self.actorGroup3.draw(self.screen)
-        self.actorGroup2.draw(self.screen)
-        self.actorGroup1.draw(self.screen)
+        self.actor_group3.draw(self.screen)
+        self.actor_group2.draw(self.screen)
+        self.actor_group1.draw(self.screen)
 
-
-    
     def update(self):
-        if self.DoOnce:
+        if self.do_once:
+            clouds_to_create = 3
 
-            CloudsToCreate = 3
-            while CloudsToCreate:
-                tempIsland = scenery.whiteCloud()
-                aitools.spawnOnScreen(tempIsland)
-                self.actorGroup1.add(tempIsland)
-                CloudsToCreate -= 1
+            while clouds_to_create:
+                temp_island = scenery.WhiteCloud()
+                aitools.spawn_on_screen(temp_island)
+                self.actor_group1.add(temp_island)
+                clouds_to_create -= 1
                 
-            TreesToCreate = 3
-            while TreesToCreate:
-                tempTree = scenery.treeBig()
-                aitools.spawnOnScreen(tempTree)
-                self.actorGroup1.add(tempTree)
-                TreesToCreate -= 1
-                
-            CloudsToCreate = 4
-            while CloudsToCreate:
-                tempIsland = scenery.whiteCloudSmall()
-                aitools.spawnOnScreen(tempIsland)
-                self.actorGroup2.add(tempIsland)
-                CloudsToCreate -= 1   
+            trees_to_create = 3
 
-            TreesToCreate = 4
-            while TreesToCreate:
-                tempTree = scenery.treeSmall()
-                aitools.spawnOnScreen(tempTree)
-                self.actorGroup2.add(tempTree)
-                TreesToCreate -= 1
+            while trees_to_create:
+                temp_tree = scenery.TreeBig()
+                aitools.spawn_on_screen(temp_tree)
+                self.actor_group1.add(temp_tree)
+                trees_to_create -= 1
                 
-            CloudsToCreate = 6
-            while CloudsToCreate:
-                tempIsland = scenery.whiteCloudTiny()
-                aitools.spawnOnScreen(tempIsland)
-                self.actorGroup3.add(tempIsland)
-                CloudsToCreate -= 1               
+            clouds_to_create = 4
 
-            self.DoOnce = False
-          
-        
-        self.actorGroup3.update()
-        self.actorGroup2.update()
-        self.actorGroup1.update()
-       
-        
-    
+            while clouds_to_create:
+                temp_island = scenery.WhiteCloudSmall()
+                aitools.spawn_on_screen(temp_island)
+                self.actor_group2.add(temp_island)
+                clouds_to_create -= 1
+
+            trees_to_create = 4
+
+            while trees_to_create:
+                temp_tree = scenery.TreeSmall()
+                aitools.spawn_on_screen(temp_tree)
+                self.actor_group2.add(temp_tree)
+                trees_to_create -= 1
+                
+            clouds_to_create = 6
+
+            while clouds_to_create:
+                temp_island = scenery.WhiteCloudTiny()
+                aitools.spawn_on_screen(temp_island)
+                self.actor_group3.add(temp_island)
+                clouds_to_create -= 1
+
+            self.do_once = False
+
+        self.actor_group3.update()
+        self.actor_group2.update()
+        self.actor_group1.update()
+
     def draw(self, screen):
         self.screen = screen
-        
-        self.screen.fill([200,200,234])
+        self.screen.fill((200, 200, 234))
         self.update()
         self.render()
         
 
-class pinkScene:
-    
+class PinkScene(object):
     def __init__(self):
-        self.actorGroup1 = pygame.sprite.Group()
-        self.actorGroup2 = pygame.sprite.Group()
-        self.actorGroup3 = pygame.sprite.Group()
+        self.actor_group1 = pygame.sprite.Group()
+        self.actor_group2 = pygame.sprite.Group()
+        self.actor_group3 = pygame.sprite.Group()
+        scenery.load_data()
+        self.do_once = True
+        self.screen = None
 
-        scenery.loadData()
-        
-        self.DoOnce = True
-
-       
-            
     def render(self):
-        self.actorGroup3.draw(self.screen)
-        self.actorGroup2.draw(self.screen)
-        self.actorGroup1.draw(self.screen)
+        self.actor_group3.draw(self.screen)
+        self.actor_group2.draw(self.screen)
+        self.actor_group1.draw(self.screen)
 
-
-    
     def update(self):
-        if self.DoOnce:
-            CloudsToCreate = 6
-            while CloudsToCreate:
-                tempCloud = scenery.blueCloud()
-                aitools.spawnOnScreen(tempCloud)
-                self.actorGroup1.add(tempCloud)
-                CloudsToCreate -= 1
+        if self.do_once:
+            clouds_to_create = 6
+
+            while clouds_to_create:
+                temp_cloud = scenery.BlueCloud()
+                aitools.spawn_on_screen(temp_cloud)
+                self.actor_group1.add(temp_cloud)
+                clouds_to_create -= 1
                 
-            CloudsToCreate = 6
-            while CloudsToCreate:
-                tempCloud = scenery.blueCloudSmall()
-                aitools.spawnOnScreen(tempCloud)
-                self.actorGroup2.add(tempCloud)
-                CloudsToCreate -= 1
+            clouds_to_create = 6
+
+            while clouds_to_create:
+                temp_cloud = scenery.BlueCloudSmall()
+                aitools.spawn_on_screen(temp_cloud)
+                self.actor_group2.add(temp_cloud)
+                clouds_to_create -= 1
                 
-            StarsToCreate = 12
-            while StarsToCreate:
-                tempStar = scenery.smallStar()
-                aitools.spawnOnScreen(tempStar)
-                self.actorGroup3.add(tempStar)
-                StarsToCreate -= 1
-            self.DoOnce = False
+            stars_to_create = 12
+
+            while stars_to_create:
+                temp_star = scenery.SmallStar()
+                aitools.spawn_on_screen(temp_star)
+                self.actor_group3.add(temp_star)
+                stars_to_create -= 1
+
+            self.do_once = False
           
-        self.actorGroup1.update()
-        self.actorGroup2.update()
-        self.actorGroup3.update()
-       
-        
-    
+        self.actor_group1.update()
+        self.actor_group2.update()
+        self.actor_group3.update()
+
     def draw(self, screen):
         self.screen = screen
-        
-        self.screen.fill([234,203,200])
+        self.screen.fill((234, 203, 200))
         self.update()
         self.render()
-        
-        
 
-class tutorialScene:
-    
+
+class TutorialScene(object):
     def __init__(self):
-        self.actorGroup1 = pygame.sprite.Group()
+        self.actor_group1 = pygame.sprite.Group()
+        scenery.load_data()
+        self.do_once = True
+        self.screen = None
 
-        scenery.loadData()
-        
-        self.DoOnce = True
-
-       
-            
     def render(self):
-        self.actorGroup1.draw(self.screen)
+        self.actor_group1.draw(self.screen)
 
-
-    
     def update(self):
-        if self.DoOnce:
-            self.DoOnce = False
+        if self.do_once:
+            self.do_once = False
           
-        self.actorGroup1.update()
-       
-        
-    
+        self.actor_group1.update()
+
     def draw(self, screen):
         self.screen = screen
-        
         self.screen.fill(FILL_COLOR)
         self.update()
         self.render()

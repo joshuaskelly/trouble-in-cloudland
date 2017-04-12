@@ -1,208 +1,217 @@
-import pygame
-import math
 import random
-import utility
 import vector
 
 from settings import *
-"""Misc Functions"""
-def randomLocationOnScreen():
-    return (int(random.random() * SCREEN_HEIGHT), int(random.random() * SCREEN_WIDTH))
 
-def pointOffScreen(distance = 32):
-    screenSide = int(random.random() * 3 + 1) - 1
+# Misc Functions
 
-    if screenSide == LEFT:
+
+def random_location_on_screen():
+    return int(random.random() * SCREEN_HEIGHT), int(random.random() * SCREEN_WIDTH)
+
+
+def point_off_screen(distance=32):
+    screen_side = int(random.random() * 3 + 1) - 1
+
+    if screen_side == LEFT:
         point = vector.Vector2d(-distance, random.random() * SCREEN_HEIGHT)
-    elif screenSide == TOP:
+    elif screen_side == TOP:
         point = vector.Vector2d(random.random() * SCREEN_WIDTH, -distance)
-    elif screenSide == RIGHT:
+    elif screen_side == RIGHT:
         point = vector.Vector2d(SCREEN_WIDTH + distance, random.random() * SCREEN_HEIGHT)
-    elif screenSide == BOTTOM:
+    elif screen_side == BOTTOM:
         point = vector.Vector2d(random.random() * SCREEN_WIDTH, SCREEN_HEIGHT + distance)
 
     return point
 
-"""Spawning Funcitons"""
-def spawnAtPoint(object, point):
-    object.position = vector.Vector2d(point)
+# Spawning Functions
 
-def spawnAwayFromTarget(object, target, distance = 256):
 
+def spawn_at_point(actor, point):
+    actor.position = vector.Vector2d(point)
+
+
+def spawn_away_from_target(actor, target, distance=256):
     check = False
     
     while not check:
-        object.position = vector.Vector2d((random.random() * object.bounds[RIGHT]),
-                                          (random.random() * object.bounds[BOTTOM]))
+        actor.position = vector.Vector2d((random.random() * actor.bounds[RIGHT]),
+                                         (random.random() * actor.bounds[BOTTOM]))
         check = True
 
-        checkDistance = object.position - target.position
-        if checkDistance.getMagnitude() < distance:
+        check_distance = actor.position - target.position
+        if check_distance.get_magnitude() < distance:
             check = False
 
 
+def spawn_on_screen(actor):
+    """Position the actor randomly on the screen such that their bounds are
+    contained within the screen rect"""
 
-def spawnOnScreen(object):
+    actor.position = vector.Vector2d(((random.random() * (actor.bounds[RIGHT] - actor.bounds[LEFT])) + actor.bounds[LEFT]),
+                                     ((random.random() * (actor.bounds[BOTTOM] - actor.bounds[TOP])) + actor.bounds[TOP]))
+
+
+def spawn_off_screen(actor, distance=32):
+    screen_side = int(random.random() * 3 + 1) - 1
+
+    if screen_side == LEFT:
+        actor.position = vector.Vector2d(-distance, random.random() * SCREEN_HEIGHT)
+
+    elif screen_side == TOP:
+        actor.position = vector.Vector2d(random.random() * SCREEN_WIDTH, -distance)
+
+    elif screen_side == RIGHT:
+        actor.position = vector.Vector2d(SCREEN_WIDTH + distance, random.random() * SCREEN_HEIGHT)
+
+    elif screen_side == BOTTOM:
+        actor.position = vector.Vector2d(random.random() * SCREEN_WIDTH, SCREEN_HEIGHT + distance)
+
+
+# AI Styles
+def hide(actor, hide_behind, hide_from, offset=128):
+    # Find the location that the actor should go to
+    goal_location = hide_behind.position
+    offset_direction = hide_behind.position - hide_from.position
+    offset_direction.make_normal()
+    goal_location += (offset_direction * offset)
+
+    # Send the actor to target location
+    bearing = goal_location - actor.position
+
+    if bearing.get_magnitude() > actor.speed:
+        bearing.set_magnitude(actor.speed)
+
+    actor.velocity = bearing
+
+
+def go_to_point(actor, point):
+    bearing = point - actor.position
     
-    object.position = vector.Vector2d(((random.random() * (object.bounds[RIGHT] - object.bounds[LEFT])) + object.bounds[LEFT]),
-                                      ((random.random() * (object.bounds[BOTTOM]- object.bounds[TOP])) + object.bounds[TOP]))
-
-
-
-def spawnOffScreen(object, distance = 32):
-
-    screenSide = int(random.random() * 3 + 1) - 1
-
-    if screenSide == LEFT:
-        object.position = vector.Vector2d(-distance, random.random() * SCREEN_HEIGHT)
-
-    elif screenSide == TOP:
-        object.position = vector.Vector2d(random.random() * SCREEN_WIDTH, -distance)
-
-    elif screenSide == RIGHT:
-        object.position = vector.Vector2d(SCREEN_WIDTH + distance, random.random() * SCREEN_HEIGHT)
-
-    elif screenSide == BOTTOM:
-        object.position = vector.Vector2d(random.random() * SCREEN_WIDTH, SCREEN_HEIGHT + distance)
-
-
-
-"""AI Styles"""
-def hide(object, hideBehind, hideFrom, offset = 128):
-
-    """Find the location that the actor should go to"""
-    goalLocation = hideBehind.position
-    offSetDirection = hideBehind.position - hideFrom.position
-    offSetDirection.makeNormal()
-    goalLocation += (offSetDirection * offset)
-
-
-    """Send the actor to target location"""
-    bearing = goalLocation - object.position
-
-    if bearing.getMagnitude() > object.speed:
-        bearing.setMagnitude(object.speed)
-
-    object.velocity = bearing
-
-
-
-def goToPoint(object, point):
-    bearing = point - object.position
+    if bearing.get_magnitude() > actor.speed:
+        bearing.set_magnitude(actor.speed)
     
-    if bearing.getMagnitude() > object.speed:
-        bearing.setMagnitude(object.speed)
-    
-    object.velocity = bearing
+    actor.velocity = bearing
 
 
+def go_to_target(actor, target):
+    bearing = target.position - actor.position
 
-def goToTarget(object, target):
-    bearing = target.position - object.position
+    if bearing.get_magnitude() > actor.speed:
+        bearing.set_magnitude(actor.speed)
 
-    if bearing.getMagnitude() > object.speed:
-        bearing.setMagnitude(object.speed)
-
-    object.velocity = bearing
-
+    actor.velocity = bearing
 
 
-def arcToPoint(object, targetPoint, degree = 1):
-    goalBearing = targetPoint - object.position
-    goalBearing.makeNormal()
-    goalBearing *= degree
+def arc_to_point(actor, target_point, degree=1):
+    goal_bearing = target_point - actor.position
+    goal_bearing.make_normal()
+    goal_bearing *= degree
 
-    object.velocity += goalBearing
+    actor.velocity += goal_bearing
+    actor.velocity.set_magnitude(actor.speed)
 
-    object.velocity.setMagnitude(object.speed)
 
+def cardinal_direction(actor):
+    if int(random.random() * 2 + 1) - 1:
+        if int(random.random() * 2 + 1) - 1:
+            actor.velocity = vector.Vector2d(actor.speed, 0.0)
 
-def cardinalDirection(object):
-    if (int(random.random() * 2 + 1) - 1):
-        if (int(random.random() * 2 + 1) - 1):
-            object.velocity = vector.Vector2d(object.speed, 0.0)
         else:
-            object.velocity = vector.Vector2d(-object.speed, 0.0)
+            actor.velocity = vector.Vector2d(-actor.speed, 0.0)
+
     else:
-        if (int(random.random() * 2 + 1) - 1):
-            object.velocity = vector.Vector2d(0.0, object.speed)
+        if int(random.random() * 2 + 1) - 1:
+            actor.velocity = vector.Vector2d(0.0, actor.speed)
+
         else:
-            object.velocity = vector.Vector2d(0.0, -object.speed)
+            actor.velocity = vector.Vector2d(0.0, -actor.speed)
 
 
+# AI tools
+def get_closest(actor, target_group, target_actors=None):
+    temp_group1 = []
+    temp_group2 = []
+    temp_group3 = []
 
-"""AI tools"""
-def getClosest(object, targetGroup, targetActors = None):
-    tempGroup1 = []
-    tempGroup2 = []
-    tempGroup3 = []
-
-    searchGroups = []
+    search_groups = []
 
     try:
-        for subGroup in targetGroup:
-            for actor in targetGroup:
+        for subGroup in target_group:
+            for actor in target_group:
                 pass
-            searchGroups.append(subGroup)
+
+            search_groups.append(subGroup)
     
-        for group in searchGroups:
-            if targetActors != None:
+        for group in search_groups:
+            if target_actors:
                 try:
                     for target in group:
-                        for actor in targetActors:
-                            if target.actorType == actor:
-                                tempGroup2.append(target)
+                        for actor in target_actors:
+                            if target.actor_type == actor:
+                                temp_group2.append(target)
+
                 except:
                     try:
-                        if target.actorType  == targetActors:
-                            tempGroup2.append(target)
+                        if target.actor_type == target_actors:
+                            temp_group2.append(target)
+
                     except:
                         pass
             else:
-                for target in targetGroup:
-                    tempGroup2.append(target)
+                for target in target_group:
+                    temp_group2.append(target)
     
     except:
-        if targetActors != None:
+        if target_actors:
             try:
-                for target in targetGroup:
-                    for actor in targetActors:
-                        if target.actorType == actor:
-                            tempGroup2.append(target)
+                for target in target_group:
+                    for actor in target_actors:
+                        if target.actor_type == actor:
+                            temp_group2.append(target)
+
             except:
-                if target.actorType  == targetActors:
-                    tempGroup2.append(target)
+                if target.actor_type == target_actors:
+                    temp_group2.append(target)
+
         else:
-            for target in targetGroup:
-                tempGroup2.append(target)
+            for target in target_group:
+                temp_group2.append(target)
 
     iteration = 1
-    closestDistance = 100000 #abritarily large number
+    closest_distance = 100000
+    closest_object = None
     
     while True:
-        targetFound = False
+        target_found = False
 
-        for target in tempGroup2:
-            if abs(target.position.x - object.position.x) < (SCREEN_WIDTH / iteration):
-                if abs(target.position.y - object.position.y) < (SCREEN_HEIGHT / iteration):
-                    targetFound = True
-                    tempGroup1.append(target)
-        if iteration == 1 and not targetFound:
-            return object
-        elif iteration  == 8 or not targetFound:
-             for target in tempGroup3:
-                targetDistance = target.position - object.position
-                if closestDistance > targetDistance.getMagnitude():
-                    closetDistance = targetDistance.getMagnitude()
-                    closestObject = target
+        for target in temp_group2:
+            if abs(target.position.x - actor.position.x) < (SCREEN_WIDTH / iteration):
+                if abs(target.position.y - actor.position.y) < (SCREEN_HEIGHT / iteration):
+                    target_found = True
+                    temp_group1.append(target)
 
-             tempGroup1 = []
-             tempGroup2 = []
-             tempGroup3 = []
-             return target
+        if iteration == 1 and not target_found:
+            return actor
+
+        elif iteration == 8 or not target_found:
+            for target in temp_group3:
+                target_distance = target.position - actor.position
+
+                if closest_distance > target_distance.get_magnitude():
+                    closest_distance = target_distance.get_magnitude()
+                    closest_object = target
+
+            temp_group1 = []
+            temp_group2 = []
+            temp_group3 = []
+
+            # TODO: Should this return closest_object?
+            return target
+
         else:
-            tempGroup3 = tempGroup2
-            tempGroup2 = tempGroup1
-            tempGroup1 = []
+            temp_group3 = temp_group2
+            temp_group2 = temp_group1
+            temp_group1 = []
 
         iteration += 1

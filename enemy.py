@@ -1,125 +1,109 @@
-import utility
-import pygame
-import actor
 import random
+
+import actor
 import balloon
 import gem
-import text
-import aitools
 import particle
-import animation
-import copy
-
-from settings import *
+import utility
 from actor import *
 
+
 class Enemy(actor.Actor):
-    deathSound = None
+    death_sound = None
+
     def __init__(self):
-
-        """   COMMON VARIABLES   """
         actor.Actor.__init__(self)
-        self.actorType = ACTOR_TYPE_ENEMY    
-        
-        self.bound_style = BOUND_STYLE_KILL
-        self.bounds = [-32,-32,(SCREEN_WIDTH + 32),(SCREEN_HEIGHT + 32)]        
-        
-        self.canCollide = True
 
+        # COMMON VARIABLES
+        self.actor_type = ACTOR_TYPE_ENEMY
+        self.bound_style = BOUND_STYLE_KILL
+        self.bounds = -32, -32, (SCREEN_WIDTH + 32), (SCREEN_HEIGHT + 32)
+        self.can_collide = True
         self.position = vector.Vector2d.zero
         self.velocity = vector.Vector2d.zero
-
-        self.bossFight = False
-        self.dropItem = False
-        self.dropBalloon = False
-
-
+        self.boss_fight = False
+        self.drop_item = False
+        self.drop_balloon = False
+        self.powerup_group = []
 
     def collide(self):
-        if self.object_collided_with.actorType == ACTOR_PLAYER:
+        if self.object_collided_with.actor_type == ACTOR_PLAYER:
             self.object_collided_with.hurt(1)
-    
-    
-    def itemDrop(self):
-        if self.dropItem:
-            self.powerupGroup.add(gem.Nova(self.position, self.textGroup, self.effectsGroup))
 
-        elif self.bossFight:
-            randomNumber = int(random.random() * 25)
+    def item_drop(self):
+        if self.drop_item:
+            self.powerup_group.add(gem.Nova(self.position, self.text_group, self.effects_group))
+
+        elif self.boss_fight:
+            random_number = int(random.random() * 25)
             
-            if not randomNumber:
-                self.powerupGroup.add(gem.Reflect(self.position, self.textGroup))
-            elif randomNumber == 1:
-                self.powerupGroup.add(gem.DamageX2(self.position, self.textGroup))
-            elif randomNumber == 2:
-                self.powerupGroup.add(gem.FastShot(self.position,self.textGroup))
-            elif randomNumber == 3:
-                self.powerupGroup.add(gem.DualShot(self.position,self.textGroup))
+            if not random_number:
+                self.powerup_group.add(gem.Reflect(self.position, self.text_group))
+            elif random_number == 1:
+                self.powerup_group.add(gem.DamageX2(self.position, self.text_group))
+            elif random_number == 2:
+                self.powerup_group.add(gem.FastShot(self.position, self.text_group))
+            elif random_number == 3:
+                self.powerup_group.add(gem.DualShot(self.position, self.text_group))
 
         elif self.object_collided_with.owner.combo_bonus:
-            self.object_collided_with.owner.increment_score(100, self.position, self.textGroup)
+            self.object_collided_with.owner.increment_score(100, self.position, self.text_group)
 
-            randomNumber = int(random.random() * 6 + 1)
+            random_number = int(random.random() * 6 + 1)
     
-            if randomNumber == 1:
-                """Generate a random number between 1 and 100"""
-                randomNumber = int(random.random() * 100 + 1)
+            if random_number == 1:
+                random_number = int(random.random() * 100 + 1)
 
-
-                if randomNumber <= 25:
-                    self.powerupGroup.add(balloon.Bonus250(self.position,self.textGroup))
-                elif randomNumber <= 40:
-                    self.powerupGroup.add(balloon.Bonus500(self.position, self.textGroup))
-                elif randomNumber <= 50:
-                    self.powerupGroup.add(balloon.BonusX2(self.position,self.textGroup))
-                elif randomNumber <= 60:
-                    self.powerupGroup.add(gem.DualShot(self.position, self.textGroup))
-                elif randomNumber <= 70:
-                    self.powerupGroup.add(gem.FastShot(self.position,self.textGroup))
-                elif randomNumber <= 80:
-                    self.powerupGroup.add(gem.DamageX2(self.position, self.textGroup))
-                elif randomNumber <= 90:
-                    self.powerupGroup.add(gem.Reflect(self.position, self.textGroup))
+                if random_number <= 25:
+                    self.powerup_group.add(balloon.Bonus250(self.position, self.text_group))
+                elif random_number <= 40:
+                    self.powerup_group.add(balloon.Bonus500(self.position, self.text_group))
+                elif random_number <= 50:
+                    self.powerup_group.add(balloon.BonusX2(self.position, self.text_group))
+                elif random_number <= 60:
+                    self.powerup_group.add(gem.DualShot(self.position, self.text_group))
+                elif random_number <= 70:
+                    self.powerup_group.add(gem.FastShot(self.position, self.text_group))
+                elif random_number <= 80:
+                    self.powerup_group.add(gem.DamageX2(self.position, self.text_group))
+                elif random_number <= 90:
+                    self.powerup_group.add(gem.Reflect(self.position, self.text_group))
                 else:
-                    self.powerupGroup.add(gem.Nova(self.position,self.textGroup,self.effectsGroup))
+                    self.powerup_group.add(gem.Nova(self.position, self.text_group, self.effects_group))
+
         else:
-            self.object_collided_with.owner.increment_score(100, self.position, self.textGroup)
+            self.object_collided_with.owner.increment_score(100, self.position, self.text_group)
 
-            randomNumber = int(random.random() * 6 + 1)
+            random_number = int(random.random() * 6 + 1)
     
-            if randomNumber == 1:
-                """Generate a random number between 1 and 100"""
-                randomNumber = int(random.random() * 100 + 1)
+            if random_number == 1:
+                random_number = int(random.random() * 100 + 1)
 
-
-                if randomNumber <= 25:
-                    self.powerupGroup.add(balloon.Bonus250(self.position,self.textGroup))
-                elif randomNumber <= 40:
-                    self.powerupGroup.add(balloon.Bonus500(self.position, self.textGroup))
-                elif randomNumber <= 45:
-                    self.powerupGroup.add(balloon.BonusCombo(self.position,self.textGroup))
-                elif randomNumber <= 50:
-                    self.powerupGroup.add(balloon.BonusX2(self.position,self.textGroup))
-                elif randomNumber <= 60:
-                    self.powerupGroup.add(gem.DualShot(self.position, self.textGroup))
-                elif randomNumber <= 70:
-                    self.powerupGroup.add(gem.FastShot(self.position,self.textGroup))
-                elif randomNumber <= 80:
-                    self.powerupGroup.add(gem.DamageX2(self.position, self.textGroup))
-                elif randomNumber <= 90:
-                    self.powerupGroup.add(gem.Reflect(self.position, self.textGroup))
+                if random_number <= 25:
+                    self.powerup_group.add(balloon.Bonus250(self.position, self.text_group))
+                elif random_number <= 40:
+                    self.powerup_group.add(balloon.Bonus500(self.position, self.text_group))
+                elif random_number <= 45:
+                    self.powerup_group.add(balloon.BonusCombo(self.position, self.text_group))
+                elif random_number <= 50:
+                    self.powerup_group.add(balloon.BonusX2(self.position, self.text_group))
+                elif random_number <= 60:
+                    self.powerup_group.add(gem.DualShot(self.position, self.text_group))
+                elif random_number <= 70:
+                    self.powerup_group.add(gem.FastShot(self.position, self.text_group))
+                elif random_number <= 80:
+                    self.powerup_group.add(gem.DamageX2(self.position, self.text_group))
+                elif random_number <= 90:
+                    self.powerup_group.add(gem.Reflect(self.position, self.text_group))
                 else:
-                    self.powerupGroup.add(gem.Nova(self.position,self.textGroup,self.effectsGroup))
+                    self.powerup_group.add(gem.Nova(self.position, self.text_group, self.effects_group))
 
     def die(self):
-        utility.play_sound(self.deathSound)
-
-        particle.deathEmitter(self.position, self.effectsGroup).run()
-
-        self.itemDrop()
-
+        utility.play_sound(self.death_sound)
+        particle.DeathEmitter(self.position, self.effects_group).run()
+        self.item_drop()
         self.active = False
         self.emitter = None
-        self.deathEmitter = None
+        self.death_emitter = None
         self.kill()
         del self

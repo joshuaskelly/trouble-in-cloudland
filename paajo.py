@@ -1,79 +1,70 @@
-import utility
-import pygame
-import random
-import math
-import balloon
-import gem
-import text
-import aitools
-import particle
-import animation
 import copy
-import enemy
+import random
 
+import aitools
+import enemy
+import utility
 from actor import *
 
-def loadData():
-    Paajo.deathSound = utility.loadSound("pop")
-    Paajo.MasterAnimationList.buildAnimation("Idle", ["paajo"])
+
+def load_data():
+    Paajo.death_sound = utility.load_sound('pop')
+    Paajo.master_animation_list.build_animation('Idle', ['paajo'])
+
 
 class Paajo(enemy.Enemy):
-    lastSpawn = [0,0]
-    deathSound = None
-    MasterAnimationList = animation.Animation()
-    def __init__(self, groupList, myPosition):
+    last_spawn = 0, 0
+    death_sound = None
+    master_animation_list = animation.Animation()
 
-        """   COMMON VARIABLES   """
+    def __init__(self, group_list, my_position):
+
+        # COMMON VARIABLES
         enemy.Enemy.__init__(self)
-        self.actorType = ACTOR_TYPE_ENEMY
-        
-        self.animation_list = copy.copy(self.MasterAnimationList)
-        self.animation_list.set_parent(self)
-        self.animation_list.play("Idle")
-        
-        self.rect = self.image.get_rect()
-        
-        self.bound_style = BOUND_STYLE_CUSTOM
-        self.bounds = [-32,-32,(SCREEN_WIDTH + 32),(SCREEN_HEIGHT + 32)]        
-        
-        self.canCollide = True        
-        self.hitrect = pygame.Rect(0,0,68,74)
 
+        self.actor_type = ACTOR_TYPE_ENEMY
+        self.animation_list = copy.copy(self.master_animation_list)
+        self.animation_list.set_parent(self)
+        self.animation_list.play('Idle')
+        self.rect = self.image.get_rect()
+        self.bound_style = BOUND_STYLE_CUSTOM
+        self.bounds = -32, -32, SCREEN_WIDTH + 32, SCREEN_HEIGHT + 32
+        self.can_collide = True
+        self.hitrect = pygame.Rect(0,0,68,74)
         self.position = vector.Vector2d.zero
         self.velocity = vector.Vector2d.zero
 
-        """   UNIQUE VARIABLES   """
+        # UNIQUE VARIABLES
         self.speed = 12
-        self.changeDirection = 0
+        self.change_direction = 0
         self.target = [0,0]
-        self.powerupGroup = groupList[POWERUP_GROUP]
-        self.textGroup = groupList[TEXT_GROUP]
-        self.effectsGroup = groupList[EFFECTS_GROUP]
+        self.powerup_group = group_list[POWERUP_GROUP]
+        self.text_group = group_list[TEXT_GROUP]
+        self.effects_group = group_list[EFFECTS_GROUP]
         self.health = 2
-        self.dropItem = False
-        self.bossFight = False
-        self.myPosition = myPosition
+        self.drop_item = False
+        self.boss_fight = False
+        self.my_position = my_position
+        self.my_flock = None
 
-        """    LEAVE SCREEN VARIABLES    """
-        self.lifeTimer = 5 * FRAMES_PER_SECOND
-        self.leaveScreen = False
+        # LEAVE SCREEN VARIABLES
+        self.life_timer = 5 * FRAMES_PER_SECOND
+        self.leave_screen = False
 
-        if self.myPosition == 5:
-            aitools.spawnOffScreen(self)
-            Paajo.lastSpawn = self.position
+        if self.my_position == 5:
+            aitools.spawn_off_screen(self)
+            Paajo.last_spawn = self.position
         else:
-            aitools.spawnAtPoint(self, Paajo.lastSpawn)
+            aitools.spawn_at_point(self, Paajo.last_spawn)
 
-        if self.myPosition == 1:
+        if self.my_position == 1:
             self.leader = self
 
-
-
     def actor_update(self):
-        self.lifeTimer -= 1
+        self.life_timer -= 1
 
-        if not self.lifeTimer:
-            self.leaveScreen = True
+        if not self.life_timer:
+            self.leave_screen = True
 
         if self.active:
             if self.health <= 0:
@@ -82,76 +73,79 @@ class Paajo(enemy.Enemy):
         else:
             self.active = True
 
-        self.process_AI()
+        self.process_ai()
 
-
-
-    def setGroup(self,myFlock):
-        self.myFlock = myFlock
-        for element in self.myFlock:
-            if element.myPosition == 1:
+    def set_group(self, my_flock):
+        self.my_flock = my_flock
+        
+        for element in self.my_flock:
+            if element.my_position == 1:
                 self.leader = element
 
-
-
-    def process_AI(self):
-        if self.leaveScreen:
+    def process_ai(self):
+        if self.leave_screen:
             pass
-        elif self.myPosition != 1:
-            flockChart = [False,False,False,False,False]
-            for member in self.myFlock:
+        
+        elif self.my_position != 1:
+            flock_chart = [False, False, False, False, False]
+            
+            for member in self.my_flock:
                 if member.active:
-                    if member.myPosition == self.myPosition and member != self and self.myPosition < 5:
-                        member.myPosition += 1
+                    if member.my_position == self.my_position and member != self and self.my_position < 5:
+                        member.my_position += 1
 
-                    flockChart[member.myPosition - 1] = True
+                    flock_chart[member.my_position - 1] = True
                     
-                    if member.myPosition == 1:
+                    if member.my_position == 1:
                         self.leader = member
 
-            positionNumber = 0
-            for element in flockChart:
-                positionNumber += 1
-                if positionNumber < self.myPosition and element == False:
-                    self.myPosition = positionNumber
-                    if self.myPosition == 1:
+            position_number = 0
+
+            for element in flock_chart:
+                position_number += 1
+
+                if position_number < self.my_position and element == False:
+                    self.my_position = position_number
+
+                    if self.my_position == 1:
                         self.leader = self
 
-    
                 self.speed = 14.2
-                leaderVelocity = vector.Vector2d(self.leader.velocity[0], self.leader.velocity[1])
-                leaderPerpendicular = self.leader.velocity.getPerpendicular()
-                if self.myPosition % 2:
+                leader_velocity = vector.Vector2d(self.leader.velocity[0], self.leader.velocity[1])
+                leader_perpendicular = self.leader.velocity.get_perpendicular()
+
+                if self.my_position % 2:
                     offset = -50
+
                 else:
                     offset = 50
-                targetPoint = self.leader.position - (leaderVelocity.makeNormal() * (100) * int(self.myPosition / 2)) + (leaderPerpendicular.makeNormal() * offset * int(self.myPosition / 2))
 
-                if (targetPoint - self.position).getMagnitude() < self.speed:
-                    aitools.goToPoint(self,targetPoint)
+                target_point = self.leader.position - (leader_velocity.make_normal() * 100 * int(self.my_position / 2)) + (leader_perpendicular.make_normal() * offset * int(self.my_position / 2))
+
+                if (target_point - self.position).get_magnitude() < self.speed:
+                    aitools.go_to_point(self, target_point)
+
                 else:
-                    aitools.arcToPoint(self, targetPoint, 3)
+                    aitools.arc_to_point(self, target_point, 3)
     
         else:
-            for element in self.myFlock:
-                if element != self and element.myPosition == self.myPosition:
-                    element.myPosition += 1
+            for element in self.my_flock:
+                if element != self and element.my_position == self.my_position:
+                    element.my_position += 1
 
             self.speed = 11
-            if not self.changeDirection:
-                self.target = vector.Vector2d((random.random() * (SCREEN_WIDTH + 200)) - 100, (random.random() * (SCREEN_HEIGHT + 200)) - 100)
-                self.changeDirection = 30
-            self.changeDirection -= 1
-            aitools.arcToPoint(self, self.target)
-    
-    
-    
-    def collide(self):
-        if self.object_collided_with.actorType == ACTOR_PLAYER:
-            self.object_collided_with.hurt(1)
-    
 
+            if not self.change_direction:
+                self.target = vector.Vector2d((random.random() * (SCREEN_WIDTH + 200)) - 100, (random.random() * (SCREEN_HEIGHT + 200)) - 100)
+                self.change_direction = 30
+
+            self.change_direction -= 1
+            aitools.arc_to_point(self, self.target)
+
+    def collide(self):
+        if self.object_collided_with.actor_type == ACTOR_PLAYER:
+            self.object_collided_with.hurt(1)
 
     def custom_bounds(self):
-        if self.leaveScreen:
+        if self.leave_screen:
             self.kill()

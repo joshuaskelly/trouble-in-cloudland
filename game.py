@@ -12,9 +12,9 @@ import world
 from utility import *
 
 pause_menu_dictionary = {
-    RESUME_GAME: ["Resume","Continue Playing"],
-    OPTION_MENU: ["Options","Change Sound and Video Options"],
-    EXIT_GAME: ["Exit","Exit to the Main Menu"]
+    RESUME_GAME: ['Resume','Continue Playing'],
+    OPTION_MENU: ['Options','Change Sound and Video Options'],
+    EXIT_GAME: ['Exit','Exit to the Main Menu']
 }
 
 
@@ -52,14 +52,14 @@ class Game:
         self.temp_life_board.position = vector.Vector2d(48, 40)
         self.life_board = self.temp_life_board
         
-        self.lifeIcon = icon.Icon("life")
+        self.life_icon = icon.Icon('life')
         
         self.player = player.Player(self.bullet_group, self.effects_group, self.life_board, self.score_board)
         
         self.player_group.add(self.player)
         self.text_group.add(self.score_board)
         self.text_group.add(self.temp_life_board)
-        self.text_group.add(self.lifeIcon)
+        self.text_group.add(self.life_icon)
 
         self.music_list = music_list
 
@@ -209,10 +209,10 @@ class Game:
             [4, ACTOR_BOKKO, -1, 1]
         ]
         
-        tutorial_world = ["Tutorial", self.player, self.group_list]
-        temp_world_1 = ["Cloudopolis", self.player, self.group_list, [world1_level0, world1_level1, world1_level2, world1_level3]]
-        temp_world_2 = ["Nightmaria", self.player, self.group_list, [world2_level0, world2_level1, world2_level2, world2_level3]]
-        temp_world_3 = ["Opulent Dream", self.player, self.group_list, [world3_level0, world3_level1, world3_level2, world3_level3]]
+        tutorial_world = ['Tutorial', self.player, self.group_list]
+        temp_world_1 = ['Cloudopolis', self.player, self.group_list, [world1_level0, world1_level1, world1_level2, world1_level3]]
+        temp_world_2 = ['Nightmaria', self.player, self.group_list, [world2_level0, world2_level1, world2_level2, world2_level3]]
+        temp_world_3 = ['Opulent Dream', self.player, self.group_list, [world3_level0, world3_level1, world3_level2, world3_level3]]
 
         self.world_list = [
             tutorial_world,
@@ -231,18 +231,18 @@ class Game:
             self.current_world.load()
 
         if self.world_number == 0:
-            self.new_scene = scene.tutorialScene()
+            self.new_scene = scene.TutorialScene()
             self.player.lives = 99
             self.life_board.set_text('x' + str(self.player.lives))
 
         elif self.world_number == 1:
-            self.new_scene = scene.forestScene()
+            self.new_scene = scene.ForestScene()
 
         elif self.world_number == 2:
-            self.new_scene = scene.rockyScene()
+            self.new_scene = scene.RockyScene()
 
         elif self.world_number == 3:
-            self.new_scene = scene.pinkScene()
+            self.new_scene = scene.PinkScene()
 
     def run(self):
         while not self.done:
@@ -262,16 +262,16 @@ class Game:
                     self.world_number += 1
                     
                     if self.world_number == 0:
-                        self.new_scene = scene.tutorialScene()
+                        self.new_scene = scene.TutorialScene()
 
                     elif self.world_number == 1:
-                        self.new_scene = scene.forestScene()
+                        self.new_scene = scene.ForestScene()
 
                     elif self.world_number == 2:
-                        self.new_scene = scene.rockyScene()
+                        self.new_scene = scene.RockyScene()
 
                     elif self.world_number == 3:
-                        self.new_scene = scene.pinkScene()
+                        self.new_scene = scene.PinkScene()
                     
                     if self.world_number > settings_list[WORLD_UNLOCKED]:
                         settings_list[WORLD_UNLOCKED] = self.world_number
@@ -284,7 +284,7 @@ class Game:
                 else:
                     self.game_beat()
 
-            self.checkCollision()
+            self.check_collision()
             self.update()
             self.draw()
             self.handle_events()
@@ -300,20 +300,20 @@ class Game:
 
                 if self.player.score < high_score[self.world_number]:
                     end_game_dictionary = {
-                        HIGH_SCORE: ["High Score For This World: " + str(high_score[self.world_number]), "You would need to score " + str(high_score[self.world_number] - self.player.score) + " more to beat it!"],
-                        NEXT_WORLD: ["Exit", "Return To The Menu"]
+                        HIGH_SCORE: ['High Score For This World: ' + str(high_score[self.world_number]), 'You would need to score ' + str(high_score[self.world_number] - self.player.score) + ' more to beat it!'],
+                        NEXT_WORLD: ['Exit', 'Return To The Menu']
                     }
 
                 elif self.player.score == high_score[self.world_number]:
                     end_game_dictionary = {
-                        HIGH_SCORE: ["High Score For This World: " + str(high_score[self.world_number]), "You Tied the High Score!"],
-                        NEXT_WORLD: ["Exit", "Return To The Menu"]
+                        HIGH_SCORE: ['High Score For This World: ' + str(high_score[self.world_number]), 'You Tied the High Score!'],
+                        NEXT_WORLD: ['Exit', 'Return To The Menu']
                     }
 
                 else:
                     end_game_dictionary = {
-                        HIGH_SCORE: ["High Score For This World: " + str(high_score[self.world_number]), "You Beat the High Score!"],
-                        NEXT_WORLD: ["Exit", "Return To The Menu"]
+                        HIGH_SCORE: ['High Score For This World: ' + str(high_score[self.world_number]), 'You Beat the High Score!'],
+                        NEXT_WORLD: ['Exit', 'Return To The Menu']
                     }
 
                     high_score[self.world_number] = self.player.score
@@ -325,7 +325,7 @@ class Game:
                                         self.music_list[self.world_number],
                                         self.screen.convert(),
                                         [0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT],
-                                        ["Game Over", 128, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
+                                        ['Game Over', 128, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
                                         end_game_dictionary)
 
                 end_game_menu.show()
@@ -348,7 +348,7 @@ class Game:
                                            self.music_list[self.world_number],
                                            screen_grab,
                                            [0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT],
-                                           ["Pause", 128, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
+                                           ['Pause', 128, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
                                            pause_menu_dictionary)
 
                     menu_result = pause_menu.show()
@@ -360,37 +360,37 @@ class Game:
                         while option_result:
     
                             option_menu_dictionary = {
-                                SOUND_MENU: ["Sound Options", "Change Sound Options"],
-                                DISPLAY_MENU: ["Video Options", "Change Video Options"],
-                                CHANGE_SENSITIVITY: ["Mouse Sensitivity: " + get_sensitivity(settings_list[SENSITIVITY]), "Change Mouse Sensitivity"],
-                                EXIT_OPTIONS: ["Back", "Go Back to the Main Menu"]
+                                SOUND_MENU: ['Sound Options', 'Change Sound Options'],
+                                DISPLAY_MENU: ['Video Options', 'Change Video Options'],
+                                CHANGE_SENSITIVITY: ['Mouse Sensitivity: ' + get_sensitivity(settings_list[SENSITIVITY]), 'Change Mouse Sensitivity'],
+                                EXIT_OPTIONS: ['Back', 'Go Back to the Main Menu']
                             }
     
                             sensitivity_menu_dictionary = {
-                                0: ["Very Low", "Change Sensitivity to Very Low"],
-                                1: ["Low", "Change Sensitivity to Low"],
-                                2: ["Normal", "Change Sensitivity to Normal"],
-                                3: ["High", "Change Sensitivity to High"],
-                                4: ["Very High", "Change Sensitivity to Very High"]
+                                0: ['Very Low', 'Change Sensitivity to Very Low'],
+                                1: ['Low', 'Change Sensitivity to Low'],
+                                2: ['Normal', 'Change Sensitivity to Normal'],
+                                3: ['High', 'Change Sensitivity to High'],
+                                4: ['Very High', 'Change Sensitivity to Very High']
                             }
                             
                             sound_menu_dictionary = {
-                                TOGGLE_SFX: ["Sound Effects: " + on(settings_list[SFX]), "Turn " + on(not settings_list[SFX]) + " Sound Effects"],
-                                TOGGLE_MUSIC: ["Music: " + on(settings_list[MUSIC]), "Turn " + on(not settings_list[MUSIC]) + " Music"],
-                                EXIT_OPTIONS: ["Back", "Go Back to the Option Menu"]
+                                TOGGLE_SFX: ['Sound Effects: ' + on(settings_list[SFX]), 'Turn ' + on(not settings_list[SFX]) + ' Sound Effects'],
+                                TOGGLE_MUSIC: ['Music: ' + on(settings_list[MUSIC]), 'Turn ' + on(not settings_list[MUSIC]) + ' Music'],
+                                EXIT_OPTIONS: ['Back', 'Go Back to the Option Menu']
                             }
                             
                             display_menu_dictionary = {
-                                TOGGLE_PARTICLES: ["Particles: " + able(settings_list[PARTICLES]), "Turn " + on(not settings_list[PARTICLES]) + " Particle Effects"],
-                                TOGGLE_FULLSCREEN: ["Video Mode: " + get_screen_mode(settings_list[SETTING_FULLSCREEN]), "Switch To " + get_screen_mode(not settings_list[SETTING_FULLSCREEN]) + " Mode"],
-                                EXIT_OPTIONS: ["Back","Go Back to the Main Menu"]
+                                TOGGLE_PARTICLES: ['Particles: ' + able(settings_list[PARTICLES]), 'Turn ' + on(not settings_list[PARTICLES]) + ' Particle Effects'],
+                                TOGGLE_FULLSCREEN: ['Video Mode: ' + get_screen_mode(settings_list[SETTING_FULLSCREEN]), 'Switch To ' + get_screen_mode(not settings_list[SETTING_FULLSCREEN]) + ' Mode'],
+                                EXIT_OPTIONS: ['Back','Go Back to the Main Menu']
                             }
     
                             option_result = menu.Menu(self.screen,
                                                       self.music_list[self.world_number],
                                                       screen_grab,
                                                       [0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT],
-                                                      ["Options", 96,SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
+                                                      ['Options', 96,SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
                                                       option_menu_dictionary,
                                                       last_highlighted).show()
                             
@@ -403,7 +403,7 @@ class Game:
                                                            self.music_list[self.world_number],
                                                            screen_grab,
                                                            [0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT],
-                                                           ["Sound Options", 96,SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
+                                                           ['Sound Options', 96,SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
                                                            sound_menu_dictionary,
                                                            last_highlighted)
 
@@ -425,9 +425,9 @@ class Game:
                                         sound_result = False
                                         
                                     sound_menu_dictionary = {
-                                        TOGGLE_SFX: ["Sound Effects: " + on(settings_list[SFX]), "Turn " + on(not settings_list[SFX]) + " Sound Effects"],
-                                        TOGGLE_MUSIC: ["Music: " + on(settings_list[MUSIC]), "Turn " + on(not settings_list[MUSIC]) + " Music"],
-                                        EXIT_OPTIONS: ["Back", "Go Back to the Option Menu"]
+                                        TOGGLE_SFX: ['Sound Effects: ' + on(settings_list[SFX]), 'Turn ' + on(not settings_list[SFX]) + ' Sound Effects'],
+                                        TOGGLE_MUSIC: ['Music: ' + on(settings_list[MUSIC]), 'Turn ' + on(not settings_list[MUSIC]) + ' Music'],
+                                        EXIT_OPTIONS: ['Back', 'Go Back to the Option Menu']
                                     }
                                         
                             if option_result == DISPLAY_MENU:
@@ -440,7 +440,7 @@ class Game:
                                                              self.music_list[self.world_number],
                                                              screen_grab,
                                                              [0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT],
-                                                             ["Video Options", 96,SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
+                                                             ['Video Options', 96,SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
                                                              display_menu_dictionary,
                                                              last_highlighted)
 
@@ -467,9 +467,9 @@ class Game:
                                         display_result = False
                                         
                                     display_menu_dictionary = {
-                                        TOGGLE_PARTICLES: ["Particles: " + able(settings_list[PARTICLES]), "Turn " + on(not settings_list[PARTICLES]) + " Particle Effects"],
-                                        TOGGLE_FULLSCREEN: ["Video Mode: " + get_screen_mode(settings_list[SETTING_FULLSCREEN]), "Switch To " + get_screen_mode(not settings_list[SETTING_FULLSCREEN]) + " Mode"],
-                                        EXIT_OPTIONS: ["Back", "Go Back to the Main Menu"]
+                                        TOGGLE_PARTICLES: ['Particles: ' + able(settings_list[PARTICLES]), 'Turn ' + on(not settings_list[PARTICLES]) + ' Particle Effects'],
+                                        TOGGLE_FULLSCREEN: ['Video Mode: ' + get_screen_mode(settings_list[SETTING_FULLSCREEN]), 'Switch To ' + get_screen_mode(not settings_list[SETTING_FULLSCREEN]) + ' Mode'],
+                                        EXIT_OPTIONS: ['Back', 'Go Back to the Main Menu']
                                     }
                             
                             elif option_result == EXIT_OPTIONS:
@@ -484,7 +484,7 @@ class Game:
                                                                   self.music_list[self.world_number],
                                                                   screen_grab,
                                                                   [0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT],
-                                                                  ["Mouse Sensitivity", 96,SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
+                                                                  ['Mouse Sensitivity', 96,SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
                                                                   sensitivity_menu_dictionary,
                                                                   last_highlighted)
 
@@ -535,7 +535,7 @@ class Game:
         self.text_group.update()
         self.effects_group.update()
 
-    def checkCollision(self):
+    def check_collision(self):
         if self.player.active:
             self.player.check_collision(self.powerup_group)
             self.player.check_collision(self.enemy_group)
@@ -555,20 +555,20 @@ class Game:
 
         if self.player.score < high_score[self.world_number]:
             world_end_dictionary = {
-                HIGH_SCORE: ["High Score For This World: " + str(high_score[self.world_number]), "You would need to score " + str(high_score[self.world_number] - self.player.score) + " more to beat it!"],
-                NEXT_WORLD: ["Continue", "On to the Next World!"]
+                HIGH_SCORE: ['High Score For This World: ' + str(high_score[self.world_number]), 'You would need to score ' + str(high_score[self.world_number] - self.player.score) + ' more to beat it!'],
+                NEXT_WORLD: ['Continue', 'On to the Next World!']
             }
 
         elif self.player.score == high_score[self.world_number]:
             world_end_dictionary = {
-                HIGH_SCORE: ["High Score For This World: " + str(high_score[self.world_number]), "You Tied the High Score!"],
-                NEXT_WORLD: ["Continue", "On to the Next World!"]
+                HIGH_SCORE: ['High Score For This World: ' + str(high_score[self.world_number]), 'You Tied the High Score!'],
+                NEXT_WORLD: ['Continue', 'On to the Next World!']
             }
 
         else:
             world_end_dictionary = {
-                HIGH_SCORE: ["High Score For This World: " + str(high_score[self.world_number]), "You Beat the High Score!"],
-                NEXT_WORLD: ["Continue", "On to the Next World!"]
+                HIGH_SCORE: ['High Score For This World: ' + str(high_score[self.world_number]), 'You Beat the High Score!'],
+                NEXT_WORLD: ['Continue', 'On to the Next World!']
             }
 
             high_score[self.world_number] = self.player.score
@@ -581,7 +581,7 @@ class Game:
                   self.music_list[self.world_number],
                   self.screen.convert(),
                   [0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT],
-                  ["World Defeated!", 64, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
+                  ['World Defeated!', 64, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
                   world_end_dictionary).show()
          
         utility.fade_music()
@@ -591,20 +591,20 @@ class Game:
 
         if self.player.score < high_score[self.world_number]:
             world_end_dictionary = {
-                HIGH_SCORE: ["High Score For This World: " + str(high_score[self.world_number]), "You would need to score " + str(high_score[self.world_number] - self.player.score) + " more to beat it!"],
-                NEXT_WORLD: ["Credits", "On to the Credits!"]
+                HIGH_SCORE: ['High Score For This World: ' + str(high_score[self.world_number]), 'You would need to score ' + str(high_score[self.world_number] - self.player.score) + ' more to beat it!'],
+                NEXT_WORLD: ['Credits', 'On to the Credits!']
             }
 
         elif self.player.score == high_score[self.world_number]:
             world_end_dictionary = {
-                HIGH_SCORE: ["High Score For This World: " + str(high_score[self.world_number]), "You Tied the High Score!"],
-                NEXT_WORLD: ["Credits", "On to the Credits!"]
+                HIGH_SCORE: ['High Score For This World: ' + str(high_score[self.world_number]), 'You Tied the High Score!'],
+                NEXT_WORLD: ['Credits', 'On to the Credits!']
             }
 
         else:
             world_end_dictionary = {
-                HIGH_SCORE: ["High Score For This World: " + str(high_score[self.world_number]), "You Beat the High Score!"],
-                NEXT_WORLD: ["Credits", "On to the Credits!"]
+                HIGH_SCORE: ['High Score For This World: ' + str(high_score[self.world_number]), 'You Beat the High Score!'],
+                NEXT_WORLD: ['Credits', 'On to the Credits!']
             }
 
             high_score[self.world_number] = self.player.score
@@ -616,7 +616,7 @@ class Game:
                                    self.music_list[self.world_number],
                                    self.screen.convert(),
                                    [0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT],
-                                   ["Congratulations!", 64, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
+                                   ['Congratulations!', 64, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
                                    world_end_dictionary)
 
         world_end_menu.show()

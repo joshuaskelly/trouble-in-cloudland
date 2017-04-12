@@ -2,7 +2,6 @@ import pygame
 
 import animation
 import vector
-
 from settings import *
 
 
@@ -12,6 +11,7 @@ class Actor(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
+        self.actor_type = ACTOR_NONE
         self.can_collide = False
         self.active = False
         self.hitrect = pygame.Rect(0, 0, 0, 0)
@@ -21,6 +21,8 @@ class Actor(pygame.sprite.Sprite):
         self.bound_style = None
         self.animation_list = animation.Animation()
         self.image = None
+        self.position = vector.Vector2d(0, 0)
+        self.bounds = 0, 0, 0, 0
 
     def actor_update(self):
         pass

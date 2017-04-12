@@ -1,104 +1,100 @@
-import text
 import scene
+import text
 import utility
-
 from utility import *
-from pygame.locals import *
+
 
 class Credits:
-    def __init__(self,screen,musicList):
-        self.musicList = musicList
+    def __init__(self, screen, music_list):
+        self.music_list = music_list
         self.screen = screen
-        self.newScene = scene.forestScene()
+        self.new_scene = scene.ForestScene()
         self.finished = False
-        self.scrollRate = -1
+        self.scroll_rate = -1
+        self.rolling_credits = True
+        self.roll_credits()
 
-        self.rollCredits()
+    def roll_credits(self):
+        credit_group = pygame.sprite.Group()
 
-    
-    def rollCredits(self):
-        creditGroup = pygame.sprite.Group()
+        # Create Text Labels
+        title_credit = text.Text(FONT_PATH, 48, FONT_COLOR, 'Credits')
+        title_credit.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT))
 
-        """    Create Text Labels    """
-        titleCredit  = text.Text(FONT_PATH,48,FONT_COLOR,"Credits")
-        titleCredit.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT))
+        big_jony = text.Text(FONT_PATH, 36, FONT_COLOR, 'Jony Fries')
+        big_jony.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 100))
+        jony_credit0 = text.Text(FONT_PATH, 24, FONT_COLOR, 'Game Programming')
+        jony_credit0.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 150))
+        jony_credit1 = text.Text(FONT_PATH, 24, FONT_COLOR, 'Sound Design')
+        jony_credit1.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 200))
+        jony_credit2 = text.Text(FONT_PATH, 24, FONT_COLOR, 'Voice Acting')
+        jony_credit2.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 250))
 
-        bigJony   = text.Text(FONT_PATH,36,FONT_COLOR,"Jony Fries")
-        bigJony.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 100))
-        jonyCredit0  = text.Text(FONT_PATH,24,FONT_COLOR,"Game Programming")
-        jonyCredit0.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 150))
-        jonyCredit1  = text.Text(FONT_PATH,24,FONT_COLOR,"Sound Design")
-        jonyCredit1.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 200))
-        jonyCredit2  = text.Text(FONT_PATH,24,FONT_COLOR,"Voice Acting")
-        jonyCredit2.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 250))
-
-        bigJosh  = text.Text(FONT_PATH,36,FONT_COLOR,"Joshua Skelton")
-        bigJosh.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 350))
-        joshCredit0  = text.Text(FONT_PATH,24,FONT_COLOR,"Game Programming")
-        joshCredit0.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 400))
-        joshCredit1  = text.Text(FONT_PATH,24,FONT_COLOR,"Graphic Design")
-        joshCredit1.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 450))
+        big_josh = text.Text(FONT_PATH, 36, FONT_COLOR, 'Joshua Skelton')
+        big_josh.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 350))
+        josh_credit0 = text.Text(FONT_PATH, 24, FONT_COLOR, 'Game Programming')
+        josh_credit0.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 400))
+        josh_credit1 = text.Text(FONT_PATH, 24, FONT_COLOR,' Graphic Design')
+        josh_credit1.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 450))
         
-        bigSpecial = text.Text(FONT_PATH,36,FONT_COLOR,"Special Thanks To:")
-        bigSpecial.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 550))
-        specialCredit0 = text.Text(FONT_PATH,24,FONT_COLOR,"Python Software Foundation")
-        specialCredit0.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 600))
-        specialCredit1 = text.Text(FONT_PATH,24,FONT_COLOR,"PyGame")
-        specialCredit1.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 650))
-        specialCredit2 = text.Text(FONT_PATH,24,FONT_COLOR,"ShyFonts Type Foundry")
-        specialCredit2.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 700))
+        big_special = text.Text(FONT_PATH, 36, FONT_COLOR, 'Special Thanks To:')
+        big_special.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 550))
+        special_credit0 = text.Text(FONT_PATH, 24, FONT_COLOR, 'Python Software Foundation')
+        special_credit0.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 600))
+        special_credit1 = text.Text(FONT_PATH, 24, FONT_COLOR, 'PyGame')
+        special_credit1.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 650))
+        special_credit2 = text.Text(FONT_PATH, 24, FONT_COLOR, 'ShyFonts Type Foundry')
+        special_credit2.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 700))
         
-        thankYou = text.Text(FONT_PATH,64,FONT_COLOR,"Thank You For Playing!")
-        thankYou.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 800))
+        thank_you = text.Text(FONT_PATH, 64, FONT_COLOR, 'Thank You For Playing!')
+        thank_you.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 800))
 
-        """    Add Labels to Group    """
-        creditGroup.add(titleCredit)
+        # Add Labels to Group
+        credit_group.add(title_credit)
         
-        creditGroup.add(bigJony)
-        creditGroup.add(jonyCredit0)
-        creditGroup.add(jonyCredit1)
-        creditGroup.add(jonyCredit2)
+        credit_group.add(big_jony)
+        credit_group.add(jony_credit0)
+        credit_group.add(jony_credit1)
+        credit_group.add(jony_credit2)
         
-        creditGroup.add(bigJosh)
-        creditGroup.add(joshCredit0)
-        creditGroup.add(joshCredit1)
+        credit_group.add(big_josh)
+        credit_group.add(josh_credit0)
+        credit_group.add(josh_credit1)
         
-        creditGroup.add(bigSpecial)
-        creditGroup.add(specialCredit0)
-        creditGroup.add(specialCredit1)
-        creditGroup.add(specialCredit2)
+        credit_group.add(big_special)
+        credit_group.add(special_credit0)
+        credit_group.add(special_credit1)
+        credit_group.add(special_credit2)
 
-        creditGroup.add(thankYou)
+        credit_group.add(thank_you)
 
-        self.rollingCredits = True
         timer = 5 * FRAMES_PER_SECOND
 
-        for credit in creditGroup:
+        for credit in credit_group:
             credit.set_alignment(CENTER_MIDDLE)
 
-        while self.rollingCredits:
-            utility.play_music(self.musicList)
-            for credit in creditGroup:
-                creditPosition = credit.getPosition()
-                credit.setPosition((creditPosition[0],creditPosition[1] + self.scrollRate))
+        while self.rolling_credits:
+            utility.play_music(self.music_list)
 
-            creditGroup.update()
-            self.newScene.draw(self.screen)
-            creditGroup.draw(self.screen)
+            for credit in credit_group:
+                credit_position = credit.get_position()
+                credit.set_position((credit_position[0], credit_position[1] + self.scroll_rate))
+
+            credit_group.update()
+            self.new_scene.draw(self.screen)
+            credit_group.draw(self.screen)
             pygame.display.flip()
-            self.handleEvents()
+            self.handle_events()
             
-            if specialCredit2.getPosition()[1] < 0:
+            if special_credit2.get_position()[1] < 0:
                 if self.finished:
-                    self.rollingCredits = False
+                    self.rolling_credits = False
 
-            if thankYou.getPosition()[1] < (SCREEN_HEIGHT / 2):
-                thankYou.setPosition((SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+            if thank_you.get_position()[1] < (SCREEN_HEIGHT / 2):
+                thank_you.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
 
-
-    def handleEvents(self):
+    def handle_events(self):
         for event in pygame.event.get():
-            if (event.type == KEYDOWN and event.key == K_ESCAPE) or (event.type == pygame.MOUSEBUTTONDOWN):
-                self.scrollRate = -10
+            if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE) or (event.type == pygame.MOUSEBUTTONDOWN):
+                self.scroll_rate = -10
                 self.finished = True
-                    
