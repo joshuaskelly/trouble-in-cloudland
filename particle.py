@@ -113,7 +113,7 @@ class RainParticle(actor.Actor):
             self.die()
             
         self.life_timer -= 1
-        self.velocity += [0.0,2.0]
+        self.velocity += 0.0, 2.0
 
 
 class ParticleEmitter(object):

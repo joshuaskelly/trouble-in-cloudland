@@ -4,7 +4,7 @@ import utility
 from utility import *
 
 
-class Credits:
+class Credits(object):
     def __init__(self, screen, music_list):
         self.music_list = music_list
         self.screen = screen

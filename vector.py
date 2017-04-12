@@ -4,7 +4,7 @@ import fastmath
 
 from fastmath import *
 
-class Vector2d:
+class Vector2d(object):
     def __init__(self, x_or_sequence, y = None):
         if y == None:
             try:

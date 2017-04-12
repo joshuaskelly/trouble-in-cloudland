@@ -607,16 +607,19 @@ class BossTut(actor.Actor):
         elif bullet.collide_style == COLLIDE_STYLE_REFLECT:
             if bullet.position.x < self.position.x - 64:
                 bullet.position = vector.Vector2d(self.position.x - 112, bullet.position.y)
-                bullet.velocity *= [-1.0, 1.0]
+                bullet.velocity *= -1.0, 1.0
+
             elif bullet.position.x > self.position.x + 64:
                 bullet.position = vector.Vector2d(self.position.x + 112, bullet.position.y)
-                bullet.velocity *= [-1.0, 1.0]
+                bullet.velocity *= -1.0, 1.0
+
             if bullet.position.y < self.position.y - 64:
                 bullet.position = vector.Vector2d(bullet.position.x, self.position.y - 14)
-                bullet.velocity *= [1.0, -1.0]
+                bullet.velocity *= 1.0, -1.0
+
             elif bullet.position.y > self.position.y + 64:
                 bullet.position = vector.Vector2d(bullet.position.x, self.position.y + 140)
-                bullet.velocity *= [1.0, -1.0]
+                bullet.velocity *= 1.0, -1.0
 
         elif bullet.collide_style == COLLIDE_STYLE_NOVA:
             if not self.stunned:

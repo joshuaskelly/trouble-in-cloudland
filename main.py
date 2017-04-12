@@ -1,31 +1,22 @@
 #!/usr/bin/python
 import pygame
 
-import baake
 import balloon
-import batto
-import bokko
-import boss
 import bullet
 import credits
+import enemies
 import game
 import gem
-import hakta
-import haoya
 import menu
-import moono
-import paajo
 import particle
 import player
-import raayu
-import rokubi
+import prettyprint
 import scene
 import splashscreen
 import text
 import utility
 import vector
 import world
-import yurei
 from settings import *
 
 pygame.init()
@@ -85,23 +76,23 @@ world.load_data()
 player.load_data()
 bullet.load_data()
 pygame.event.pump()
-baake.load_data()
+enemies.baake.load_data()
 balloon.load_data()
 gem.load_data()
 pygame.event.pump()
-moono.load_data()
-batto.load_data()
-rokubi.load_data()
+enemies.moono.load_data()
+enemies.batto.load_data()
+enemies.rokubi.load_data()
 pygame.event.pump()
-haoya.load_data()
-yurei.load_data()
-bokko.load_data()
+enemies.haoya.load_data()
+enemies.yurei.load_data()
+enemies.bokko.load_data()
 pygame.event.pump()
-hakta.load_data()
-raayu.load_data()
-paajo.load_data()
+enemies.hakta.load_data()
+enemies.raayu.load_data()
+enemies.paajo.load_data()
 pygame.event.pump()
-boss.load_data()
+enemies.boss.load_data()
 particle.load_data()
 menu.load_data()
 
@@ -144,19 +135,19 @@ world_menu_dictionary = {
 option_menu_dictionary = {
     SOUND_MENU: ('Sound Options', 'Change Sound Options'),
     DISPLAY_MENU: ('Video Options', 'Change Video Options'),
-    CHANGE_SENSITIVITY: ('Mouse Sensitivity: ' + utility.get_sensitivity(settings_list[SENSITIVITY]), 'Change Mouse Sensitivity'),
+    CHANGE_SENSITIVITY: ('Mouse Sensitivity: ' + prettyprint.mouse_sensitivity(settings_list[SENSITIVITY]), 'Change Mouse Sensitivity'),
     EXIT_OPTIONS: ('Back', 'Go Back to the Main Menu')
 }
 
 sound_menu_dictionary = {
-    TOGGLE_SFX: ('Sound Effects: ' + utility.on(settings_list[SFX]), 'Turn ' + utility.on(not settings_list[SFX]) + ' Sound Effects'),
-    TOGGLE_MUSIC: ('Music: ' + utility.on(settings_list[MUSIC]), 'Turn ' + utility.on(not settings_list[MUSIC]) + ' Music'),
+    TOGGLE_SFX: ('Sound Effects: ' + prettyprint.on(settings_list[SFX]), 'Turn ' + prettyprint.on(not settings_list[SFX]) + ' Sound Effects'),
+    TOGGLE_MUSIC: ('Music: ' + prettyprint.on(settings_list[MUSIC]), 'Turn ' + prettyprint.on(not settings_list[MUSIC]) + ' Music'),
     EXIT_OPTIONS: ('Back', 'Go Back to the Option Menu')
 }
 
 display_menu_dictionary = {
-    TOGGLE_PARTICLES: ('Particles: ' + utility.able(settings_list[PARTICLES]), 'Turn ' + utility.on(not settings_list[PARTICLES]) + ' Particle Effects'),
-    TOGGLE_FULLSCREEN: ('Video Mode: ' + utility.get_screen_mode(settings_list[SETTING_FULLSCREEN]), 'Switch To ' + utility.get_screen_mode(not settings_list[SETTING_FULLSCREEN]) + ' Mode'),
+    TOGGLE_PARTICLES: ('Particles: ' + prettyprint.able(settings_list[PARTICLES]), 'Turn ' + prettyprint.on(not settings_list[PARTICLES]) + ' Particle Effects'),
+    TOGGLE_FULLSCREEN: ('Video Mode: ' + prettyprint.screen_mode(settings_list[SETTING_FULLSCREEN]), 'Switch To ' + prettyprint.screen_mode(not settings_list[SETTING_FULLSCREEN]) + ' Mode'),
     EXIT_OPTIONS: ('Back', 'Go Back to the Main Menu')
 }
 
@@ -240,8 +231,8 @@ while game_is_running:
                         sound_result = False
                         
                     sound_menu_dictionary = {
-                        TOGGLE_SFX: ('Sound Effects: ' + utility.on(settings_list[SFX]), 'Turn ' + utility.on(not settings_list[SFX]) + ' Sound Effects'),
-                        TOGGLE_MUSIC: ('Music: ' + utility.on(settings_list[MUSIC]), 'Turn ' + utility.on(not settings_list[MUSIC]) + ' Music'),
+                        TOGGLE_SFX: ('Sound Effects: ' + prettyprint.on(settings_list[SFX]), 'Turn ' + prettyprint.on(not settings_list[SFX]) + ' Sound Effects'),
+                        TOGGLE_MUSIC: ('Music: ' + prettyprint.on(settings_list[MUSIC]), 'Turn ' + prettyprint.on(not settings_list[MUSIC]) + ' Music'),
                         EXIT_OPTIONS: ('Back','Go Back to the Option Menu')
                     }
                         
@@ -277,8 +268,8 @@ while game_is_running:
                         display_result = False
                         
                     display_menu_dictionary = {
-                        TOGGLE_PARTICLES: ('Particles: ' + utility.able(settings_list[PARTICLES]), 'Turn ' + utility.on(not settings_list[PARTICLES]) + ' Particle Effects'),
-                        TOGGLE_FULLSCREEN: ('Video Mode: ' + utility.get_screen_mode(settings_list[SETTING_FULLSCREEN]), 'Switch To ' + utility.get_screen_mode(not settings_list[SETTING_FULLSCREEN]) + ' Mode'),
+                        TOGGLE_PARTICLES: ('Particles: ' + prettyprint.able(settings_list[PARTICLES]), 'Turn ' + prettyprint.on(not settings_list[PARTICLES]) + ' Particle Effects'),
+                        TOGGLE_FULLSCREEN: ('Video Mode: ' + prettyprint.screen_mode(settings_list[SETTING_FULLSCREEN]), 'Switch To ' + prettyprint.screen_mode(not settings_list[SETTING_FULLSCREEN]) + ' Mode'),
                         EXIT_OPTIONS: ('Back', 'Go Back to the Main Menu')
                     }
             
@@ -308,7 +299,7 @@ while game_is_running:
             option_menu_dictionary = {
                 SOUND_MENU: ('Sound Options', 'Change Sound Options'),
                 DISPLAY_MENU: ('Video Options', 'Change Video Options'),
-                CHANGE_SENSITIVITY: ('Mouse Sensitivity: ' + utility.get_sensitivity(settings_list[SENSITIVITY]), 'Change Mouse Sensitivity'),
+                CHANGE_SENSITIVITY: ('Mouse Sensitivity: ' + prettyprint.mouse_sensitivity(settings_list[SENSITIVITY]), 'Change Mouse Sensitivity'),
                 EXIT_OPTIONS: ('Back', 'Go Back to the Main Menu')
             }
             

@@ -89,16 +89,16 @@ class Actor(pygame.sprite.Sprite):
         elif self.bound_style == BOUND_STYLE_REFLECT:
             if self.position.x < self.bounds[LEFT]:
                 self.position = vector.Vector2d(self.bounds[LEFT], self.position.y)
-                self.velocity *= [-1.0, 1.0]
+                self.velocity *= -1.0, 1.0
             elif self.position.x > self.bounds[RIGHT]:
                 self.position = vector.Vector2d(self.bounds[RIGHT], self.position.y)
-                self.velocity *= [-1.0, 1.0]
+                self.velocity *= -1.0, 1.0
             if self.position.y < self.bounds[TOP]:
                 self.position = vector.Vector2d(self.position.x, self.bounds[TOP])
-                self.velocity *= [1.0, -1.0]
+                self.velocity *= 1.0, -1.0
             elif self.position.y > self.bounds[BOTTOM]:
                 self.position = vector.Vector2d(self.position.x, self.bounds[BOTTOM])
-                self.velocity *= [1.0, -1.0]
+                self.velocity *= 1.0, -1.0
                 
         elif self.bound_style == BOUND_STYLE_KILL:
             self.kill()

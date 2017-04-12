@@ -30,14 +30,14 @@ class Paajo(enemy.Enemy):
         self.bound_style = BOUND_STYLE_CUSTOM
         self.bounds = -32, -32, SCREEN_WIDTH + 32, SCREEN_HEIGHT + 32
         self.can_collide = True
-        self.hitrect = pygame.Rect(0,0,68,74)
+        self.hitrect = pygame.Rect(0, 0, 68, 74)
         self.position = vector.Vector2d.zero
         self.velocity = vector.Vector2d.zero
 
         # UNIQUE VARIABLES
         self.speed = 12
         self.change_direction = 0
-        self.target = [0,0]
+        self.target = 0, 0
         self.powerup_group = group_list[POWERUP_GROUP]
         self.text_group = group_list[TEXT_GROUP]
         self.effects_group = group_list[EFFECTS_GROUP]

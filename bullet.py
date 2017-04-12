@@ -76,19 +76,19 @@ class Bullet(actor.Actor):
             if self.object_collided_with.actor_type == ACTOR_TYPE_BAAKE:
                 if self.position.x < self.object_collided_with.position.x - 64:
                     self.position = vector.Vector2d(self.object_collided_with.position.x - 104, self.position.y)
-                    self.velocity *= [-1.0, 1.0]
+                    self.velocity *= -1.0, 1.0
 
                 elif self.position.x > self.object_collided_with.position.x + 64:
                     self.position = vector.Vector2d(self.object_collided_with.position.x + 104, self.position.y)
-                    self.velocity *= [-1.0, 1.0]
+                    self.velocity *= -1.0, 1.0
 
                 if self.position.y < self.object_collided_with.position.y - 32:
                     self.position = vector.Vector2d(self.position.x, self.object_collided_with.position.y - 104)
-                    self.velocity *= [1.0, -1.0]
+                    self.velocity *= 1.0, -1.0
 
                 elif self.position.y > self.object_collided_with.position.y + 32:
                     self.position = vector.Vector2d(self.position.x, self.object_collided_with.position.y + 104)
-                    self.velocity *= [1.0, -1.0]
+                    self.velocity *= 1.0, -1.0
 
             else:
                     self.object_collided_with.health -= self.damage

@@ -8,7 +8,7 @@ from actor import *
 
 
 def load_data():
-    Batto.last_spawn = [0, 0]
+    Batto.last_spawn = 0, 0
     Batto.death_sound = utility.load_sound('pop')
     Batto.master_animation_list.build_animation('Idle', ['batto'])
 
@@ -36,7 +36,7 @@ class Batto(enemy.Enemy):
         # UNIQUE VARIABLES
         self.speed = 10
         self.change_direction = 0
-        self.target = [0,0]
+        self.target = 0, 0
         self.powerup_group = group_list[POWERUP_GROUP]
         self.text_group = group_list[TEXT_GROUP]
         self.effects_group = group_list[EFFECTS_GROUP]

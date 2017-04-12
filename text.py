@@ -118,7 +118,7 @@ class Text(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
 
-class TextSurface:
+class TextSurface(object):
     def __init__(self,fontType,fontSize,color,text):
         font_object = pygame.font.Font(fontType, fontSize)
         self.image = font_object.render(str(text), ANTI_ALIAS, color)

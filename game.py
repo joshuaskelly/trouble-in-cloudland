@@ -2,6 +2,7 @@ import credits
 import icon
 import menu
 import player
+import prettyprint
 import scene
 import text
 import tutorial
@@ -18,7 +19,7 @@ pause_menu_dictionary = {
 }
 
 
-class Game:
+class Game(object):
     def __init__(self, screen, world_to_start, music_list):
         self.screen = screen
 
@@ -362,7 +363,7 @@ class Game:
                             option_menu_dictionary = {
                                 SOUND_MENU: ['Sound Options', 'Change Sound Options'],
                                 DISPLAY_MENU: ['Video Options', 'Change Video Options'],
-                                CHANGE_SENSITIVITY: ['Mouse Sensitivity: ' + get_sensitivity(settings_list[SENSITIVITY]), 'Change Mouse Sensitivity'],
+                                CHANGE_SENSITIVITY: ['Mouse Sensitivity: ' + prettyprint.mouse_sensitivity(settings_list[SENSITIVITY]), 'Change Mouse Sensitivity'],
                                 EXIT_OPTIONS: ['Back', 'Go Back to the Main Menu']
                             }
     
@@ -375,15 +376,15 @@ class Game:
                             }
                             
                             sound_menu_dictionary = {
-                                TOGGLE_SFX: ['Sound Effects: ' + on(settings_list[SFX]), 'Turn ' + on(not settings_list[SFX]) + ' Sound Effects'],
-                                TOGGLE_MUSIC: ['Music: ' + on(settings_list[MUSIC]), 'Turn ' + on(not settings_list[MUSIC]) + ' Music'],
+                                TOGGLE_SFX: ['Sound Effects: ' + prettyprint.on(settings_list[SFX]), 'Turn ' + prettyprint.on(not settings_list[SFX]) + ' Sound Effects'],
+                                TOGGLE_MUSIC: ['Music: ' + prettyprint.on(settings_list[MUSIC]), 'Turn ' + prettyprint.on(not settings_list[MUSIC]) + ' Music'],
                                 EXIT_OPTIONS: ['Back', 'Go Back to the Option Menu']
                             }
                             
                             display_menu_dictionary = {
-                                TOGGLE_PARTICLES: ['Particles: ' + able(settings_list[PARTICLES]), 'Turn ' + on(not settings_list[PARTICLES]) + ' Particle Effects'],
-                                TOGGLE_FULLSCREEN: ['Video Mode: ' + get_screen_mode(settings_list[SETTING_FULLSCREEN]), 'Switch To ' + get_screen_mode(not settings_list[SETTING_FULLSCREEN]) + ' Mode'],
-                                EXIT_OPTIONS: ['Back','Go Back to the Main Menu']
+                                TOGGLE_PARTICLES: ['Particles: ' + prettyprint.able(settings_list[PARTICLES]), 'Turn ' + prettyprint.on(not settings_list[PARTICLES]) + ' Particle Effects'],
+                                TOGGLE_FULLSCREEN: ['Video Mode: ' + prettyprint.screen_mode(settings_list[SETTING_FULLSCREEN]), 'Switch To ' + prettyprint.screen_mode(not settings_list[SETTING_FULLSCREEN]) + ' Mode'],
+                                EXIT_OPTIONS: ['Back', 'Go Back to the Main Menu']
                             }
     
                             option_result = menu.Menu(self.screen,
@@ -425,8 +426,8 @@ class Game:
                                         sound_result = False
                                         
                                     sound_menu_dictionary = {
-                                        TOGGLE_SFX: ['Sound Effects: ' + on(settings_list[SFX]), 'Turn ' + on(not settings_list[SFX]) + ' Sound Effects'],
-                                        TOGGLE_MUSIC: ['Music: ' + on(settings_list[MUSIC]), 'Turn ' + on(not settings_list[MUSIC]) + ' Music'],
+                                        TOGGLE_SFX: ['Sound Effects: ' + prettyprint.on(settings_list[SFX]), 'Turn ' + prettyprint.on(not settings_list[SFX]) + ' Sound Effects'],
+                                        TOGGLE_MUSIC: ['Music: ' + prettyprint.on(settings_list[MUSIC]), 'Turn ' + prettyprint.on(not settings_list[MUSIC]) + ' Music'],
                                         EXIT_OPTIONS: ['Back', 'Go Back to the Option Menu']
                                     }
                                         
@@ -467,8 +468,8 @@ class Game:
                                         display_result = False
                                         
                                     display_menu_dictionary = {
-                                        TOGGLE_PARTICLES: ['Particles: ' + able(settings_list[PARTICLES]), 'Turn ' + on(not settings_list[PARTICLES]) + ' Particle Effects'],
-                                        TOGGLE_FULLSCREEN: ['Video Mode: ' + get_screen_mode(settings_list[SETTING_FULLSCREEN]), 'Switch To ' + get_screen_mode(not settings_list[SETTING_FULLSCREEN]) + ' Mode'],
+                                        TOGGLE_PARTICLES: ['Particles: ' + prettyprint.able(settings_list[PARTICLES]), 'Turn ' + prettyprint.on(not settings_list[PARTICLES]) + ' Particle Effects'],
+                                        TOGGLE_FULLSCREEN: ['Video Mode: ' + prettyprint.screen_mode(settings_list[SETTING_FULLSCREEN]), 'Switch To ' + prettyprint.screen_mode(not settings_list[SETTING_FULLSCREEN]) + ' Mode'],
                                         EXIT_OPTIONS: ['Back', 'Go Back to the Main Menu']
                                     }
                             

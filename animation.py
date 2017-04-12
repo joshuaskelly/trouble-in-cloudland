@@ -1,7 +1,7 @@
 import utility
 
 
-class Animation:
+class Animation(object):
     def __init__(self):
         self.sequence_dict = {}
         self.current_sequence = 0

@@ -5,7 +5,7 @@ import utility
 from settings import *
 
 
-class SplashScreen:
+class SplashScreen(object):
     def __init__(self, screen, image, fade_image=True, music=None):
         self.image = icon.Icon(image)
         self.fade_image = fade_image

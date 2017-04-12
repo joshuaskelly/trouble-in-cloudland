@@ -1,14 +1,12 @@
-import baake
-import boss
+import enemies
 import infobubble
-import moono
 import text
 import utility
 import vector
 from settings import *
 
 
-class Tutorial:
+class Tutorial(object):
     def __init__(self, (world_name, player, group_list)):
         self.timer = 0
         self.boss_fight = False
@@ -27,7 +25,7 @@ class Tutorial:
         self.boss_group = group_list[BOSS_GROUP]
         self.group_list = group_list
         self.current_step = 0
-        self.new_moono = moono.Moono(self.player, self.group_list)
+        self.new_moono = enemies.moono.Moono(self.player, self.group_list)
 
     def update(self):
         if self.boss_dead:
@@ -343,11 +341,10 @@ class Tutorial:
             return True
 
     def spawn_baake(self):
-        self.enemy_group.add(baake.Baake())
+        self.enemy_group.add(enemies.baake.Baake())
 
     def spawn_moono(self, force_drops = None):
-        self.new_moono = moono.Moono(self.player,
-                                     self.group_list)
+        self.new_moono = enemies.moono.Moono(self.player, self.group_list)
         
         if force_drops:
             self.new_moono.boss_fight = True
@@ -369,4 +366,4 @@ class Tutorial:
         self.enemy_group.add(self.new_moono)
 
     def spawn_boss(self):
-        self.boss_group.add(boss.BossTut(self, self.player, self.group_list))
+        self.boss_group.add(enemies.boss.BossTut(self, self.player, self.group_list))

@@ -1,20 +1,10 @@
 import pygame
 
-import baake
-import batto
-import bokko
-import boss
-import hakta
-import haoya
 import infobubble
-import moono
-import paajo
-import raayu
-import rokubi
 import text
 import utility
 import vector
-import yurei
+import enemies
 from settings import *
 
 
@@ -44,7 +34,7 @@ defaultSpawn == how many of this actor type
 """
 
 
-class World:
+class World(object):
     def __init__(self, (world_name, player, group_list, level_list), music):
         self.world_name = world_name
         self.player = player
@@ -268,8 +258,8 @@ class World:
 
     def create_actor(self, actor_type):
         if actor_type == ACTOR_MOONO:
-            new_moono = moono.Moono(self.player,
-                                    self.group_list)
+            new_moono = enemies.moono.Moono(self.player, self.group_list)
+
             if self.boss_fight:
                 self.force_drop += 1
                 new_moono.boss_fight = True
@@ -290,8 +280,7 @@ class World:
                 spawn = True
             
             if spawn:
-                new_rokubi = rokubi.Rokubi(self.player,
-                                           self.group_list)
+                new_rokubi = enemies.rokubi.Rokubi(self.player, self.group_list)
                 
                 self.rokubi_group.add(new_rokubi)
                 
@@ -306,7 +295,7 @@ class World:
                 self.enemy_group.add(new_rokubi)
 
         elif actor_type == ACTOR_HAOYA:
-            new_haoya = haoya.Haoya(self.player, self.group_list)
+            new_haoya = enemies.haoya.Haoya(self.player, self.group_list)
             
             if self.boss_fight:
                 self.force_drop += 1
@@ -322,7 +311,7 @@ class World:
             last_batto = None
 
             while batto_spawn:
-                new_batto = batto.Batto(self.group_list, last_batto)
+                new_batto = enemies.batto.Batto(self.group_list, last_batto)
                 batto_spawn -= 1
                 last_batto = new_batto
             
@@ -337,10 +326,10 @@ class World:
                 self.enemy_group.add(new_batto)
         
         elif actor_type == ACTOR_YUREI:
-            self.enemy_group.add(yurei.Yurei(self.group_list))
+            self.enemy_group.add(enemies.yurei.Yurei(self.group_list))
 
         elif actor_type == ACTOR_HAKTA:
-            new_hakta = hakta.Hakta(self.player, self.group_list)
+            new_hakta = enemies.hakta.Hakta(self.player, self.group_list)
 
             if self.boss_fight:
                 self.force_drop += 1
@@ -353,7 +342,7 @@ class World:
             self.enemy_group.add(new_hakta)
 
         elif actor_type == ACTOR_RAAYU:
-            new_raayu = raayu.Raayu(self.player, self.group_list)
+            new_raayu = enemies.raayu.Raayu(self.player, self.group_list)
 
             if self.boss_fight:
                 self.force_drop += 1
@@ -370,7 +359,7 @@ class World:
             paajo_group = []
 
             while paajo_spawn:
-                new_paajo = paajo.Paajo(self.group_list, paajo_spawn)
+                new_paajo = enemies.paajo.Paajo(self.group_list, paajo_spawn)
 
                 paajo_group.append(new_paajo)
                 paajo_spawn -= 1
@@ -389,16 +378,19 @@ class World:
             self.enemy_group.add(paajo_group)
 
         elif actor_type == ACTOR_BAAKE:
-            self.enemy_group.add(baake.Baake())
+            self.enemy_group.add(enemies.baake.Baake())
 
         elif actor_type == ACTOR_BOKKO:
-            self.enemy_group.add(bokko.Bokko())
+            self.enemy_group.add(enemies.bokko.Bokko())
 
         elif actor_type == ACTOR_BOSS_TUT:
-            self.boss_group.add(boss.BossTut(self, self.player, self.group_list))
+            self.boss_group.add(
+                enemies.boss.BossTut(self, self.player, self.group_list))
 
         elif actor_type == ACTOR_BAAKE_BOSS:
-            self.boss_group.add(boss.BaakeBoss(self, self.player, self.group_list))
+            self.boss_group.add(
+                enemies.boss.BaakeBoss(self, self.player, self.group_list))
 
         elif actor_type == ACTOR_MOONO_BOSS:
-            self.boss_group.add(boss.MoonoBoss(self, self.player, self.group_list))
+            self.boss_group.add(
+                enemies.boss.MoonoBoss(self, self.player, self.group_list))
