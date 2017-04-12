@@ -1,7 +1,6 @@
-import actor
-import utility
-
-from actor import *
+from core import actor
+from core.actor import *
+from utils import utility
 
 
 class InfoBubble(actor.Actor):

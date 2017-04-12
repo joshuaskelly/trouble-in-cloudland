@@ -2,13 +2,9 @@ import copy
 
 import pygame
 
-import aitools
-import animation
-import enemy
-import particle
-import utility
-import vector
-from settings import *
+from core import animation, enemy, particle
+from utils import aitools, utility, vector
+from utils.settings import *
 
 
 def load_data():
@@ -47,12 +43,12 @@ class Haoya(enemy.Enemy):
         self.drop_item = False
         
         self.death_emitter = particle.ParticleEmitter(vector.Vector2d.zero,
-                                                     self.effects_group,
-                                                     ['puff'],
-                                                     0.0, 360.0,
-                                                     5.0, 0.0,
-                                                     1.0, 4.0,
-                                                     -1.0)
+                                                      self.effects_group,
+                                                      ['puff'],
+                                                      0.0, 360.0,
+                                                      5.0, 0.0,
+                                                      1.0, 4.0,
+                                                      -1.0)
         
         self.death_emitter.mount_to(self)
         

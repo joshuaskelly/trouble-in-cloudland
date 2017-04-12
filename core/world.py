@@ -1,11 +1,9 @@
 import pygame
 
-import infobubble
-import text
-import utility
-import vector
 import enemies
-from settings import *
+from ui import text, infobubble
+from utils import utility, vector
+from utils.settings import *
 
 
 def load_data():

@@ -1,23 +1,13 @@
 #!/usr/bin/python
 import pygame
 
-import balloon
-import bullet
-import credits
 import enemies
-import game
-import gem
-import menu
-import particle
-import player
-import prettyprint
-import scene
-import splashscreen
-import text
-import utility
-import vector
-import world
-from settings import *
+from core import balloon, bullet, game, gem, particle, player, world
+from scenes import credits, scene, splashscreen
+from ui import menu, text
+from utils import prettyprint, utility, vector
+from utils.settings import *
+
 
 pygame.init()
 

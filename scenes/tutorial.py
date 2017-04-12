@@ -1,9 +1,7 @@
 import enemies
-import infobubble
-import text
-import utility
-import vector
-from settings import *
+from ui import text, infobubble
+from utils import utility, vector
+from utils.settings import *
 
 
 class Tutorial(object):

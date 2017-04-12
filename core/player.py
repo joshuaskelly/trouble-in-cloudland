@@ -1,13 +1,12 @@
 import copy
 import random
 
-import infobubble
 import actor
 import bullet
 import particle
-import text
-import utility
 from actor import *
+from ui import text, infobubble
+from utils import utility
 
 
 def load_data():
@@ -172,7 +171,7 @@ class Player(actor.Actor):
                 utility.play_sound(self.death_sound[1], OW_CHANNEL)
 
             elif death_type == 2:
-                temp_image = text.TextSurface(FONT_PATH, 30,FONT_COLOR, 'Bother!').image
+                temp_image = text.TextSurface(FONT_PATH, 30, FONT_COLOR, 'Bother!').image
                 utility.play_sound(self.death_sound[2], OW_CHANNEL)
             
             self.animation_list.play('Die')
@@ -271,11 +270,11 @@ class Player(actor.Actor):
                 bullet_velocity.set_magnitude(self.bullet_speed)
                 
                 new_bullet = bullet.Bullet(self.position,
-                                          bullet_velocity,
-                                          self.effects_group,
-                                          self.bullet_damage,
-                                          self.bullet_bound_style,
-                                          self.bullet_collide_style)
+                                           bullet_velocity,
+                                           self.effects_group,
+                                           self.bullet_damage,
+                                           self.bullet_bound_style,
+                                           self.bullet_collide_style)
                 new_bullet.set_owner(self)
 
                 if self.reflect_bonus and self.damage_bonus:
@@ -296,11 +295,11 @@ class Player(actor.Actor):
                     bullet_velocity.set_magnitude(self.bullet_speed)
                     
                     new_bullet = bullet.Bullet((self.position),
-                                              (bullet_velocity),
-                                              self.effects_group,
-                                              self.bullet_damage,
-                                              self.bullet_bound_style,
-                                              self.bullet_collide_style)
+                                               (bullet_velocity),
+                                               self.effects_group,
+                                               self.bullet_damage,
+                                               self.bullet_bound_style,
+                                               self.bullet_collide_style)
                     new_bullet.set_owner(self)
 
                     if self.reflect_bonus and self.damage_bonus:

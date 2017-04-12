@@ -1,8 +1,8 @@
 import pygame
 
-import icon
-import utility
-from settings import *
+from ui import icon
+from utils import utility
+from utils.settings import *
 
 
 class SplashScreen(object):

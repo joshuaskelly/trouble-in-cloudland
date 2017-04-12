@@ -1,16 +1,9 @@
-import credits
-import icon
-import menu
 import player
-import prettyprint
-import scene
-import text
-import tutorial
-import utility
-import vector
 import world
-
-from utility import *
+from scenes import credits, scene, tutorial
+from ui import icon, menu, text
+from utils import prettyprint, utility, vector
+from utils.utility import *
 
 pause_menu_dictionary = {
     RESUME_GAME: ['Resume','Continue Playing'],
@@ -323,11 +316,11 @@ class Game(object):
                 utility.dim(128, FILL_COLOR)
 
                 end_game_menu = menu.Menu(self.screen,
-                                        self.music_list[self.world_number],
-                                        self.screen.convert(),
-                                        [0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT],
-                                        ['Game Over', 128, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
-                                        end_game_dictionary)
+                                          self.music_list[self.world_number],
+                                          self.screen.convert(),
+                                          [0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT],
+                                          ['Game Over', 128, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
+                                          end_game_dictionary)
 
                 end_game_menu.show()
 
@@ -482,12 +475,12 @@ class Game(object):
 
                                 while sensitivity_result:
                                     sensitivity_menu = menu.Menu(self.screen,
-                                                                  self.music_list[self.world_number],
-                                                                  screen_grab,
-                                                                  [0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT],
-                                                                  ['Mouse Sensitivity', 96,SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
-                                                                  sensitivity_menu_dictionary,
-                                                                  last_highlighted)
+                                                                 self.music_list[self.world_number],
+                                                                 screen_grab,
+                                                                 [0, SCREEN_HEIGHT / 3, SCREEN_WIDTH, SCREEN_HEIGHT],
+                                                                 ['Mouse Sensitivity', 96,SCREEN_WIDTH / 2, SCREEN_HEIGHT / 4],
+                                                                 sensitivity_menu_dictionary,
+                                                                 last_highlighted)
 
                                     sensitivity_result = sensitivity_menu.show()
                                     mouse_sensitivities = [0.5, 0.75, 1, 1.25, 1.5]

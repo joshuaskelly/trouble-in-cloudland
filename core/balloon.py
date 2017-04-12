@@ -1,10 +1,9 @@
 import copy
 
 import actor
-import infobubble
-import text
-import utility
 from actor import *
+from ui import text, infobubble
+from utils import utility
 
 
 def load_data():

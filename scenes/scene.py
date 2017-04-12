@@ -1,8 +1,8 @@
 import pygame
 
-import aitools
 import scenery
-from settings import *
+from utils import aitools
+from utils.settings import *
 
 
 class RockyScene(object):

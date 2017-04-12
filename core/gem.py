@@ -2,10 +2,9 @@ import copy
 
 import actor
 import bullet
-import infobubble
-import text
-import utility
 from actor import *
+from ui import text, infobubble
+from utils import utility
 
 
 def load_data():
@@ -141,11 +140,11 @@ class Nova(Gem):
             stars_to_create -= 1
 
             temp_bullet = bullet.Bullet(self.position,
-                                       (BULLET_SPEED, 0),
-                                       self.effects_group,
-                                       0,
-                                       BOUND_STYLE_KILL,
-                                       COLLIDE_STYLE_NOVA)
+                                        (BULLET_SPEED, 0),
+                                        self.effects_group,
+                                        0,
+                                        BOUND_STYLE_KILL,
+                                        COLLIDE_STYLE_NOVA)
             
             temp_bullet.set_life_timer(13)
             temp_bullet.animation_list.play('Nova')

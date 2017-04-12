@@ -1,6 +1,5 @@
-import vector
-
-from utility import *  
+from utils import vector
+from utils.utility import *
 
 
 class Text(pygame.sprite.Sprite):

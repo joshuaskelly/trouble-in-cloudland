@@ -1,7 +1,7 @@
 import scene
-import text
-import utility
-from utility import *
+from ui import text
+from utils import utility
+from utils.utility import *
 
 
 class Credits(object):
@@ -34,7 +34,7 @@ class Credits(object):
         big_josh.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 350))
         josh_credit0 = text.Text(FONT_PATH, 24, FONT_COLOR, 'Game Programming')
         josh_credit0.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 400))
-        josh_credit1 = text.Text(FONT_PATH, 24, FONT_COLOR,' Graphic Design')
+        josh_credit1 = text.Text(FONT_PATH, 24, FONT_COLOR, ' Graphic Design')
         josh_credit1.set_position((SCREEN_WIDTH / 2, SCREEN_HEIGHT + 450))
         
         big_special = text.Text(FONT_PATH, 36, FONT_COLOR, 'Special Thanks To:')

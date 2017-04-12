@@ -1,10 +1,9 @@
 import copy
 import random
 
-import actor
-import aitools
-import utility
-from actor import *
+from core import actor
+from core.actor import *
+from utils import aitools, utility
 
 
 def load_data():

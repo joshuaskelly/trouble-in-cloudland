@@ -2,15 +2,9 @@ import copy
 
 import pygame
 
-import aitools
-import animation
-import balloon
-import enemy
-import gem
-import particle
-import utility
-import vector
-from settings import *
+from core import animation, balloon, enemy, gem, particle
+from utils import aitools, utility, vector
+from utils.settings import *
 
 
 def load_data():
@@ -76,7 +70,8 @@ class Moono(enemy.Enemy):
         particle.DeathEmitter(self.position, self.effects_group).run()
 
         if self.drop_balloon:
-            self.powerup_group.add(balloon.Bonus250(self.position, self.text_group))
+            self.powerup_group.add(
+                balloon.Bonus250(self.position, self.text_group))
 
         elif self.drop_reflect:
             self.powerup_group.add(gem.Reflect(self.position, self.text_group))

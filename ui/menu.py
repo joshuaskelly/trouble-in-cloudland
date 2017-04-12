@@ -2,12 +2,10 @@ import copy
 
 import pygame
 
-import actor
-import animation
 import text
-import utility
-import vector
-from settings import *
+from core import actor, animation
+from utils import utility, vector
+from utils.settings import *
 
 
 def load_data():
@@ -47,7 +45,7 @@ class Menu(object):
             menu_selection = text.Text(FONT_PATH, 32, FONT_INACTIVE_COLOR, menu_dictionary[option][0], -1, index)
             menu_selection.set_alignment(CENTER_MIDDLE)
             menu_selection.position = vector.Vector2d((((self.bounds[RIGHT] - self.bounds[LEFT]) / 2) + self.bounds[LEFT],
-                                                      ((self.bounds[BOTTOM]-self.bounds[TOP]) / (len(self.menu_dictionary) + 1) * (index + 1)) + self.bounds[TOP]))
+                                                       ((self.bounds[BOTTOM]-self.bounds[TOP]) / (len(self.menu_dictionary) + 1) * (index + 1)) + self.bounds[TOP]))
             
             self.menu_group.add(menu_selection)
             self.menu_selection_pointer.append(menu_selection)

@@ -1,6 +1,6 @@
-import actor
+from core import actor
 
-from actor import *
+from core.actor import *
 
 
 class Icon(actor.Actor):

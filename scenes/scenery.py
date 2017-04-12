@@ -1,8 +1,8 @@
 import copy
 import random
 
-import actor
-from actor import *
+from core import actor
+from core.actor import *
 
 
 def load_data():

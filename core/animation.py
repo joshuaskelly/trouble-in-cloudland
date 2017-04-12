@@ -1,4 +1,4 @@
-import utility
+from utils import utility
 
 
 class Animation(object):

@@ -1,7 +1,8 @@
 import random
-import vector
 
+import vector
 from settings import *
+
 
 # Misc Functions
 

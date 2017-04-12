@@ -1,8 +1,8 @@
 import pygame
 
 import animation
-import vector
-from settings import *
+from utils import vector
+from utils.settings import *
 
 
 class Actor(pygame.sprite.Sprite):

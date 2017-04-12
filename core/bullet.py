@@ -4,7 +4,6 @@ import random
 import actor
 import particle
 from actor import *
-from settings import *
 
 
 def load_data():
@@ -108,7 +107,7 @@ class Bullet(actor.Actor):
             
                 while stars_to_create:
                     stars_to_create -= 1
-                    temp_puff = particle.SmokeParticle(self.position, (1,0))
+                    temp_puff = particle.SmokeParticle(self.position, (1, 0))
                     temp_puff.velocity.set_angle(359 * random.random())
                     self.effects_group.add(temp_puff)
 

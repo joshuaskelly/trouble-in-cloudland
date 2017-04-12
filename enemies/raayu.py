@@ -1,9 +1,8 @@
 import copy
 
-import aitools
-import enemy
-import utility
-from actor import *
+from core import enemy
+from core.actor import *
+from utils import aitools, utility
 
 
 def load_data():

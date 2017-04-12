@@ -3,7 +3,6 @@ import random
 
 import actor
 from actor import *
-from settings import *
 
 
 def load_data():

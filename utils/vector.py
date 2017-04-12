@@ -1,8 +1,7 @@
 import operator
-import math
-import fastmath
 
 from fastmath import *
+
 
 class Vector2d(object):
     def __init__(self, x_or_sequence, y = None):
@@ -156,8 +155,8 @@ class Vector2d(object):
     def set_angle(self, value):
         self.vector[0] = self.get_magnitude()
         self.vector[1] = 0
-        x = self.vector[0] * fastCos[int(value)] - self.vector[1] * fastSin[int(value)]
-        y = self.vector[0] * fastSin[int(value)] + self.vector[1] * fastCos[int(value)]
+        x = self.vector[0] * cos[int(value)] - self.vector[1] * sin[int(value)]
+        y = self.vector[0] * sin[int(value)] + self.vector[1] * cos[int(value)]
         
         self.vector[0] = x
         self.vector[1] = y

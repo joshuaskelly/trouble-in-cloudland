@@ -1,15 +1,11 @@
 import copy
 import random
 
-import actor
-import aitools
-import icon
-import infobubble
-import particle
-import utility
 import yurei
-from actor import *
-from settings import *
+from core import actor, particle
+from core.actor import *
+from ui import icon, infobubble
+from utils import aitools, utility
 
 
 def load_data():

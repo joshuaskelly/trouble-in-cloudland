@@ -2,13 +2,9 @@ import copy
 
 import pygame
 
-import aitools
-import animation
-import enemy
-import particle
-import utility
-import vector
-from settings import *
+from core import animation, enemy, particle
+from utils import aitools, utility, vector
+from utils.settings import *
 
 
 def load_data():

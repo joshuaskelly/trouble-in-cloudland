@@ -4,8 +4,8 @@ import actor
 import balloon
 import gem
 import particle
-import utility
 from actor import *
+from utils import utility
 
 
 class Enemy(actor.Actor):
@@ -32,19 +32,24 @@ class Enemy(actor.Actor):
 
     def item_drop(self):
         if self.drop_item:
-            self.powerup_group.add(gem.Nova(self.position, self.text_group, self.effects_group))
+            self.powerup_group.add(
+                gem.Nova(self.position, self.text_group, self.effects_group))
 
         elif self.boss_fight:
             random_number = int(random.random() * 25)
             
             if not random_number:
-                self.powerup_group.add(gem.Reflect(self.position, self.text_group))
+                self.powerup_group.add(
+                    gem.Reflect(self.position, self.text_group))
             elif random_number == 1:
-                self.powerup_group.add(gem.DamageX2(self.position, self.text_group))
+                self.powerup_group.add(
+                    gem.DamageX2(self.position, self.text_group))
             elif random_number == 2:
-                self.powerup_group.add(gem.FastShot(self.position, self.text_group))
+                self.powerup_group.add(
+                    gem.FastShot(self.position, self.text_group))
             elif random_number == 3:
-                self.powerup_group.add(gem.DualShot(self.position, self.text_group))
+                self.powerup_group.add(
+                    gem.DualShot(self.position, self.text_group))
 
         elif self.object_collided_with.owner.combo_bonus:
             self.object_collided_with.owner.increment_score(100, self.position, self.text_group)
@@ -55,21 +60,29 @@ class Enemy(actor.Actor):
                 random_number = int(random.random() * 100 + 1)
 
                 if random_number <= 25:
-                    self.powerup_group.add(balloon.Bonus250(self.position, self.text_group))
+                    self.powerup_group.add(
+                        balloon.Bonus250(self.position, self.text_group))
                 elif random_number <= 40:
-                    self.powerup_group.add(balloon.Bonus500(self.position, self.text_group))
+                    self.powerup_group.add(
+                        balloon.Bonus500(self.position, self.text_group))
                 elif random_number <= 50:
-                    self.powerup_group.add(balloon.BonusX2(self.position, self.text_group))
+                    self.powerup_group.add(
+                        balloon.BonusX2(self.position, self.text_group))
                 elif random_number <= 60:
-                    self.powerup_group.add(gem.DualShot(self.position, self.text_group))
+                    self.powerup_group.add(
+                        gem.DualShot(self.position, self.text_group))
                 elif random_number <= 70:
-                    self.powerup_group.add(gem.FastShot(self.position, self.text_group))
+                    self.powerup_group.add(
+                        gem.FastShot(self.position, self.text_group))
                 elif random_number <= 80:
-                    self.powerup_group.add(gem.DamageX2(self.position, self.text_group))
+                    self.powerup_group.add(
+                        gem.DamageX2(self.position, self.text_group))
                 elif random_number <= 90:
-                    self.powerup_group.add(gem.Reflect(self.position, self.text_group))
+                    self.powerup_group.add(
+                        gem.Reflect(self.position, self.text_group))
                 else:
-                    self.powerup_group.add(gem.Nova(self.position, self.text_group, self.effects_group))
+                    self.powerup_group.add(
+                        gem.Nova(self.position, self.text_group, self.effects_group))
 
         else:
             self.object_collided_with.owner.increment_score(100, self.position, self.text_group)
@@ -80,23 +93,32 @@ class Enemy(actor.Actor):
                 random_number = int(random.random() * 100 + 1)
 
                 if random_number <= 25:
-                    self.powerup_group.add(balloon.Bonus250(self.position, self.text_group))
+                    self.powerup_group.add(
+                        balloon.Bonus250(self.position, self.text_group))
                 elif random_number <= 40:
-                    self.powerup_group.add(balloon.Bonus500(self.position, self.text_group))
+                    self.powerup_group.add(
+                        balloon.Bonus500(self.position, self.text_group))
                 elif random_number <= 45:
-                    self.powerup_group.add(balloon.BonusCombo(self.position, self.text_group))
+                    self.powerup_group.add(
+                        balloon.BonusCombo(self.position, self.text_group))
                 elif random_number <= 50:
-                    self.powerup_group.add(balloon.BonusX2(self.position, self.text_group))
+                    self.powerup_group.add(
+                        balloon.BonusX2(self.position, self.text_group))
                 elif random_number <= 60:
-                    self.powerup_group.add(gem.DualShot(self.position, self.text_group))
+                    self.powerup_group.add(
+                        gem.DualShot(self.position, self.text_group))
                 elif random_number <= 70:
-                    self.powerup_group.add(gem.FastShot(self.position, self.text_group))
+                    self.powerup_group.add(
+                        gem.FastShot(self.position, self.text_group))
                 elif random_number <= 80:
-                    self.powerup_group.add(gem.DamageX2(self.position, self.text_group))
+                    self.powerup_group.add(
+                        gem.DamageX2(self.position, self.text_group))
                 elif random_number <= 90:
-                    self.powerup_group.add(gem.Reflect(self.position, self.text_group))
+                    self.powerup_group.add(
+                        gem.Reflect(self.position, self.text_group))
                 else:
-                    self.powerup_group.add(gem.Nova(self.position, self.text_group, self.effects_group))
+                    self.powerup_group.add(
+                        gem.Nova(self.position, self.text_group, self.effects_group))
 
     def die(self):
         utility.play_sound(self.death_sound)
