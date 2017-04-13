@@ -1,6 +1,7 @@
 ## April 12th, 2017: Joshua
 **FINISHED ITEMS**
 
+- Python 3 Support
 - Major refactor to make style more pythonic
 - Organizing objects into modules
 
