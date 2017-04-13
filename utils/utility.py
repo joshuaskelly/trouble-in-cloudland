@@ -61,7 +61,7 @@ def read_settings():
             settings_list.append(setting)
 
     except:
-        print 'Missing or Corrupted File: Restoring Defaults'
+        print('Missing or Corrupted File: Restoring Defaults')
         temp_list = [True, True, True, 0, 1, True]
 
         for setting in temp_list:
@@ -89,7 +89,7 @@ def get_path():
             pathname = os.environ['APPDATA'] + '/battlezero'
 
         except:
-            print 'Could not get environment variable for home directory'
+            print('Could not get environment variable for home directory')
             pathname = '.'
 
     if not os.path.exists(pathname):

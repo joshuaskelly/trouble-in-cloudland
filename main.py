@@ -51,7 +51,7 @@ try:
 
 except:
     utility.sound_active = False
-    print 'WARNING! - Sound not initialized.'
+    print('WARNING! - Sound not initialized.')
 
 pygame.mouse.set_visible(False)
 music_list = [

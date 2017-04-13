@@ -96,8 +96,8 @@ class Text(pygame.sprite.Sprite):
             return False
         
     def mouse_over_dump(self):
-        print 'Mouse Position: ', list(pygame.mouse.get_pos())
-        print '[Rect Dimensions: ', '<LEFT: ', self.rect.left, '>', '<RIGHT: ', self.rect.right, '>', '<TOP: ', self.rect.top, '>', '<BOTTOM: ', self.rect.bottom, '>]'
+        print('Mouse Position: ', list(pygame.mouse.get_pos()))
+        print('[Rect Dimensions: ', '<LEFT: ', self.rect.left, '>', '<RIGHT: ', self.rect.right, '>', '<TOP: ', self.rect.top, '>', '<BOTTOM: ', self.rect.bottom, '>]')
 
     def set_timer(self, life_timer):
         self.life_timer = life_timer
