@@ -4,6 +4,10 @@ A video game for your home computer system, created by Joshua Skelton and Jony F
 
 Trouble In CloudLand is a 2D game that features star-shooting mayhem and powerup collecting goodness. Conquer three unique worlds populated by troops of loveable but devious foes. Simple controls put you right in the action, while allowing for multiple play styles. Evolving gameplay will challenge even the most experienced of players.
 
+https://joshua.itch.io/trouble-in-cloudland
+
+[![License: GPL v3](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) [![License: GPL v3](https://img.shields.io/badge/python-2-blue.svg)]() [![License: GPL v3](https://img.shields.io/badge/python-3-blue.svg)]()
+
 ## Authors
 - Jonathan Fries
 - Joshua Skelton
