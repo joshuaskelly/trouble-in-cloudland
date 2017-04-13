@@ -1,5 +1,4 @@
-import player
-import world
+from core import player, world
 from scenes import credits, scene, tutorial
 from ui import icon, menu, text
 from utils import prettyprint, utility, vector

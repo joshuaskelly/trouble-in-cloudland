@@ -1,6 +1,6 @@
 import pygame
 
-import animation
+from core import animation
 from utils import vector
 from utils.settings import *
 

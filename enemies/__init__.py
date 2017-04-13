@@ -1,11 +1,11 @@
-import baake
-import batto
-import bokko
-import boss
-import hakta
-import haoya
-import moono
-import paajo
-import raayu
-import rokubi
-import yurei
+from . import baake
+from . import batto
+from . import bokko
+from . import boss
+from . import hakta
+from . import haoya
+from . import moono
+from . import paajo
+from . import raayu
+from . import rokubi
+from . import yurei

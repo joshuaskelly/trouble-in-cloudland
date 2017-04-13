@@ -2,7 +2,7 @@ import os
 
 import pygame
 
-from settings import *
+from utils.settings import *
 
 sound_active = True
 
@@ -36,12 +36,12 @@ def read_high_scores():
         return 0, 0, 0, 0
 
 
-def write_high_scores((tutorial, world1, world2, world3)):
+def write_high_scores(scores):
     score_file = open(get_path() + '/score.bzd', 'w')
-    score_file.write(str(tutorial) + '\n')
-    score_file.write(str(world1) + '\n')
-    score_file.write(str(world2) + '\n')
-    score_file.write(str(world3) + '\n')
+    score_file.write(str(scores[TUTORIAL_HIGH_SCORE]) + '\n')
+    score_file.write(str(scores[WORLD_1_HIGH_SCORE]) + '\n')
+    score_file.write(str(scores[WORLD_2_HIGH_SCORE]) + '\n')
+    score_file.write(str(scores[WORLD_3_HIGH_SCORE]) + '\n')
     score_file.close()
 
 

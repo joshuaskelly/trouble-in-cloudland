@@ -71,8 +71,8 @@ class Text(pygame.sprite.Sprite):
     def get_text(self):
         return self.text
 
-    def set_color(self, (r, g, b)):
-        self.color = r, g, b
+    def set_color(self, rgb):
+        self.color = rgb[:]
     
     def get_color(self):
         return self.color
@@ -81,10 +81,9 @@ class Text(pygame.sprite.Sprite):
         # This method returns the sprite's position
         return self.position.x, self.position.y
 
-    def set_position(self, (x, y)):
+    def set_position(self, position):
         # This method sets the sprite's position
-        self.position.x = x
-        self.position.y = y
+        self.position[:] = position
 
     def mouse_over(self):
         mouse_position = list(pygame.mouse.get_pos())

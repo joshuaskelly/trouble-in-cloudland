@@ -1,10 +1,8 @@
 import copy
 import random
 
-import actor
-import bullet
-import particle
-from actor import *
+from core import actor, bullet, particle
+from core.actor import *
 from ui import text, infobubble
 from utils import utility
 
@@ -265,7 +263,7 @@ class Player(actor.Actor):
 
         if self.fire_timer <= 0:
             utility.play_sound(self.fire_sound[random.randint(0, 2)], PLAYER_CHANNEL)
-            if self.velocity:
+            if self.velocity[:] != vector.Vector2d.zero:
                 bullet_velocity = vector.Vector2d(self.velocity)
                 bullet_velocity.set_magnitude(self.bullet_speed)
                 

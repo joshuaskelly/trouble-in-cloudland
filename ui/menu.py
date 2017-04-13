@@ -2,8 +2,8 @@ import copy
 
 import pygame
 
-import text
 from core import actor, animation
+from ui import text
 from utils import utility, vector
 from utils.settings import *
 
@@ -93,12 +93,12 @@ class Menu(object):
                 if event.type == pygame.KEYDOWN and (event.key == pygame.K_SPACE or event.key == pygame.K_RETURN):
                     utility.play_sound(self.menu_forward_sound)
 
-                    return self.menu_dictionary.keys()[self.current_selection]
+                    return list(self.menu_dictionary.keys())[self.current_selection]
 
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     utility.play_sound(self.menu_forward_sound)
 
-                    return self.menu_dictionary.keys()[self.current_selection]
+                    return list(self.menu_dictionary.keys())[self.current_selection]
 
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     utility.play_sound(self.menu_back_sound)

@@ -1,6 +1,6 @@
 import pygame
 
-import scenery
+from scenes import scenery
 from utils import aitools
 from utils.settings import *
 

@@ -1,9 +1,8 @@
 import copy
 import random
 
-import actor
-import particle
-from actor import *
+from core import actor, particle
+from core.actor import *
 
 
 def load_data():

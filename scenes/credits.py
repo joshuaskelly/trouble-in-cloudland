@@ -1,4 +1,4 @@
-import scene
+from scenes import scene
 from ui import text
 from utils import utility
 from utils.utility import *

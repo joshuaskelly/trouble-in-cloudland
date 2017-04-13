@@ -1,10 +1,7 @@
 import random
 
-import actor
-import balloon
-import gem
-import particle
-from actor import *
+from core import actor, balloon, gem, particle
+from core.actor import *
 from utils import utility
 
 

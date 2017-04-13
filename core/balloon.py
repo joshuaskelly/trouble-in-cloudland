@@ -1,7 +1,7 @@
 import copy
 
-import actor
-from actor import *
+from core import actor
+from core.actor import *
 from ui import text, infobubble
 from utils import utility
 

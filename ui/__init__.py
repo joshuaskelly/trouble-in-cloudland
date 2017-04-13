@@ -1,4 +1,4 @@
-import icon
-import infobubble
-import menu
-import text
+from . import icon
+from . import infobubble
+from . import menu
+from . import text

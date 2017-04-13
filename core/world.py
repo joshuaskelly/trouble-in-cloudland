@@ -31,20 +31,24 @@ defaultSpawn == how many of this actor type
                  stage.
 """
 
+WORLD_NAME = 0
+PLAYER = 1
+GROUP_LIST = 2
+LEVEL_LIST = 3
 
 class World(object):
-    def __init__(self, (world_name, player, group_list, level_list), music):
-        self.world_name = world_name
-        self.player = player
+    def __init__(self, world_tuple, music):
+        self.world_name = world_tuple[WORLD_NAME]
+        self.player = world_tuple[PLAYER]
         self.music = music
-        self.group_list = group_list
-        self.powerup_group = group_list[POWERUP_GROUP]
-        self.enemy_group = group_list[ENEMY_GROUP]
-        self.boss_group = group_list[BOSS_GROUP]
-        self.text_group = group_list[TEXT_GROUP]
-        self.effects_group = group_list[EFFECTS_GROUP]
+        self.group_list = world_tuple[GROUP_LIST]
+        self.powerup_group = self.group_list[POWERUP_GROUP]
+        self.enemy_group = self.group_list[ENEMY_GROUP]
+        self.boss_group = self.group_list[BOSS_GROUP]
+        self.text_group = self.group_list[TEXT_GROUP]
+        self.effects_group = self.group_list[EFFECTS_GROUP]
         self.stage_score = 0
-        self.level_list = level_list
+        self.level_list = world_tuple[LEVEL_LIST]
         self.level = 0
         self.stage = 0
         self.done = False

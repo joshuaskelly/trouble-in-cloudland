@@ -1,6 +1,6 @@
-import aitools
-import fastmath
-import prettyprint
-import settings
-import utility
-import vector
+from . import aitools
+from . import fastmath
+from . import prettyprint
+from . import settings
+from . import utility
+from . import vector

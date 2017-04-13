@@ -1,10 +1,10 @@
-import actor
-import animation
-import balloon
-import bullet
-import enemy
-import game
-import gem
-import particle
-import player
-import world
+from . import actor
+from . import animation
+from . import balloon
+from . import bullet
+from . import enemy
+from . import game
+from . import gem
+from . import particle
+from . import player
+from . import world

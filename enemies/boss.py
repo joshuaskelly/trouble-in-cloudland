@@ -1,9 +1,9 @@
 import copy
 import random
 
-import yurei
 from core import actor, particle
 from core.actor import *
+from enemies import yurei
 from ui import icon, infobubble
 from utils import aitools, utility
 

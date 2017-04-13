@@ -1,11 +1,12 @@
+import math
 import operator
 
-from fastmath import *
+from utils.fastmath import cos, sin
 
 
 class Vector2d(object):
     def __init__(self, x_or_sequence, y = None):
-        if y == None:
+        if y is None:
             try:
                 self.vector = [x_or_sequence[0], x_or_sequence[1]]
             except TypeError:

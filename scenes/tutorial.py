@@ -3,9 +3,13 @@ from ui import text, infobubble
 from utils import utility, vector
 from utils.settings import *
 
+WORLD_NAME = 0
+PLAYER = 1
+GROUP_LIST = 2
+
 
 class Tutorial(object):
-    def __init__(self, (world_name, player, group_list)):
+    def __init__(self, tutorial_world_tuple):
         self.timer = 0
         self.boss_fight = False
         self.time_after_boss = 0
@@ -16,8 +20,9 @@ class Tutorial(object):
         self.moono_spawn_rate = 0
         self.force_drop = 0
         self.level = 0
-        self.world_name = world_name
-        self.player = player
+        self.world_name = tutorial_world_tuple[WORLD_NAME]
+        self.player = tutorial_world_tuple[PLAYER]
+        group_list = tutorial_world_tuple[GROUP_LIST]
         self.text_group = group_list[TEXT_GROUP]
         self.enemy_group = group_list[ENEMY_GROUP]
         self.boss_group = group_list[BOSS_GROUP]
