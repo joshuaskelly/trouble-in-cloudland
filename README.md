@@ -9,8 +9,8 @@ https://joshua.itch.io/trouble-in-cloudland
 [![License: GPL v3](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) [![License: GPL v3](https://img.shields.io/badge/python-2-blue.svg)]() [![License: GPL v3](https://img.shields.io/badge/python-3-blue.svg)]()
 
 ## Authors
-- Jonathan Fries
-- Joshua Skelton
+- Jonathan Fries - [jonyfries](https://github.com/jonyfries)
+- Joshua Skelton - [JoshuaSkelly](https://github.com/JoshuaSkelly)
 
 ## License
 MIT
