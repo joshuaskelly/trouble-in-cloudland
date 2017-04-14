@@ -130,89 +130,36 @@ def cardinal_direction(actor):
 
 
 # AI tools
-def get_closest(actor, target_group, target_actors=None):
-    temp_group1 = []
-    temp_group2 = []
-    temp_group3 = []
+def get_closest(search_actor, test_group_list, actor_type_list=None):
+    """
+    :param search_actor: The actor that you want to find the closest other actor
+    :param test_group_list: The actor groups that you want to test, expects a list of lists
+    :param actors_type_list: The actor types you want to test, expects a list of actor types
+    :return: The closest actor with type in actors_type in test_groups
+    """
+    test_actor_list = []
 
-    search_groups = []
+    if not actor_type_list:
+        for test_group in test_group_list:
+            for test_actor in test_group:
+                test_actor_list.append(test_actor)
+    else:
+        for test_group in test_group_list:
+            for test_actor in test_group:
+                if test_actor.actor_type in actor_type_list:
+                    test_actor_list.append(test_actor)
 
-    try:
-        for subGroup in target_group:
-            for actor in target_group:
-                pass
-
-            search_groups.append(subGroup)
-    
-        for group in search_groups:
-            if target_actors:
-                try:
-                    for target in group:
-                        for actor in target_actors:
-                            if target.actor_type == actor:
-                                temp_group2.append(target)
-
-                except:
-                    try:
-                        if target.actor_type == target_actors:
-                            temp_group2.append(target)
-
-                    except:
-                        pass
-            else:
-                for target in target_group:
-                    temp_group2.append(target)
-    
-    except:
-        if target_actors:
-            try:
-                for target in target_group:
-                    for actor in target_actors:
-                        if target.actor_type == actor:
-                            temp_group2.append(target)
-
-            except:
-                if target.actor_type == target_actors:
-                    temp_group2.append(target)
-
-        else:
-            for target in target_group:
-                temp_group2.append(target)
-
-    iteration = 1
     closest_distance = 100000
     closest_object = None
-    
-    while True:
-        target_found = False
 
-        for target in temp_group2:
-            if abs(target.position.x - actor.position.x) < (SCREEN_WIDTH / iteration):
-                if abs(target.position.y - actor.position.y) < (SCREEN_HEIGHT / iteration):
-                    target_found = True
-                    temp_group1.append(target)
+    if not test_actor_list:
+        return search_actor
 
-        if iteration == 1 and not target_found:
-            return actor
+    for test_actor in test_actor_list:
+        test_actor_distance = test_actor.position - search_actor.position
 
-        elif iteration == 8 or not target_found:
-            for target in temp_group3:
-                target_distance = target.position - actor.position
+        if closest_distance > test_actor_distance.get_magnitude():
+            closest_distance = test_actor_distance.get_magnitude()
+            closest_object = test_actor
 
-                if closest_distance > target_distance.get_magnitude():
-                    closest_distance = target_distance.get_magnitude()
-                    closest_object = target
-
-            temp_group1 = []
-            temp_group2 = []
-            temp_group3 = []
-
-            # TODO: Should this return closest_object?
-            return target
-
-        else:
-            temp_group3 = temp_group2
-            temp_group2 = temp_group1
-            temp_group1 = []
-
-        iteration += 1
+    return closest_object
