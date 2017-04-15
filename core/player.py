@@ -62,7 +62,6 @@ class Player(actor.Actor):
         self.hitrect_offset_y = -15
         self.score = 0
         self.lives = 3
-        #TODO: rework how player lives are set as magic numbers are used here and in the main game logic.
         self.stun_timer = 0
         self.life_board = life_board
         self.score_board = score_board
