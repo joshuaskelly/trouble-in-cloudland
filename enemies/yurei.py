@@ -55,7 +55,7 @@ class Yurei(enemy.Enemy):
         if self.leave_screen:
             pass
         else:
-            self.target = aitools.get_closest(self, self.powerup_group)
+            self.target = aitools.get_closest(self, [self.powerup_group])
     
             if self.target != self and self.target.active:
                 aitools.go_to_target(self, self.target)
