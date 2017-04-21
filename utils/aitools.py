@@ -131,12 +131,14 @@ def cardinal_direction(actor):
 
 # AI tools
 def get_closest(search_actor, test_group_list, actor_type_list=None):
-    """Returns closest actor or self
+    """Find the closest actor.
     
     Arguments:
     search_actor: The actor that you want to find the closest other actor
     test_group_list: The actor groups that you want to test, expects a list of lists
     actors_type_list: The actor types you want to test, expects a list of actor types
+    
+    Returns closest actor or self
     """
     test_actor_list = []
 
